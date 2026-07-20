@@ -47,14 +47,7 @@
   .role-num.dashed-num{background:var(--dashed);}
   .role-name{font-size:13.5px;font-weight:500;}
   .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 8px;}
-  .role-variants{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
-  .variant{background:var(--gray-bg);border-radius:6px;padding:6px 8px;}
-  .variant .vlabel{font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin:0 0 2px;font-weight:600;}
-  .variant .vtext{font-size:11px;color:var(--ink);margin:0;}
-  .variant.sprint1{border-left:2px solid var(--dashed);}
-  .variant.sprint2{border-left:2px solid var(--accent);}
 
-  /* TAB 2 — visual cadence */
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
   .dot-legend{width:10px;height:10px;border-radius:50%;display:inline-block;}
@@ -96,7 +89,7 @@
   <!-- TAB 1 -->
   <div class="panel active" id="roles">
     <h2>Who sits at the table, and why</h2>
-    <p class="panel-note">Click a seat or a card to match them. All 7 seats are active from Sprint 1 — several roles simply do a different job once the portfolio is selected in Sprint 2.</p>
+    <p class="panel-note">Click a seat or a card to match them. All 7 seats are active from the start — several roles simply do a different job once initiatives are selected and prioritized.</p>
 
     <div class="table-layout">
       <svg viewBox="0 0 600 440" width="100%" role="img" aria-label="Oval transformation office table with 7 seats">
@@ -144,65 +137,37 @@
 
         <div class="role-card" data-role="1" onclick="selectRole(1)">
           <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
-          <p class="role-resp">Runs the Office day to day: chairs the weekly action meeting, owns the single source of truth, removes roadblocks. Natural extension of the COO's existing mandate over the operating-model redesign — not a new job on top of an old one.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Runs discovery: chases the 4 data requests, builds the inventory</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Runs the portfolio: coaches initiative owners, tracks the gate criteria</p></div>
-          </div>
+          <p class="role-resp">Runs the Office day to day: chairs the weekly action meeting, owns the single source of truth, and removes roadblocks — a natural extension of the COO's existing mandate over the operating-model redesign, not a new job on top of an old one. Early on, that means chasing 4 key data points (agency spend, SKU volume, brand risk, licensing cost) to build the inventory; later, it means coaching whoever owns each opportunity and tracking progress against agreed criteria.</p>
         </div>
 
         <div class="role-card" data-role="2" onclick="selectRole(2)">
           <div class="role-head"><span class="role-num">2</span><span class="role-name">CMO — sponsor</span></div>
-          <p class="role-resp">Owns the board relationship and the value story. Deliberately kept out of day-to-day operating: needs focus for the external narrative, not distraction from weekly execution meetings.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Confirms the directional ROI is credible before it's shared upward</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Signs off on which initiatives get the value-story treatment</p></div>
-          </div>
+          <p class="role-resp">Owns the board relationship and the value story. Deliberately kept out of day-to-day operating — needs focus for the external narrative, not distraction from weekly execution meetings. Confirms the directional ROI is credible before it's shared upward, and later signs off on which opportunities get the value-story treatment as they mature.</p>
         </div>
 
         <div class="role-card" data-role="3" onclick="selectRole(3)">
           <div class="role-head"><span class="role-num">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
-          <p class="role-resp">Chief Technology Officer — not to be confused with the Transformation Lead. Elevated to full sponsor given the weight of the consolidation decision.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies negotiated licensing cost data</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Approves the technology standard per solution type</p></div>
-          </div>
+          <p class="role-resp">Chief Technology Officer — not to be confused with the Transformation Lead. Elevated to full sponsor given the weight of the consolidation decision. Supplies negotiated licensing cost data early on, then approves the technology standard per solution type as the work matures.</p>
         </div>
 
         <div class="role-card" data-role="4" onclick="selectRole(4)">
           <div class="role-head"><span class="role-num">4</span><span class="role-name">Head of Brand — voting member</span></div>
-          <p class="role-resp">Not a general sponsor — holds veto specifically over the brand-risk criterion in the approval redesign, a functional seat, not a broad one.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies the brand-risk classification by category</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Signs off on risk thresholds before sampling rates change</p></div>
-          </div>
+          <p class="role-resp">Not a general sponsor — holds veto specifically over the brand-risk criterion in the approval redesign, a functional seat, not a broad one. Supplies the brand-risk classification by category early on, then signs off on risk thresholds before sampling rates change.</p>
         </div>
 
         <div class="role-card" data-role="5" onclick="selectRole(5)">
           <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
-          <p class="role-resp">Independent check on the ROI math — validates that every reported number is real, not a vanity figure.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies agency-spend data; sanity-checks the directional ROI range</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Certifies net ROI per solution before it enters the scorecard</p></div>
-          </div>
+          <p class="role-resp">Independent check on the ROI math — validates that every reported number is real, not a vanity figure. Supplies agency-spend data and sanity-checks the directional ROI range early on, then certifies net ROI per solution before it enters the scorecard.</p>
         </div>
 
         <div class="role-card" data-role="6" onclick="selectRole(6)">
           <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
-          <p class="role-resp">Filled by C&amp;T (the engagement team) during ramp-up, coaching an internal successor in parallel. Hands off fully once that person is ready — not a permanent external seat.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">C&amp;T runs comms so original teams don't feel sidelined during discovery</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Internal successor co-leads training as quick wins launch; C&amp;T steps back</p></div>
-          </div>
+          <p class="role-resp">Filled by C&amp;T (the engagement team) during ramp-up, coaching an internal successor in parallel — hands off fully once that person is ready, not a permanent external seat. Runs comms early on so original teams don't feel sidelined, then co-leads training with the internal successor as momentum builds.</p>
         </div>
 
         <div class="role-card" data-role="7" onclick="selectRole(7)">
           <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
-          <p class="role-resp">A continuous role that evolves, not a seat that appears from nothing. Present from Sprint 1, with a different job at each stage.</p>
-          <div class="role-variants">
-            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Identify and prioritize their own team's opportunities for the matrix</p></div>
-            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Become the initiative owner directing their own selected initiative</p></div>
-          </div>
+          <p class="role-resp">A continuous role that evolves, not a seat that appears from nothing. Active from the start, with a different job over time: early on, they identify and prioritize their own team's opportunities; later, they take direct ownership of what gets built from that work.</p>
         </div>
 
       </div>
@@ -217,7 +182,7 @@
     <div class="cadence-legend">
       <span><i class="dot-legend steer"></i>Steering committee — monthly</span>
       <span><i class="dot-legend to"></i>TO weekly action meeting</span>
-      <span><i class="dot-legend init"></i>Initiative standups — 2x / week*</span>
+      <span><i class="dot-legend init"></i>Team standups — 2x / week</span>
     </div>
 
     <div class="cadence-weeks">
@@ -229,7 +194,7 @@
 
     <div class="cadence-grid" id="cadenceGrid"></div>
 
-    <p class="panel-note" style="margin-top:16px;">*Initiative standups start once the portfolio is selected and initiative owners are in place — before that, this pulse doesn't run yet.</p>
+    <p class="panel-note" style="margin-top:16px;">Team-level standups run from week one — early on they track diagnostic progress and help shape candidate initiatives; once initiatives are prioritized, the same rhythm shifts to tracking delivery.</p>
 
     <div class="cadence-purpose">
       <div class="purpose-card">
@@ -241,8 +206,8 @@
         <p class="pc-text">Fast, fact-based. Removes roadblocks, tracks the single source of truth. 60–90 min.</p>
       </div>
       <div class="purpose-card">
-        <p class="pc-title">Initiative standups</p>
-        <p class="pc-text">Day-to-day delivery check within each initiative team — not an Office meeting. 15–20 min.</p>
+        <p class="pc-title">Team standups</p>
+        <p class="pc-text">Same slot, different job over time: early on it tracks diagnostic progress and helps surface candidate opportunities; later it becomes a day-to-day delivery check for the team's own work.</p>
       </div>
     </div>
   </div>
@@ -268,7 +233,7 @@
     const rows = [
       { key:'steer', label:'Steering committee', days:[23] },
       { key:'to', label:'TO weekly meeting', days:[1,8,15,22] },
-      { key:'init', label:'Initiative standups', days:[2,5,9,12,16,19,23,26] },
+      { key:'init', label:'Team standups', days:[2,5,9,12,16,19,23,26] },
     ];
     const grid = document.getElementById('cadenceGrid');
     let html = '';
