@@ -56,12 +56,9 @@
   .flow-label{font-size:10.5px;color:var(--ink-soft);margin-top:8px;text-align:center;max-width:92px;line-height:1.3;}
   .flow-node.active-node .flow-label{color:var(--ink);font-weight:600;}
 
-  .stage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
-  @media (max-width:760px){.stage-grid{grid-template-columns:1fr;}}
-  .stage{transition:box-shadow .2s,border-color .2s;}
-  .stage.active-card{border-color:var(--accent-line);box-shadow:0 0 0 2px var(--accent-bg);}
-  .stage.span-2{grid-column:1 / -1;}
-  .stage{display:flex;gap:14px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 16px;margin-bottom:10px;align-items:flex-start;}
+  .stage{display:none;gap:14px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 16px;margin-bottom:10px;align-items:flex-start;}
+  .stage.visible{display:flex;animation:fadeIn .2s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
   .stage-num{width:26px;height:26px;border-radius:50%;background:var(--gray-bg);color:var(--ink-soft);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
   .stage-body{flex:1;}
   .stage-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
@@ -162,9 +159,9 @@
       <div class="flow-node" onclick="selectStage(6)"><div class="flow-circle gap">6</div><div class="flow-label">Publication</div></div>
       <div class="flow-node" onclick="selectStage(7)"><div class="flow-circle gap">7</div><div class="flow-label">Measurement &amp; Feedback</div></div>
     </div>
-    <p class="panel-note">Click a stage above to jump to its detail below.</p>
+    <p class="panel-note">Click a stage to see its detail.</p>
 
-    <div class="stage-grid">
+    <div>
 
     <div class="stage" id="stage-1">
       <div class="stage-num">1</div>
@@ -184,7 +181,7 @@
       </div>
     </div>
 
-    <div class="stage span-2" id="stage-3">
+    <div class="stage" id="stage-3">
       <div class="stage-num">3</div>
       <div class="stage-body">
         <div class="stage-head"><span class="stage-name">Production</span><span class="badge known">Already addressed</span></div>
@@ -206,7 +203,7 @@
       </div>
     </div>
 
-    <div class="stage span-2" id="stage-5">
+    <div class="stage" id="stage-5">
       <div class="stage-num">5</div>
       <div class="stage-body">
         <div class="stage-head"><span class="stage-name">Adaptation &amp; Localization</span><span class="badge known">Already addressed</span></div>
@@ -335,10 +332,14 @@
   }));
 
   function selectStage(n){
-    document.querySelectorAll('.flow-node').forEach((el,i)=>el.classList.toggle('active-node', i===(n-1)));
-    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('active-card'));
     const card = document.getElementById('stage-'+n);
-    if(card){ card.classList.add('active-card'); card.scrollIntoView({block:'center', behavior:'smooth'}); }
+    const isOpen = card && card.classList.contains('visible');
+    document.querySelectorAll('.stage').forEach(s=>s.classList.remove('visible'));
+    document.querySelectorAll('.flow-node').forEach((el,i)=>el.classList.remove('active-node'));
+    if(!isOpen && card){
+      card.classList.add('visible');
+      document.querySelectorAll('.flow-node')[n-1].classList.add('active-node');
+    }
   }
 </script>
 </body>
