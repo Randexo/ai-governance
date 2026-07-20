@@ -71,6 +71,42 @@
   .purpose-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;}
   .pc-title{font-size:12.5px;font-weight:500;margin:0 0 4px;}
   .pc-text{font-size:11.5px;color:var(--ink-soft);margin:0;}
+
+  /* TAB 3 — meeting agenda card */
+  .agenda-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;margin-top:4px;}
+  .agenda-meta-row{display:grid;grid-template-columns:190px 1fr;border-bottom:1px solid var(--line);}
+  .agenda-meta-label{font-size:12.5px;font-weight:600;padding:10px 14px;background:var(--gray-bg);border-right:1px solid var(--line);}
+  .agenda-meta-val{font-size:12.5px;padding:10px 14px;color:var(--ink-soft);}
+  .agenda-cols{display:grid;grid-template-columns:1fr 1.7fr 1.5fr;border-bottom:1px solid var(--line);}
+  .agenda-col{padding:14px 14px;border-right:1px solid var(--line);}
+  .agenda-col:last-child{border-right:none;}
+  .agenda-col-title{font-size:12px;font-weight:600;margin:0 0 10px;color:var(--ink);}
+  .agenda-bullets{margin:0;padding-left:16px;font-size:11.5px;color:var(--ink-soft);line-height:1.65;}
+  .agenda-bullets li{margin-bottom:4px;}
+  .agenda-inner-table{width:100%;border-collapse:collapse;font-size:11px;}
+  .agenda-inner-table th{text-align:left;font-size:10.5px;font-weight:600;color:var(--ink-soft);padding:3px 6px 5px;border-bottom:1px solid var(--line);}
+  .agenda-inner-table td{padding:5px 6px;vertical-align:top;color:var(--ink);border-bottom:1px dashed var(--gray-line);}
+  .agenda-inner-table tr:last-child td{border-bottom:none;}
+  .agenda-inner-table td:first-child{font-weight:600;color:var(--ink-soft);white-space:nowrap;padding-right:8px;}
+  .agenda-bot{display:grid;grid-template-columns:1fr 1.3fr 1.3fr;}
+  .agenda-bot-col{padding:12px 14px;border-right:1px solid var(--line);}
+  .agenda-bot-col:last-child{border-right:none;}
+  .agenda-detail-row{font-size:11.5px;color:var(--ink-soft);margin:0 0 4px;}
+  .agenda-detail-row strong{color:var(--ink);}
+
+  /* sub-tabs inside tab 3 */
+  .sub-tabs{display:flex;gap:2px;margin:16px 0 20px;border-bottom:1px solid var(--gray-line);}
+  .sub-tab{display:flex;align-items:center;gap:7px;padding:7px 14px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
+  .sub-tab.active{font-weight:500;}
+  .sub-tab[data-color="steer"].active{color:#854f0b;border-bottom-color:#854f0b;}
+  .sub-tab[data-color="to"].active{color:var(--accent);border-bottom-color:var(--accent);}
+  .sub-tab[data-color="init"].active{color:#0f6e56;border-bottom-color:#0f6e56;}
+  .sub-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+  .sub-dot.steer{background:#854f0b;}
+  .sub-dot.to{background:var(--accent);}
+  .sub-dot.init{background:#0f6e56;}
+  .sub-panel{display:none;}
+  .sub-panel.active{display:block;}
 </style>
 </head>
 <body>
@@ -84,6 +120,7 @@
   <div class="tabs">
     <div class="tab active" data-tab="roles">Roles — the table</div>
     <div class="tab" data-tab="cadence">Meeting cadence</div>
+    <div class="tab" data-tab="agenda">Preliminary agenda examples</div>
   </div>
 
   <!-- TAB 1 -->
@@ -212,6 +249,262 @@
     </div>
   </div>
 
+
+  <!-- TAB 3 -->
+  <div class="panel" id="agenda">
+    <h2>Preliminary agenda examples</h2>
+    <p class="panel-note">Three meeting formats — one for each layer of the cadence. Content is illustrative; adjust timing and participants to fit the actual calendar.</p>
+
+    <div class="sub-tabs">
+      <div class="sub-tab active" data-subtab="steer" data-color="steer"><span class="sub-dot steer"></span>Steering committee</div>
+      <div class="sub-tab" data-subtab="to" data-color="to"><span class="sub-dot to"></span>TO weekly action meeting</div>
+      <div class="sub-tab" data-subtab="standup" data-color="init"><span class="sub-dot init"></span>Team standup</div>
+    </div>
+
+    <!-- SUB 1: Steering committee -->
+    <div class="sub-panel active" id="steer">
+      <div class="agenda-card">
+        <div class="agenda-meta-row">
+          <div class="agenda-meta-label">Meeting name</div>
+          <div class="agenda-meta-val">AI Transformation — Steering Committee</div>
+        </div>
+        <div class="agenda-meta-row" style="border-bottom:none">
+          <div class="agenda-meta-label">Primary objective</div>
+          <div class="agenda-meta-val">Translate TO progress into the board-facing value narrative and resolve any decisions that require sponsor authority</div>
+        </div>
+
+        <div class="agenda-cols">
+          <div class="agenda-col">
+            <p class="agenda-col-title">Specific objectives</p>
+            <ul class="agenda-bullets">
+              <li>Review portfolio health at altitude</li>
+              <li>Validate the value story is credible and board-ready</li>
+              <li>Approve escalations from the TO that require sponsor authority</li>
+              <li>Calibrate priorities and direction for the coming month</li>
+            </ul>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Meeting agenda</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>#</th><th>Block</th><th>Duration</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda and recap prior decisions</td></tr>
+                <tr><td>2</td><td>Portfolio health</td><td>20 min</td><td>Transformation Lead presents overall progress, flags, and risks</td></tr>
+                <tr><td>3</td><td>Value story update</td><td>15 min</td><td>CMO presents board narrative; Finance validates the numbers</td></tr>
+                <tr><td>4</td><td>Escalations &amp; decisions</td><td>15 min</td><td>Items from the TO requiring sponsor authority</td></tr>
+                <tr><td>5</td><td>Close &amp; directives</td><td>5 min</td><td>Log decisions; give direction back to the TO</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Participants &amp; roles</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
+              <tbody>
+                <tr><td>CMO</td><td>Co-chair</td><td>Owns board narrative; presents value story</td></tr>
+                <tr><td>CTO</td><td>Co-chair</td><td>Validates technology standard decisions</td></tr>
+                <tr><td>Transformation Lead (COO)</td><td>Presenter</td><td>Reports portfolio health; receives sponsor directives</td></tr>
+                <tr><td>Finance</td><td>Value check</td><td>Certifies ROI figures before they go upward</td></tr>
+                <tr><td>Head of Brand</td><td>Voter (as needed)</td><td>Called in when brand-risk decisions are on the agenda</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="agenda-bot">
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting details</p>
+            <p class="agenda-detail-row"><strong>Day:</strong> Last Monday of the month</p>
+            <p class="agenda-detail-row"><strong>Duration:</strong> 60 min</p>
+            <p class="agenda-detail-row"><strong>Frequency:</strong> Monthly</p>
+            <p class="agenda-detail-row"><strong>Format:</strong> In-person preferred</p>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting rules</p>
+            <ul class="agenda-bullets">
+              <li>Only Finance-certified figures are presented upward</li>
+              <li>Transformation Lead circulates a one-pager 48 h before</li>
+              <li>Decisions made here take precedence over TO-level decisions</li>
+              <li>Minutes distributed to all TO members within 24 hours</li>
+            </ul>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">KPIs reviewed</p>
+            <ul class="agenda-bullets">
+              <li>Portfolio completion vs. plan (% initiatives on track)</li>
+              <li>Cumulative certified ROI vs. projected</li>
+              <li># escalations resolved vs. still pending</li>
+              <li>Board narrative readiness (ready / draft / not started)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB 2: TO weekly -->
+    <div class="sub-panel" id="to">
+      <div class="agenda-card">
+        <div class="agenda-meta-row">
+          <div class="agenda-meta-label">Meeting name</div>
+          <div class="agenda-meta-val">Transformation Office — Weekly Action Meeting</div>
+        </div>
+        <div class="agenda-meta-row" style="border-bottom:none">
+          <div class="agenda-meta-label">Primary objective</div>
+          <div class="agenda-meta-val">Align on priorities, unblock delivery, and keep the single source of truth current</div>
+        </div>
+
+        <div class="agenda-cols">
+          <div class="agenda-col">
+            <p class="agenda-col-title">Specific objectives</p>
+            <ul class="agenda-bullets">
+              <li>Review progress on active initiatives and open blockers</li>
+              <li>Make tactical decisions and escalate to sponsors when needed</li>
+              <li>Update the single source of truth after each session</li>
+              <li>Confirm owners and deadlines for the next week</li>
+            </ul>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Meeting agenda</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>#</th><th>Block</th><th>Duration</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda and review prior commitments</td></tr>
+                <tr><td>2</td><td>Inventory status</td><td>10 min</td><td>Transformation Lead presents data progress and opportunity list</td></tr>
+                <tr><td>3</td><td>Initiative review</td><td>30 min</td><td>Each owner presents status, risks, and support needs</td></tr>
+                <tr><td>4</td><td>Blockers &amp; decisions</td><td>10 min</td><td>Resolve blockers; escalate to sponsors if required</td></tr>
+                <tr><td>5</td><td>Close &amp; commitments</td><td>5 min</td><td>Log all agreements with owner and deadline</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Participants &amp; roles</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
+              <tbody>
+                <tr><td>Transformation Lead (COO)</td><td>Chair</td><td>Runs the meeting, decides, updates source of truth</td></tr>
+                <tr><td>CMO / CTO</td><td>Sponsors</td><td>Unblock resources; validate prioritisation</td></tr>
+                <tr><td>Head of Brand</td><td>Voter</td><td>Signs off on brand-risk thresholds</td></tr>
+                <tr><td>Finance</td><td>Value check</td><td>Certifies ROI numbers before scorecard entry</td></tr>
+                <tr><td>Change &amp; Capability Lead</td><td>Secretary</td><td>Logs agreements; manages team comms</td></tr>
+                <tr><td>Team Leads</td><td>Owners</td><td>Report status, surface blockers, commit to next steps</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="agenda-bot">
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting details</p>
+            <p class="agenda-detail-row"><strong>Day:</strong> Monday</p>
+            <p class="agenda-detail-row"><strong>Duration:</strong> 60–90 min</p>
+            <p class="agenda-detail-row"><strong>Frequency:</strong> Weekly</p>
+            <p class="agenda-detail-row"><strong>Format:</strong> In-person / virtual</p>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting rules</p>
+            <ul class="agenda-bullets">
+              <li>Only reviewed data updated before the session starts</li>
+              <li>Every owner arrives with status and blockers prepared</li>
+              <li>Hard stop at 90 minutes</li>
+              <li>Every agreement is logged with owner and deadline</li>
+            </ul>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">KPIs reviewed</p>
+            <ul class="agenda-bullets">
+              <li># active initiatives vs. committed</li>
+              <li>% blockers resolved this week</li>
+              <li>Progress vs. approval criteria per initiative</li>
+              <li>Status of the 4 key data requests (Sprint 1)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SUB 3: Team standup -->
+    <div class="sub-panel" id="standup">
+      <div class="agenda-card">
+        <div class="agenda-meta-row">
+          <div class="agenda-meta-label">Meeting name</div>
+          <div class="agenda-meta-val">Team Initiative Standup</div>
+        </div>
+        <div class="agenda-meta-row" style="border-bottom:none">
+          <div class="agenda-meta-label">Primary objective</div>
+          <div class="agenda-meta-val">Keep delivery on track within each team — surface blockers before they reach the weekly TO meeting</div>
+        </div>
+
+        <div class="agenda-cols">
+          <div class="agenda-col">
+            <p class="agenda-col-title">Specific objectives</p>
+            <ul class="agenda-bullets">
+              <li>Check progress against the week's commitments</li>
+              <li>Surface blockers before they compound</li>
+              <li>Align on the next 48-hour priorities</li>
+              <li>Keep the team's section of the source of truth current</li>
+            </ul>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Meeting agenda</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>#</th><th>Block</th><th>Duration</th><th>Purpose</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td>What did we complete?</td><td>5 min</td><td>Each person shares progress against their last commitment</td></tr>
+                <tr><td>2</td><td>What are we committing to?</td><td>5 min</td><td>Each person names their next concrete deliverable</td></tr>
+                <tr><td>3</td><td>What's blocked?</td><td>5–10 min</td><td>Flag blockers; assign a name and a 24 h deadline to each one</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="agenda-col">
+            <p class="agenda-col-title">Participants &amp; roles</p>
+            <table class="agenda-inner-table">
+              <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
+              <tbody>
+                <tr><td>Team Lead</td><td>Owner</td><td>Sets the pace; escalates unresolved blockers to the TO weekly</td></tr>
+                <tr><td>Team members</td><td>Contributors</td><td>Report status, flag risks, commit to next steps</td></tr>
+                <tr><td>Change &amp; Capability Lead</td><td>Observer (periodic)</td><td>Checks progress; supports comms when needed</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="agenda-bot">
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting details</p>
+            <p class="agenda-detail-row"><strong>Days:</strong> Tuesday &amp; Thursday</p>
+            <p class="agenda-detail-row"><strong>Duration:</strong> 15–20 min</p>
+            <p class="agenda-detail-row"><strong>Frequency:</strong> 2× per week</p>
+            <p class="agenda-detail-row"><strong>Format:</strong> Standing / virtual</p>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">Meeting rules</p>
+            <ul class="agenda-bullets">
+              <li>Three questions only: done / doing / blocked</li>
+              <li>No decks, no status reports — spoken updates only</li>
+              <li>Blockers unresolved after 24 h go to the TO weekly</li>
+              <li>Team Lead updates the source of truth immediately after</li>
+            </ul>
+          </div>
+          <div class="agenda-bot-col">
+            <p class="agenda-col-title">KPIs reviewed</p>
+            <ul class="agenda-bullets">
+              <li># tasks completed vs. committed (last period)</li>
+              <li># blockers open &gt; 24 hours</li>
+              <li>Velocity vs. initiative milestone</li>
+              <li>Team health check (1–5, optional)</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div>
 <script>
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
@@ -219,6 +512,13 @@
     document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
     document.getElementById(t.dataset.tab).classList.add('active');
+  }));
+
+  document.querySelectorAll('.sub-tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.sub-tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.sub-panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.subtab).classList.add('active');
   }));
 
   function selectRole(n){
