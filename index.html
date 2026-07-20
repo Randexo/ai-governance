@@ -41,10 +41,16 @@
   .seat text{font-size:11px;fill:#fff;font-weight:600;}
   .seat-label{font-size:10.5px;fill:var(--ink-soft);}
 
-  .role-list{display:flex;flex-direction:column;gap:8px;max-height:560px;overflow-y:auto;padding-right:4px;}
-  .role-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);cursor:pointer;transition:border-color .15s,background .15s;}
-  .role-card:hover, .role-card.active-card{border-color:var(--accent-line);background:var(--accent-bg);}
+  .role-list{display:flex;flex-direction:column;gap:8px;padding-right:4px;}
+  .role-placeholder{font-size:13px;color:var(--ink-soft);padding:16px 0;margin:0;}
+  .role-card{display:none;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);cursor:pointer;transition:border-color .15s,background .15s;}
+  .role-card.visible{display:block;animation:fadeIn .2s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+  .role-card:hover{border-color:var(--accent-line);background:var(--accent-bg);}
   .role-card.dashed-role{border-style:dashed;}
+  .role-legend{display:flex;flex-direction:column;gap:7px;margin-top:14px;}
+  .role-legend span{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);}
+  .rl-dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0;}
   .role-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
   .role-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .role-num.dashed-num{background:var(--dashed);}
@@ -132,9 +138,10 @@
   <!-- TAB 1 -->
   <div class="panel active" id="roles">
     <h2>Who sits at the table, and why</h2>
-    <p class="panel-note">Click a seat or a card to match them. All 7 seats are active from the start — several roles simply do a different job once initiatives are selected and prioritized.</p>
+    <p class="panel-note">Click a seat to see its role.</p>
 
     <div class="table-layout">
+      <div>
       <svg viewBox="0 0 600 440" width="100%" role="img" aria-label="Oval transformation office table with 7 seats">
         <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
         <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
@@ -175,42 +182,49 @@
           <text class="seat-label" x="110" y="100" text-anchor="end">Team leads</text>
         </g>
       </svg>
+      <div class="role-legend">
+        <span><i class="rl-dot" style="background:#185fa5"></i>Azul — Transformation Office: operan el proceso</span>
+        <span><i class="rl-dot" style="background:#0f6e56"></i>Verde — Sponsors: autoridad hacia el board</span>
+        <span><i class="rl-dot" style="background:#854f0b"></i>Marrón — Voto de gobernanza: veto sobre riesgo de marca</span>
+      </div>
+      </div>
 
       <div class="role-list" id="roleList">
+        <p class="role-placeholder" id="rolePlaceholder">Click a seat to see its role.</p>
 
         <div class="role-card" data-role="1" onclick="selectRole(1)">
           <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
-          <p class="role-resp">Runs the Office day to day: chairs the weekly action meeting, owns the single source of truth, and removes roadblocks — a natural extension of the COO's existing mandate over the operating-model redesign, not a new job on top of an old one. Early on, that means chasing 4 key data points (agency spend, SKU volume, brand risk, licensing cost) to build the inventory; later, it means coaching whoever owns each opportunity and tracking progress against agreed criteria.</p>
+          <p class="role-resp">Chairs the weekly action meeting, owns the single source of truth, and removes roadblocks. Early on: chases 4 key data points (agency spend, SKU volume, brand risk, licensing cost) to build the opportunity inventory. Later: coaches initiative owners and tracks progress against agreed criteria.</p>
         </div>
 
         <div class="role-card" data-role="2" onclick="selectRole(2)">
           <div class="role-head"><span class="role-num">2</span><span class="role-name">CMO — sponsor</span></div>
-          <p class="role-resp">Owns the board relationship and the value story. Deliberately kept out of day-to-day operating — needs focus for the external narrative, not distraction from weekly execution meetings. Confirms the directional ROI is credible before it's shared upward, and later signs off on which opportunities get the value-story treatment as they mature.</p>
+          <p class="role-resp">Owns the board relationship and the value story. Confirms the ROI narrative is credible before it goes upward; signs off on which opportunities get the value-story treatment as they mature.</p>
         </div>
 
         <div class="role-card" data-role="3" onclick="selectRole(3)">
           <div class="role-head"><span class="role-num">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
-          <p class="role-resp">Chief Technology Officer — not to be confused with the Transformation Lead. Elevated to full sponsor given the weight of the consolidation decision. Supplies negotiated licensing cost data early on, then approves the technology standard per solution type as the work matures.</p>
+          <p class="role-resp">Elevated to full sponsor given the weight of the technology consolidation. Supplies negotiated licensing cost data early on; approves the technology standard per solution type as the work matures.</p>
         </div>
 
         <div class="role-card" data-role="4" onclick="selectRole(4)">
           <div class="role-head"><span class="role-num">4</span><span class="role-name">Head of Brand — voting member</span></div>
-          <p class="role-resp">Not a general sponsor — holds veto specifically over the brand-risk criterion in the approval redesign, a functional seat, not a broad one. Supplies the brand-risk classification by category early on, then signs off on risk thresholds before sampling rates change.</p>
+          <p class="role-resp">Holds veto over the brand-risk criterion in the approval redesign. Supplies brand-risk classification by category early on; signs off on risk thresholds before sampling rates change.</p>
         </div>
 
         <div class="role-card" data-role="5" onclick="selectRole(5)">
           <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
-          <p class="role-resp">Independent check on the ROI math — validates that every reported number is real, not a vanity figure. Supplies agency-spend data and sanity-checks the directional ROI range early on, then certifies net ROI per solution before it enters the scorecard.</p>
+          <p class="role-resp">Independent check on the ROI math. Supplies agency-spend data and validates the directional ROI range early on; certifies net ROI per solution before it enters the scorecard.</p>
         </div>
 
         <div class="role-card" data-role="6" onclick="selectRole(6)">
           <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
-          <p class="role-resp">Filled by C&amp;T (the engagement team) during ramp-up, coaching an internal successor in parallel — hands off fully once that person is ready, not a permanent external seat. Runs comms early on so original teams don't feel sidelined, then co-leads training with the internal successor as momentum builds.</p>
+          <p class="role-resp">Held by C&amp;T during ramp-up while coaching an internal successor in parallel. Runs comms early on; co-leads training as momentum builds, then hands off fully.</p>
         </div>
 
         <div class="role-card" data-role="7" onclick="selectRole(7)">
           <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
-          <p class="role-resp">A continuous role that evolves, not a seat that appears from nothing. Active from the start, with a different job over time: early on, they identify and prioritize their own team's opportunities; later, they take direct ownership of what gets built from that work.</p>
+          <p class="role-resp">Active from the start with a role that evolves. Early on: identifies and prioritizes each team's opportunities. Later: takes direct ownership of what gets built from that work.</p>
         </div>
 
       </div>
@@ -528,10 +542,18 @@
   }));
 
   function selectRole(n){
-    document.querySelectorAll('.seat').forEach(s=>s.classList.toggle('active-seat', s.dataset.role==String(n)));
-    document.querySelectorAll('.role-card').forEach(c=>c.classList.toggle('active-card', c.dataset.role==String(n)));
     const card = document.querySelector('.role-card[data-role="'+n+'"]');
-    if(card) card.scrollIntoView({block:'nearest', behavior:'smooth'});
+    const isOpen = card && card.classList.contains('visible');
+    document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('visible'));
+    document.querySelectorAll('.seat').forEach(s=>s.classList.remove('active-seat'));
+    const ph = document.getElementById('rolePlaceholder');
+    if(!isOpen && card){
+      card.classList.add('visible');
+      document.querySelector('.seat[data-role="'+n+'"]').classList.add('active-seat');
+      if(ph) ph.style.display='none';
+    } else {
+      if(ph) ph.style.display='';
+    }
   }
 
   // build the 28-day cadence grid
