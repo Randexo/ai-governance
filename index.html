@@ -55,7 +55,8 @@
   .role-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .role-num.dashed-num{background:var(--dashed);}
   .role-name{font-size:13.5px;font-weight:500;}
-  .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 8px;}
+  .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 4px;padding-left:16px;}
+  .role-resp li{margin-bottom:4px;}
 
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
@@ -194,37 +195,66 @@
 
         <div class="role-card" data-role="1" onclick="selectRole(1)">
           <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
-          <p class="role-resp">Chairs the weekly action meeting, owns the single source of truth, and removes roadblocks. Early on: chases 4 key data points (agency spend, SKU volume, brand risk, licensing cost) to build the opportunity inventory. Later: coaches initiative owners and tracks progress against agreed criteria.</p>
+          <ul class="role-resp">
+            <li>Chairs the weekly action meeting and owns the single source of truth</li>
+            <li>Removes roadblocks</li>
+            <li><b>Early on:</b> chases 4 key data points (agency spend, SKU volume, brand risk, licensing cost) to build the opportunity inventory</li>
+            <li><b>Later:</b> coaches initiative owners and tracks progress against agreed criteria</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="2" onclick="selectRole(2)">
           <div class="role-head"><span class="role-num">2</span><span class="role-name">CMO — sponsor</span></div>
-          <p class="role-resp">Owns the board relationship and the value story. Confirms the ROI narrative is credible before it goes upward; signs off on which opportunities get the value-story treatment as they mature.</p>
+          <ul class="role-resp">
+            <li>Owns the board relationship and the value story</li>
+            <li>Confirms the ROI narrative is credible before it goes upward</li>
+            <li>Signs off on which opportunities get the value-story treatment as they mature</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="3" onclick="selectRole(3)">
           <div class="role-head"><span class="role-num">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
-          <p class="role-resp">Elevated to full sponsor given the weight of the technology consolidation. Supplies negotiated licensing cost data early on; approves the technology standard per solution type as the work matures.</p>
+          <ul class="role-resp">
+            <li>Elevated to full sponsor given the weight of the technology consolidation</li>
+            <li><b>Early on:</b> supplies negotiated licensing cost data</li>
+            <li><b>Later:</b> approves the technology standard per solution type</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="4" onclick="selectRole(4)">
           <div class="role-head"><span class="role-num">4</span><span class="role-name">Head of Brand — voting member</span></div>
-          <p class="role-resp">Holds veto over the brand-risk criterion in the approval redesign. Supplies brand-risk classification by category early on; signs off on risk thresholds before sampling rates change.</p>
+          <ul class="role-resp">
+            <li>Holds veto over the brand-risk criterion in the approval redesign</li>
+            <li><b>Early on:</b> supplies brand-risk classification by category</li>
+            <li><b>Later:</b> signs off on risk thresholds before sampling rates change</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="5" onclick="selectRole(5)">
           <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
-          <p class="role-resp">Independent check on the ROI math. Supplies agency-spend data and validates the directional ROI range early on; certifies net ROI per solution before it enters the scorecard.</p>
+          <ul class="role-resp">
+            <li>Independent check on the ROI math</li>
+            <li><b>Early on:</b> supplies agency-spend data and validates the directional ROI range</li>
+            <li><b>Later:</b> certifies net ROI per solution before it enters the scorecard</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="6" onclick="selectRole(6)">
           <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
-          <p class="role-resp">Held by C&amp;T during ramp-up while coaching an internal successor in parallel. Runs comms early on; co-leads training as momentum builds, then hands off fully.</p>
+          <ul class="role-resp">
+            <li>Held by C&amp;T during ramp-up while coaching an internal successor in parallel</li>
+            <li><b>Early on:</b> runs comms so original teams stay informed</li>
+            <li><b>Later:</b> co-leads training as momentum builds, then hands off fully</li>
+          </ul>
         </div>
 
         <div class="role-card" data-role="7" onclick="selectRole(7)">
           <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
-          <p class="role-resp">Active from the start with a role that evolves. Early on: identifies and prioritizes each team's opportunities. Later: takes direct ownership of what gets built from that work.</p>
+          <ul class="role-resp">
+            <li>Active from the start with a role that evolves</li>
+            <li><b>Early on:</b> identifies and prioritizes each team's opportunities</li>
+            <li><b>Later:</b> takes direct ownership of what gets built from that work</li>
+          </ul>
         </div>
 
       </div>
