@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformation Office — roles and meeting cadence</title>
+<style>
+  :root{
+    --ink:#1c2126; --ink-soft:#4a5058; --line:#dcd8cf; --paper:#faf8f3; --card:#ffffff;
+    --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
+    --gray-bg:#f1efe8; --gray-line:#d8d4c8;
+    --dashed:#8a8880;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
+  .wrap{max-width:1180px;margin:0 auto;padding:36px 26px 0;}
+  header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;}
+  .eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px;}
+  h1{font-size:23px;font-weight:500;margin:0 0 6px;}
+  .sub{font-size:13.5px;color:var(--ink-soft);margin:0;max-width:760px;}
+
+  .tabs{display:flex;gap:4px;margin:22px 0 24px;border-bottom:1px solid var(--line);}
+  .tab{padding:10px 16px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
+  .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  h2{font-size:15.5px;font-weight:500;margin:0 0 4px;}
+  .panel-note{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;max-width:760px;}
+
+  /* TAB 1 — oval table layout */
+  .table-layout{display:grid;grid-template-columns:520px 1fr;gap:8px;align-items:start;}
+  @media (max-width:900px){.table-layout{grid-template-columns:1fr;}}
+  .seat{cursor:pointer;transition:opacity .15s;}
+  .seat:hover{opacity:.85;}
+  .seat circle{stroke-width:1.5;}
+  .seat.active-seat circle{stroke:var(--accent);stroke-width:3;}
+  .seat text{font-size:11px;fill:#fff;font-weight:600;}
+  .seat-label{font-size:10.5px;fill:var(--ink-soft);}
+
+  .role-list{display:flex;flex-direction:column;gap:8px;max-height:560px;overflow-y:auto;padding-right:4px;}
+  .role-card{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);cursor:pointer;transition:border-color .15s,background .15s;}
+  .role-card:hover, .role-card.active-card{border-color:var(--accent-line);background:var(--accent-bg);}
+  .role-card.dashed-role{border-style:dashed;}
+  .role-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+  .role-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .role-num.dashed-num{background:var(--dashed);}
+  .role-name{font-size:13.5px;font-weight:500;}
+  .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 8px;}
+  .role-variants{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+  .variant{background:var(--gray-bg);border-radius:6px;padding:6px 8px;}
+  .variant .vlabel{font-size:9.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin:0 0 2px;font-weight:600;}
+  .variant .vtext{font-size:11px;color:var(--ink);margin:0;}
+  .variant.sprint1{border-left:2px solid var(--dashed);}
+  .variant.sprint2{border-left:2px solid var(--accent);}
+
+  /* TAB 2 — visual cadence */
+  .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
+  .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
+  .dot-legend{width:10px;height:10px;border-radius:50%;display:inline-block;}
+  .dot-legend.steer{background:#854f0b;}
+  .dot-legend.to{background:var(--accent);}
+  .dot-legend.init{background:#0f6e56;}
+
+  .cadence-weeks{display:grid;grid-template-columns:170px repeat(28,1fr);column-gap:3px;margin-bottom:4px;}
+  .week-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);text-align:center;border-bottom:1px solid var(--line);padding-bottom:4px;}
+
+  .cadence-grid{display:grid;grid-template-columns:170px repeat(28,1fr);column-gap:3px;row-gap:14px;align-items:center;}
+  .row-label{font-size:12px;color:var(--ink);padding-right:8px;}
+  .day-cell{aspect-ratio:1;border-radius:50%;background:var(--line);opacity:.5;}
+  .day-cell.active{opacity:1;}
+  .day-cell.active.steer{background:#854f0b;}
+  .day-cell.active.to{background:var(--accent);}
+  .day-cell.active.init{background:#0f6e56;}
+
+  .cadence-purpose{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:22px;}
+  @media (max-width:760px){.cadence-purpose{grid-template-columns:1fr;}}
+  .purpose-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;}
+  .pc-title{font-size:12.5px;font-weight:500;margin:0 0 4px;}
+  .pc-text{font-size:11.5px;color:var(--ink-soft);margin:0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <p class="eyebrow">Transformation Office — reference artifact</p>
+    <h1>Roles and meeting cadence</h1>
+    <p class="sub">A standing governing body with real decision rights over AI priorities, standards, and resourcing. "Transformation Lead" avoids collision with the Chief Technology Officer stakeholder — the role itself is held by the COO, not a new hire.</p>
+  </header>
+
+  <div class="tabs">
+    <div class="tab active" data-tab="roles">Roles — the table</div>
+    <div class="tab" data-tab="cadence">Meeting cadence</div>
+  </div>
+
+  <!-- TAB 1 -->
+  <div class="panel active" id="roles">
+    <h2>Who sits at the table, and why</h2>
+    <p class="panel-note">Click a seat or a card to match them. All 7 seats are active from Sprint 1 — several roles simply do a different job once the portfolio is selected in Sprint 2.</p>
+
+    <div class="table-layout">
+      <svg viewBox="0 0 600 440" width="100%" role="img" aria-label="Oval transformation office table with 7 seats">
+        <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
+        <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
+
+        <g class="seat" data-role="1" onclick="selectRole(1)">
+          <circle cx="300" cy="70" r="30" fill="#185fa5"/>
+          <text x="300" y="70" text-anchor="middle" dominant-baseline="central">1</text>
+          <text class="seat-label" x="300" y="34" text-anchor="middle">Transformation Lead (COO)</text>
+        </g>
+        <g class="seat" data-role="2" onclick="selectRole(2)">
+          <circle cx="472" cy="127" r="28" fill="#0f6e56"/>
+          <text x="472" y="127" text-anchor="middle" dominant-baseline="central">2</text>
+          <text class="seat-label" x="490" y="100" text-anchor="start">CMO — sponsor</text>
+        </g>
+        <g class="seat" data-role="3" onclick="selectRole(3)">
+          <circle cx="515" cy="253" r="28" fill="#0f6e56"/>
+          <text x="515" y="253" text-anchor="middle" dominant-baseline="central">3</text>
+          <text class="seat-label" x="533" y="280" text-anchor="start">CTO — sponsor</text>
+        </g>
+        <g class="seat" data-role="4" onclick="selectRole(4)">
+          <circle cx="396" cy="355" r="28" fill="#854f0b"/>
+          <text x="396" y="355" text-anchor="middle" dominant-baseline="central">4</text>
+          <text class="seat-label" x="396" y="392" text-anchor="middle">Head of Brand</text>
+        </g>
+        <g class="seat" data-role="5" onclick="selectRole(5)">
+          <circle cx="205" cy="355" r="28" fill="#185fa5"/>
+          <text x="205" y="355" text-anchor="middle" dominant-baseline="central">5</text>
+          <text class="seat-label" x="205" y="392" text-anchor="middle">Finance</text>
+        </g>
+        <g class="seat" data-role="6" onclick="selectRole(6)">
+          <circle cx="86" cy="253" r="28" fill="#185fa5"/>
+          <text x="86" y="253" text-anchor="middle" dominant-baseline="central">6</text>
+          <text class="seat-label" x="68" y="280" text-anchor="end">Change lead (C&amp;T)</text>
+        </g>
+        <g class="seat" data-role="7" onclick="selectRole(7)">
+          <circle cx="128" cy="127" r="28" fill="#185fa5"/>
+          <text x="128" y="127" text-anchor="middle" dominant-baseline="central">7</text>
+          <text class="seat-label" x="110" y="100" text-anchor="end">Team leads</text>
+        </g>
+      </svg>
+
+      <div class="role-list" id="roleList">
+
+        <div class="role-card" data-role="1" onclick="selectRole(1)">
+          <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
+          <p class="role-resp">Runs the Office day to day: chairs the weekly action meeting, owns the single source of truth, removes roadblocks. Natural extension of the COO's existing mandate over the operating-model redesign — not a new job on top of an old one.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Runs discovery: chases the 4 data requests, builds the inventory</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Runs the portfolio: coaches initiative owners, tracks the gate criteria</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="2" onclick="selectRole(2)">
+          <div class="role-head"><span class="role-num">2</span><span class="role-name">CMO — sponsor</span></div>
+          <p class="role-resp">Owns the board relationship and the value story. Deliberately kept out of day-to-day operating: needs focus for the external narrative, not distraction from weekly execution meetings.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Confirms the directional ROI is credible before it's shared upward</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Signs off on which initiatives get the value-story treatment</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="3" onclick="selectRole(3)">
+          <div class="role-head"><span class="role-num">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
+          <p class="role-resp">Chief Technology Officer — not to be confused with the Transformation Lead. Elevated to full sponsor given the weight of the consolidation decision.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies negotiated licensing cost data</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Approves the technology standard per solution type</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="4" onclick="selectRole(4)">
+          <div class="role-head"><span class="role-num">4</span><span class="role-name">Head of Brand — voting member</span></div>
+          <p class="role-resp">Not a general sponsor — holds veto specifically over the brand-risk criterion in the approval redesign, a functional seat, not a broad one.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies the brand-risk classification by category</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Signs off on risk thresholds before sampling rates change</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="5" onclick="selectRole(5)">
+          <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
+          <p class="role-resp">Independent check on the ROI math — validates that every reported number is real, not a vanity figure.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Supplies agency-spend data; sanity-checks the directional ROI range</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Certifies net ROI per solution before it enters the scorecard</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="6" onclick="selectRole(6)">
+          <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
+          <p class="role-resp">Filled by C&amp;T (the engagement team) during ramp-up, coaching an internal successor in parallel. Hands off fully once that person is ready — not a permanent external seat.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">C&amp;T runs comms so original teams don't feel sidelined during discovery</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Internal successor co-leads training as quick wins launch; C&amp;T steps back</p></div>
+          </div>
+        </div>
+
+        <div class="role-card" data-role="7" onclick="selectRole(7)">
+          <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
+          <p class="role-resp">A continuous role that evolves, not a seat that appears from nothing. Present from Sprint 1, with a different job at each stage.</p>
+          <div class="role-variants">
+            <div class="variant sprint1"><p class="vlabel">Sprint 1</p><p class="vtext">Identify and prioritize their own team's opportunities for the matrix</p></div>
+            <div class="variant sprint2"><p class="vlabel">Sprint 2+</p><p class="vtext">Become the initiative owner directing their own selected initiative</p></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2 -->
+  <div class="panel" id="cadence">
+    <h2>Meeting cadence</h2>
+    <p class="panel-note">One weekly rhythm for the Office, a faster pulse underneath for delivery teams, and a monthly altitude check above.</p>
+
+    <div class="cadence-legend">
+      <span><i class="dot-legend steer"></i>Steering committee — monthly</span>
+      <span><i class="dot-legend to"></i>TO weekly action meeting</span>
+      <span><i class="dot-legend init"></i>Initiative standups — 2x / week*</span>
+    </div>
+
+    <div class="cadence-weeks">
+      <div class="week-label" style="grid-column: 2 / span 7;">Week 1</div>
+      <div class="week-label" style="grid-column: 9 / span 7;">Week 2</div>
+      <div class="week-label" style="grid-column: 16 / span 7;">Week 3</div>
+      <div class="week-label" style="grid-column: 23 / span 7;">Week 4</div>
+    </div>
+
+    <div class="cadence-grid" id="cadenceGrid"></div>
+
+    <p class="panel-note" style="margin-top:16px;">*Initiative standups start once the portfolio is selected and initiative owners are in place — before that, this pulse doesn't run yet.</p>
+
+    <div class="cadence-purpose">
+      <div class="purpose-card">
+        <p class="pc-title">Steering committee</p>
+        <p class="pc-text">Higher-altitude checkpoint. Translates Office progress into the board-facing narrative.</p>
+      </div>
+      <div class="purpose-card">
+        <p class="pc-title">TO weekly action meeting</p>
+        <p class="pc-text">Fast, fact-based. Removes roadblocks, tracks the single source of truth. 60–90 min.</p>
+      </div>
+      <div class="purpose-card">
+        <p class="pc-title">Initiative standups</p>
+        <p class="pc-text">Day-to-day delivery check within each initiative team — not an Office meeting. 15–20 min.</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+<script>
+  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById(t.dataset.tab).classList.add('active');
+  }));
+
+  function selectRole(n){
+    document.querySelectorAll('.seat').forEach(s=>s.classList.toggle('active-seat', s.dataset.role==String(n)));
+    document.querySelectorAll('.role-card').forEach(c=>c.classList.toggle('active-card', c.dataset.role==String(n)));
+    const card = document.querySelector('.role-card[data-role="'+n+'"]');
+    if(card) card.scrollIntoView({block:'nearest', behavior:'smooth'});
+  }
+
+  // build the 28-day cadence grid
+  (function(){
+    const rows = [
+      { key:'steer', label:'Steering committee', days:[23] },
+      { key:'to', label:'TO weekly meeting', days:[1,8,15,22] },
+      { key:'init', label:'Initiative standups', days:[2,5,9,12,16,19,23,26] },
+    ];
+    const grid = document.getElementById('cadenceGrid');
+    let html = '';
+    rows.forEach(row=>{
+      html += `<div class="row-label">${row.label}</div>`;
+      for(let d=1; d<=28; d++){
+        const active = row.days.includes(d);
+        html += `<div class="day-cell${active ? ' active '+row.key : ''}" title="${active ? row.label+' — day '+d : ''}"></div>`;
+      }
+    });
+    grid.innerHTML = html;
+  })();
+</script>
+</body>
+</html>
