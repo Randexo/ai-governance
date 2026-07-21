@@ -3,24 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Operating model — process review and prioritization</title>
+<title>Operating model</title>
 <style>
   :root{
     --ink:#1c2126; --ink-soft:#4a5058; --line:#dcd8cf; --paper:#faf8f3; --card:#ffffff;
+    --low:#0f6e56; --low-bg:#e1f5ee; --low-line:#9fe1cb;
+    --med:#854f0b; --med-bg:#faeeda; --med-line:#fac775;
+    --high:#993c1d; --high-bg:#faece7; --high-line:#f0997b;
     --known:#0f6e56; --known-bg:#e1f5ee; --known-line:#9fe1cb;
     --gap:#993c1d; --gap-bg:#faece7; --gap-line:#f0997b;
     --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
-    --gray-bg:#f1efe8;
+    --ai:#534ab7; --ai-bg:#eeedfe; --ai-line:#afa9ec;
+    --gray-bg:#f1efe8; --gray-line:#d8d4c8;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
   .wrap{max-width:1080px;margin:0 auto;padding:36px 26px 0;}
   header{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;}
   .eyebrow{font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 6px;}
-  h1{font-size:23px;font-weight:500;margin:0 0 6px;}
-  .sub{font-size:13.5px;color:var(--ink-soft);margin:0;max-width:760px;}
+  h1{font-size:24px;font-weight:500;margin:0 0 6px;}
+  .sub{font-size:14px;color:var(--ink-soft);margin:0 12px 0 0;max-width:760px;display:inline;}
+  .header-bottom{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;}
+  .header-link{font-size:13px;color:var(--accent);text-decoration:none;white-space:nowrap;}
+  .header-link:hover{text-decoration:underline;}
 
-  .tabs{display:flex;gap:4px;margin:22px 0 24px;border-bottom:1px solid var(--line);}
+  .toptabs{display:flex;gap:6px;margin:22px 0 4px;}
+  .toptab{padding:12px 20px;font-size:14px;color:var(--ink-soft);cursor:pointer;border:1px solid var(--line);border-bottom:none;border-radius:10px 10px 0 0;background:var(--gray-bg);user-select:none;}
+  .toptab.active{color:var(--accent);font-weight:600;background:var(--card);border-color:var(--accent-line);}
+  .toppanel{display:none;border-top:2px solid var(--accent-line);padding-top:22px;}
+  .toppanel.active{display:block;}
+
+  .tabs{display:flex;gap:4px;margin:22px 0 24px;border-bottom:1px solid var(--line);flex-wrap:wrap;}
   .tab{padding:10px 16px;font-size:13.5px;color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
   .tab.active{color:var(--accent);border-bottom-color:var(--accent);font-weight:500;}
   .panel{display:none;}
@@ -28,8 +41,10 @@
 
   h2{font-size:15.5px;font-weight:500;margin:0 0 4px;}
   .panel-note{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;max-width:760px;}
+  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#0c447c;margin-bottom:18px;font-weight:500;}
+  .term-note{background:var(--gray-bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink-soft);margin-bottom:18px;}
+  .term-note b{color:var(--ink);}
 
-  /* TAB 1 — summary strip */
   .summary-strip{display:flex;gap:10px;margin-bottom:22px;flex-wrap:wrap;}
   .stat{flex:1;min-width:150px;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);}
   .stat .num{font-size:20px;font-weight:500;}
@@ -37,7 +52,6 @@
   .stat.gap .num{color:var(--gap);}
   .stat .lbl{font-size:11.5px;color:var(--ink-soft);margin-top:2px;}
 
-  /* TAB 1 — flow stepper */
   .flow-legend{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:14px;}
   .flow-legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
   .dot-legend{width:10px;height:10px;border-radius:50%;display:inline-block;}
@@ -70,21 +84,37 @@
   .capture{background:var(--known-bg);border-radius:7px;padding:8px 10px;margin-top:6px;font-size:12px;color:var(--known);}
   .capture b{color:var(--known);}
   .enabler-flag{background:var(--gap-bg);border:1px dashed var(--gap-line);border-radius:7px;padding:8px 10px;margin-top:6px;font-size:12px;color:var(--gap);}
-  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#0c447c;margin-bottom:18px;font-weight:500;}
   .example-flag{background:var(--gray-bg);border-radius:7px;padding:8px 10px;margin-top:6px;font-size:12px;color:var(--ink-soft);}
   .example-flag b{color:var(--ink);}
   .risk-flag{background:var(--gap-bg);border-radius:7px;padding:8px 10px;margin-top:6px;font-size:12px;color:var(--gap);}
   .risk-flag b{color:var(--gap);}
 
-  /* TAB 2 — matrix criteria */
+  .toggle-bar{display:flex;gap:8px;margin-bottom:18px;}
+  .toggle-btn{padding:8px 16px;border:1px solid var(--line);background:var(--card);border-radius:20px;font-size:12.5px;cursor:pointer;color:var(--ink-soft);}
+  .toggle-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500;}
+  .flow{display:none;}
+  .flow.active{display:flex;flex-direction:column;gap:10px;}
+  .step-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+  .step{border:1px solid var(--line);background:var(--card);border-radius:8px;padding:10px 14px;font-size:12px;min-width:100px;text-align:center;}
+  .step.uniform{background:var(--high-bg);border-color:var(--high-line);color:var(--high);}
+  .arrow{color:var(--ink-soft);font-size:14px;}
+  .tier{border:1px solid var(--line);border-radius:10px;padding:14px 16px;margin-bottom:12px;}
+  .tier .tier-name{font-size:13px;font-weight:500;margin-bottom:8px;}
+  .tier.low{background:var(--low-bg);border-color:var(--low-line);}
+  .tier.low .tier-name{color:var(--low);}
+  .tier.med{background:var(--med-bg);border-color:var(--med-line);}
+  .tier.med .tier-name{color:var(--med);}
+  .tier.high{background:var(--high-bg);border-color:var(--high-line);}
+  .tier.high .tier-name{color:var(--high);}
+  .tier-steps{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;}
+  .tier-steps .step{background:var(--card);}
+
   .criteria-cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px;}
   @media (max-width:760px){.criteria-cols{grid-template-columns:1fr;}}
   .criteria-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 16px;}
   .criteria-card .cc-title{font-size:13px;font-weight:500;margin:0 0 8px;}
   .criteria-card ul{margin:0;padding-left:18px;font-size:12px;color:var(--ink-soft);}
   .criteria-card li{margin-bottom:5px;}
-
-  /* TAB 2 — 2x2 matrix */
   .matrix-wrap{display:grid;grid-template-columns:32px 1fr;grid-template-rows:24px 1fr 30px;gap:6px 10px;max-width:760px;}
   .m-axis-y{grid-row:2;grid-column:1;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--ink-soft);}
   .m-axis-x{grid-row:3;grid-column:2;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:var(--ink-soft);padding:0 4px;}
@@ -102,7 +132,6 @@
   .quad.q-drop{background:var(--gap-bg);border-color:var(--gap-line);}
   .quad-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
   .init-chip{border-radius:8px;padding:6px 10px;font-size:11.5px;background:var(--card);max-width:100%;}
-  .init-chip.validated{border:1.5px solid var(--known);font-weight:500;}
   .init-chip.illustrative{border:1.5px dashed var(--ink-soft);color:var(--ink-soft);}
   .init-card{border:1.5px solid var(--known);border-radius:8px;padding:8px 10px;background:var(--card);font-size:11.5px;max-width:100%;}
   .init-card .ic-name{font-weight:600;color:var(--ink);margin:0 0 2px;}
@@ -116,227 +145,544 @@
   .leg-chip.illustrative{border:1.5px dashed var(--ink-soft);}
   .matrix-enabler{margin-top:16px;border:1px dashed var(--gap-line);background:var(--gap-bg);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--gap);max-width:760px;}
   .matrix-enabler b{color:var(--gap);}
+
+  table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
+  th{text-align:left;padding:8px 10px;font-weight:500;color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);}
+  td{padding:10px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  td.before{color:var(--high);background:var(--high-bg);}
+  td.after{color:var(--low);background:var(--low-bg);}
+  td.ai-col{background:var(--ai-bg);color:var(--ai);text-align:center;font-weight:600;}
+  .legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 10px;}
+  .legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
+  .legend b{padding:1px 7px;border-radius:5px;font-size:10.5px;}
+  .raci-table{overflow-x:auto;}
+  .raci-table table{min-width:720px;}
+  .raci-cell{text-align:center;font-weight:700;font-size:12px;}
+  .raci-cell.R{color:var(--high);}
+  .raci-cell.A{color:var(--accent);}
+  .raci-cell.C{color:var(--low);}
+  .raci-cell.I{color:var(--ink-soft);}
+  .raci-cell.AI{color:var(--ai);}
+
+  .gate-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  @media (max-width:820px){.gate-cards{grid-template-columns:1fr;}}
+  .gate{border-radius:10px;padding:14px 16px;border:1.5px solid var(--line);}
+  .gate.low{background:var(--low-bg);border-color:var(--low-line);}
+  .gate.med{background:var(--med-bg);border-color:var(--med-line);}
+  .gate.high{background:var(--high-bg);border-color:var(--high-line);}
+  .gate .g-title{font-size:13px;font-weight:600;margin:0 0 8px;}
+  .gate.low .g-title{color:var(--low);}
+  .gate.med .g-title{color:var(--med);}
+  .gate.high .g-title{color:var(--high);}
+  .gate ul{margin:0;padding-left:16px;font-size:12px;color:var(--ink);}
+  .gate li{margin-bottom:5px;}
+
+  .asset-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:14px;}
+  @media (max-width:820px){.asset-grid{grid-template-columns:1fr;}}
+  .asset-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:16px;}
+  .asset-card .a-title{font-size:13.5px;font-weight:600;margin:0 0 6px;}
+  .asset-card .a-owner{font-size:11px;color:var(--accent);margin:0 0 8px;font-weight:500;}
+  .asset-card ul{margin:0;padding-left:16px;font-size:12px;color:var(--ink-soft);}
+  .asset-card li{margin-bottom:5px;}
+
+  .pb-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px;}
+  @media (max-width:760px){.pb-meta{grid-template-columns:1fr 1fr;}}
+  .pb-meta-item{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--card);}
+  .pb-meta-item .pm-label{font-size:10px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);margin:0 0 3px;}
+  .pb-meta-item .pm-value{font-size:12.5px;font-weight:500;color:var(--ink);margin:0;}
+  .pb-section{margin-bottom:20px;}
+  .pb-section h3{font-size:13px;font-weight:600;margin:0 0 8px;color:var(--ink);}
+  .pb-steps{display:flex;flex-direction:column;gap:8px;}
+  .pb-step{display:flex;gap:12px;border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:var(--card);align-items:flex-start;}
+  .pb-step-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .pb-step-body{flex:1;}
+  .pb-step-title{font-size:12.5px;font-weight:500;margin:0 0 3px;}
+  .pb-step-meta{font-size:11px;color:var(--ink-soft);margin:0;}
+  .pb-step-meta b{color:var(--accent);}
+  .pb-escalation{border:1px dashed var(--high-line);background:var(--high-bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--high);}
+  .pb-escalation b{color:var(--high);}
+
+  .deliv-strip{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
+  .deliv{flex:1;min-width:200px;border:1px solid var(--accent-line);background:var(--accent-bg);border-radius:10px;padding:12px 14px;}
+  .deliv .dl-title{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#0c447c;font-weight:600;margin:0 0 4px;}
+  .deliv .dl-text{font-size:12.5px;color:#0c447c;margin:0;}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header>
-    <p class="eyebrow">Operating model — governance-led review</p>
-    <h1>Process review and prioritization</h1>
-    <p class="sub">The full content production process, mapped once. What's already been built shows up inside the map — not as a separate list — and every open stage becomes an opportunity to size.</p>
+    <p class="eyebrow">AI transformation reset</p>
+    <h1>Operating model</h1>
+    <div class="header-bottom">
+      <p class="sub">3 pillars — process redesign, roles &amp; responsibilities, enterprise standards. Governance — who decides — lives in a separate artifact.</p>
+      <a class="header-link" href="../">← AI governance</a>
+    </div>
   </header>
 
-  <div class="tabs">
-    <div class="tab active" data-tab="process">Process &amp; opportunities</div>
-    <div class="tab" data-tab="matrix">Prioritization matrix</div>
+  <div class="toptabs">
+    <div class="toptab active" data-top="structure">1 · Process redesign</div>
+    <div class="toptab" data-top="rolesresp">2 · Roles &amp; responsibilities</div>
+    <div class="toptab" data-top="standards">3 · Enterprise standards</div>
   </div>
 
-  <!-- TAB 1 -->
-  <div class="panel active" id="process">
-    <h2>The full chain, stage by stage</h2>
-    <p class="panel-note">Brief to feedback. Green stages already have a working pilot behind them; amber stages are open — that's where sizing happens next.</p>
-
-    <div class="prelim-banner">Preliminary — illustrative only. Every initiative example, impact figure, and risk on this tab needs to be confirmed with real company data before it enters the business case.</div>
-
-    <div class="summary-strip">
-      <div class="stat known"><div class="num">2 of 7</div><div class="lbl">stages already have a working pilot (3 initiatives)</div></div>
-      <div class="stat gap"><div class="num">5 of 7</div><div class="lbl">stages are open opportunities to size</div></div>
-      <div class="stat gap"><div class="num">1</div><div class="lbl">cross-cutting bottleneck touches all 7</div></div>
+  <!-- PILLAR 1 -->
+  <div class="toppanel active" id="structure">
+    <div class="tabs">
+      <div class="tab active" data-tab="process">Process &amp; opportunities</div>
+      <div class="tab" data-tab="approval">Approval: AS-IS → TO-BE</div>
+      <div class="tab" data-tab="matrix">Prioritization matrix</div>
     </div>
 
-    <div class="flow-legend">
-      <span><i class="dot-legend known"></i>already has a working pilot</span>
-      <span><i class="dot-legend gap"></i>open opportunity to size</span>
-      <span><i class="dot-legend enabler"></i>cross-cutting enabler</span>
-    </div>
+    <div class="panel active" id="process">
+      <h2>The full chain, stage by stage</h2>
+      <p class="panel-note">Brief to feedback. Green stages already have a working pilot behind them; amber stages are open — that's where sizing happens next.</p>
+      <div class="prelim-banner">Preliminary — illustrative only. Every initiative example, impact figure, and risk on this tab needs to be confirmed with real company data before it enters the business case.</div>
+      <div class="summary-strip">
+        <div class="stat known"><div class="num">2 of 7</div><div class="lbl">stages already have a working pilot (3 initiatives)</div></div>
+        <div class="stat gap"><div class="num">5 of 7</div><div class="lbl">stages are open opportunities to size</div></div>
+        <div class="stat gap"><div class="num">1</div><div class="lbl">cross-cutting bottleneck touches all 7</div></div>
+      </div>
+      <div class="flow-legend">
+        <span><i class="dot-legend known"></i>already has a working pilot</span>
+        <span><i class="dot-legend gap"></i>open opportunity to size</span>
+        <span><i class="dot-legend enabler"></i>cross-cutting enabler — see Approval tab</span>
+      </div>
+      <div class="flow-strip">
+        <div class="flow-node" onclick="selectStage(1)"><div class="flow-circle gap">1</div><div class="flow-label">Brief / Intake</div></div>
+        <div class="flow-node" onclick="selectStage(2)"><div class="flow-circle gap">2</div><div class="flow-label">Creative &amp; Strategic Dev.</div></div>
+        <div class="flow-node" onclick="selectStage(3)"><div class="flow-circle known">3</div><div class="flow-label">Production</div></div>
+        <div class="flow-node" onclick="selectStage(4)"><div class="flow-circle gap enabler">4</div><div class="flow-label">Approval (7 steps)</div></div>
+        <div class="flow-node" onclick="selectStage(5)"><div class="flow-circle known">5</div><div class="flow-label">Adaptation &amp; Localization</div></div>
+        <div class="flow-node" onclick="selectStage(6)"><div class="flow-circle gap">6</div><div class="flow-label">Publication</div></div>
+        <div class="flow-node" onclick="selectStage(7)"><div class="flow-circle gap">7</div><div class="flow-label">Measurement &amp; Feedback</div></div>
+      </div>
+      <p class="panel-note">Click a stage to see its detail.</p>
 
-    <div class="flow-strip">
-      <div class="flow-node" onclick="selectStage(1)"><div class="flow-circle gap">1</div><div class="flow-label">Brief / Intake</div></div>
-      <div class="flow-node" onclick="selectStage(2)"><div class="flow-circle gap">2</div><div class="flow-label">Creative &amp; Strategic Dev.</div></div>
-      <div class="flow-node" onclick="selectStage(3)"><div class="flow-circle known">3</div><div class="flow-label">Production</div></div>
-      <div class="flow-node" onclick="selectStage(4)"><div class="flow-circle gap enabler">4</div><div class="flow-label">Approval (7 steps)</div></div>
-      <div class="flow-node" onclick="selectStage(5)"><div class="flow-circle known">5</div><div class="flow-label">Adaptation &amp; Localization</div></div>
-      <div class="flow-node" onclick="selectStage(6)"><div class="flow-circle gap">6</div><div class="flow-label">Publication</div></div>
-      <div class="flow-node" onclick="selectStage(7)"><div class="flow-circle gap">7</div><div class="flow-label">Measurement &amp; Feedback</div></div>
-    </div>
-    <p class="panel-note">Click a stage to see its detail.</p>
+      <div class="stage" id="stage-1">
+        <div class="stage-num">1</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Brief / Intake</span><span class="badge gap">Opportunity</span></div>
+          <p class="stage-detail">No shared intake standard across the 8 brand teams — each team briefs differently today.</p>
+          <div class="example-flag"><b>Example initiative (illustrative):</b> a standardized AI-ready brief template and intake portal, shared across all 8 teams.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-2">
+        <div class="stage-num">2</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Creative &amp; Strategic Development</span><span class="badge gap">Opportunity</span></div>
+          <p class="stage-detail">Concept and messaging — still fully human judgment, untouched by any of the 3 pilots.</p>
+          <div class="example-flag"><b>Example initiative (illustrative):</b> AI-assisted concept and moodboard generation to speed up early ideation — human-led, AI-assisted.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-3">
+        <div class="stage-num">3</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Production</span><span class="badge known">Already addressed</span></div>
+          <p class="stage-detail">Where the asset actually gets made.</p>
+          <div class="capture"><b>Brand Marketing</b> — Adobe Firefly / GenStudio → <b>$800K</b> estimated agency-fee savings</div>
+          <div class="risk-flag"><b>Risks to evaluate:</b> platform/vendor lock-in; licensing cost at 8-team scale unconfirmed; no shared prompt or quality standard with the other 2 pilots — see Enterprise Standards.</div>
+          <div class="capture"><b>eCommerce</b> — custom AI copy generator → <b>70%</b> reduction in copywriting time</div>
+          <div class="risk-flag"><b>Risks to evaluate:</b> built on a separate platform with its own prompt library — possible duplicated investment; ongoing engineering cost to maintain a custom build.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-4">
+        <div class="stage-num">4</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Approval (7 steps)</span><span class="badge gap">Opportunity</span></div>
+          <p class="stage-detail">Pre-dates every pilot. Every initiative, addressed or not, still passes through this stage unchanged.</p>
+          <div class="example-flag"><b>Detailed redesign:</b> see the "Approval: AS-IS → TO-BE" tab above.</div>
+          <div class="enabler-flag">Cross-cutting enabler — fixing this multiplies the value of everything else on this list.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-5">
+        <div class="stage-num">5</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Adaptation &amp; Localization</span><span class="badge known">Already addressed</span></div>
+          <p class="stage-detail">Resizing and reformatting per channel.</p>
+          <div class="capture"><b>Social &amp; Content</b> — AI repurposing tool → <b>3x</b> social content volume in 3 months</div>
+          <div class="risk-flag"><b>Risks to evaluate:</b> underlying technology not specified — unknown platform, unknown risk profile; volume tripled without confirmed brand-risk or quality controls; no link yet to business-outcome measurement.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-6">
+        <div class="stage-num">6</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Publication</span><span class="badge gap">Opportunity</span></div>
+          <p class="stage-detail">No shared on-time publish tracking — each team measures its own cycle, if at all.</p>
+          <div class="example-flag"><b>Example initiative (illustrative):</b> automated publish scheduling with a shared on-time tracking dashboard across channels.</div>
+        </div>
+      </div>
+      <div class="stage" id="stage-7">
+        <div class="stage-num">7</div>
+        <div class="stage-body">
+          <div class="stage-head"><span class="stage-name">Measurement &amp; Feedback</span><span class="badge gap">Opportunity</span></div>
+          <p class="stage-detail">No baseline, no shared definition of success — the gap that made the 3 pilots' numbers impossible to compare.</p>
+          <div class="example-flag"><b>Example initiative (illustrative):</b> a shared performance dashboard that feeds results back into the brief template, closing the loop.</div>
+        </div>
+      </div>
 
-    <div>
-
-    <div class="stage" id="stage-1">
-      <div class="stage-num">1</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Brief / Intake</span><span class="badge gap">Opportunity</span></div>
-        <p class="stage-detail">No shared intake standard across the 8 brand teams — each team briefs differently today.</p>
-        <div class="example-flag"><b>Example initiative (illustrative):</b> a standardized AI-ready brief template and intake portal, shared across all 8 teams.</div>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Value-creation opportunities — the 5 open stages above, sized in the Prioritization matrix</p></div>
       </div>
     </div>
 
-    <div class="stage" id="stage-2">
-      <div class="stage-num">2</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Creative &amp; Strategic Development</span><span class="badge gap">Opportunity</span></div>
-        <p class="stage-detail">Concept and messaging — still fully human judgment, untouched by any of the 3 pilots.</p>
-        <div class="example-flag"><b>Example initiative (illustrative):</b> AI-assisted concept and moodboard generation to speed up early ideation — human-led, AI-assisted, not AI-owned.</div>
+    <div class="panel" id="approval">
+      <h2>Approval: from uniform to risk-tiered</h2>
+      <p class="panel-note">The case confirms only that a 7-step approval process pre-dates the pilots and still exists — it doesn't name the steps. What follows is an illustrative reconstruction, plausible for a large regulated US retailer, to be confirmed with real process documentation.</p>
+      <div class="prelim-banner">Illustrative — the 7 steps below are a working hypothesis. Gray steps are pipeline context; the 7 coral steps are the approval chain itself.</div>
+      <div class="toggle-bar">
+        <div class="toggle-btn active" data-flow="asis">AS-IS (unchanged since before the pilots)</div>
+        <div class="toggle-btn" data-flow="tobe">TO-BE</div>
+      </div>
+      <div class="flow active" id="asis">
+        <div class="step-row">
+          <div class="step">Brief</div><span class="arrow">→</span>
+          <div class="step">Creation</div><span class="arrow">→</span>
+          <div class="step uniform">1 · Intake</div><span class="arrow">→</span>
+          <div class="step uniform">2 · Hand-off</div><span class="arrow">→</span>
+          <div class="step uniform">3 · Creative dir. review</div><span class="arrow">→</span>
+          <div class="step uniform">4 · Brand review</div><span class="arrow">→</span>
+          <div class="step uniform">5 · Legal / compliance</div><span class="arrow">→</span>
+          <div class="step uniform">6 · Regional review</div><span class="arrow">→</span>
+          <div class="step uniform">7 · Final sign-off</div><span class="arrow">→</span>
+          <div class="step">Publication</div>
+        </div>
+        <p class="panel-note" style="margin-top:10px">The 7 coral steps are identical for all content — a product PDP goes through the same review path as a global campaign hero visual. AI accelerated the Creation step without touching any of the 7 — this is the waste to remove.</p>
+      </div>
+      <div class="flow" id="tobe">
+        <div class="tier low">
+          <div class="tier-name">Low risk — PDPs, repurposing variants</div>
+          <div class="tier-steps"><div class="step">AI generation</div><span class="arrow">→</span><div class="step">Automated QA</div><span class="arrow">→</span><div class="step">Publication</div><span class="arrow">→</span><div class="step">5% human sampling</div></div>
+        </div>
+        <div class="tier med">
+          <div class="tier-name">Medium risk — campaign copy, ads</div>
+          <div class="tier-steps"><div class="step">AI generation</div><span class="arrow">→</span><div class="step">1 brand reviewer</div><span class="arrow">→</span><div class="step">Publication</div></div>
+        </div>
+        <div class="tier high">
+          <div class="tier-name">High risk — new global launches</div>
+          <div class="tier-steps"><div class="step">AI accelerates first draft</div><span class="arrow">→</span><div class="step">Current full flow</div></div>
+        </div>
+      </div>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Future-state process — the TO-BE risk-tiered approval flow above</p></div>
       </div>
     </div>
 
-    <div class="stage" id="stage-3">
-      <div class="stage-num">3</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Production</span><span class="badge known">Already addressed</span></div>
-        <p class="stage-detail">Where the asset actually gets made.</p>
-        <div class="capture"><b>Brand Marketing</b> — Adobe Firefly / GenStudio → <b>$800K</b> estimated agency-fee savings</div>
-        <div class="risk-flag"><b>Risks to evaluate:</b> platform/vendor lock-in; licensing cost at 8-team scale unconfirmed; no shared prompt or quality standard with the other 2 pilots.</div>
-        <div class="capture"><b>eCommerce</b> — custom AI copy generator → <b>70%</b> reduction in copywriting time</div>
-        <div class="risk-flag"><b>Risks to evaluate:</b> built on a separate platform with its own prompt library and quality standards — possible duplicated investment; ongoing engineering cost to maintain a custom build.</div>
+    <div class="panel" id="matrix">
+      <h2>Size of the prize &amp; feasibility — the prioritization criteria</h2>
+      <p class="panel-note">Every opportunity surfaced in the process review gets scored on these two axes before it becomes a candidate initiative.</p>
+      <div class="prelim-banner">This matrix identifies candidates — it doesn't fund them. Each one still needs a real business case: an MVP-level financial model (cost, ROI, payback), built with Finance, before it gets resourced.</div>
+      <div class="criteria-cols">
+        <div class="criteria-card">
+          <p class="cc-title">Size of the prize</p>
+          <ul>
+            <li>Estimated $ impact — cost saved plus revenue potential</li>
+            <li>Volume of content or teams it touches</li>
+            <li>Leverage — does it benefit one team, or many via shared infrastructure</li>
+          </ul>
+        </div>
+        <div class="criteria-card">
+          <p class="cc-title">Feasibility</p>
+          <ul>
+            <li>Technical complexity and data readiness — rules-based vs. requires judgment</li>
+            <li>Brand-risk exposure if something goes wrong</li>
+            <li>Change required — new roles, retraining, process redesign needed</li>
+            <li><b>Can it show a validated result inside the 90-day window</b> — if not, it drops into Big Bets regardless of prize size</li>
+          </ul>
+        </div>
       </div>
-    </div>
-
-    <div class="stage" id="stage-4">
-      <div class="stage-num">4</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Approval (7 steps)</span><span class="badge gap">Opportunity</span></div>
-        <p class="stage-detail">Pre-dates every pilot. Every initiative, addressed or not, still passes through this stage unchanged.</p>
-        <div class="example-flag"><b>Example initiative (illustrative):</b> a risk-tiered approval workflow with automated brand-compliance checks, replacing the uniform 7-step path.</div>
-        <div class="enabler-flag">Cross-cutting enabler, not a normal opportunity — fixing this multiplies the value of everything else on this list.</div>
+      <div class="matrix-legend">
+        <span><i class="leg-chip validated"></i>Reported metric exists — prize size still unconfirmed</span>
+        <span><i class="leg-chip illustrative"></i>Illustrative — not yet built, placement unconfirmed</span>
       </div>
-    </div>
-
-    <div class="stage" id="stage-5">
-      <div class="stage-num">5</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Adaptation &amp; Localization</span><span class="badge known">Already addressed</span></div>
-        <p class="stage-detail">Resizing and reformatting per channel.</p>
-        <div class="capture"><b>Social &amp; Content</b> — AI repurposing tool → <b>3x</b> social content volume in 3 months</div>
-        <div class="risk-flag"><b>Risks to evaluate:</b> underlying technology not specified in the case — unknown platform, unknown risk profile; volume tripled without confirmed brand-risk or quality controls; no link yet to business-outcome measurement.</div>
+      <div class="prelim-banner">Vertical position (size of the prize) is preliminary for all 3 known pilots — none of their headline numbers are sized against a shared baseline yet. That's exactly what the data requests already in motion are meant to confirm.</div>
+      <div class="matrix-wrap">
+        <div class="m-axis-y">size of the prize</div>
+        <div class="m-bands">
+          <div class="m-band beyond">Sequenced beyond day 90</div>
+          <div class="m-band within">Deliverable within 90 days</div>
+        </div>
+        <div class="m-grid">
+          <div class="quad q-bigbets">
+            <span class="q-tag">high prize · low feasibility</span>
+            <span class="q-name">Big bets</span>
+            <div class="quad-chips">
+              <div class="init-card">
+                <p class="ic-name">Campaign creative at studio scale</p>
+                <p class="ic-metric">$800K estimated agency-fee savings</p>
+                <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend or agency budget specifically</p>
+              </div>
+              <span class="init-chip illustrative">AI-assisted concept &amp; moodboard generation</span>
+              <span class="init-chip illustrative">Shared measurement &amp; feedback dashboard</span>
+            </div>
+          </div>
+          <div class="quad q-winners">
+            <span class="q-tag">high prize · high feasibility</span>
+            <span class="q-name">Prioritize first</span>
+            <div class="quad-chips">
+              <div class="init-card">
+                <p class="ic-name">PDP copy generation</p>
+                <p class="ic-metric">70% reduction in copywriting time</p>
+                <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ cost baseline to convert time saved into value</p>
+              </div>
+            </div>
+          </div>
+          <div class="quad q-drop">
+            <span class="q-tag">low prize · low feasibility</span>
+            <span class="q-name">Deprioritize</span>
+            <div class="quad-chips"><span class="empty-note">No candidates identified yet</span></div>
+          </div>
+          <div class="quad q-fillins">
+            <span class="q-tag">low prize · high feasibility</span>
+            <span class="q-name">Fill-ins</span>
+            <div class="quad-chips">
+              <div class="init-card">
+                <p class="ic-name">Social repurposing variants</p>
+                <p class="ic-metric">3x social content volume in 3 months</p>
+                <p class="ic-caveat">Prize size unconfirmed: an activity metric, not yet linked to $ cost, revenue, or conversion</p>
+              </div>
+              <span class="init-chip illustrative">Standardized brief template &amp; intake portal</span>
+              <span class="init-chip illustrative">Publish scheduling &amp; on-time tracking</span>
+            </div>
+          </div>
+        </div>
+        <div class="m-axis-x"><span>low feasibility</span><span>high feasibility</span></div>
       </div>
-    </div>
-
-    <div class="stage" id="stage-6">
-      <div class="stage-num">6</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Publication</span><span class="badge gap">Opportunity</span></div>
-        <p class="stage-detail">No shared on-time publish tracking — each team measures its own cycle, if at all.</p>
-        <div class="example-flag"><b>Example initiative (illustrative):</b> automated publish scheduling with a shared on-time tracking dashboard across channels.</div>
-      </div>
-    </div>
-
-    <div class="stage" id="stage-7">
-      <div class="stage-num">7</div>
-      <div class="stage-body">
-        <div class="stage-head"><span class="stage-name">Measurement &amp; Feedback</span><span class="badge gap">Opportunity</span></div>
-        <p class="stage-detail">No baseline, no shared definition of success — the gap that made the 3 pilots' numbers impossible to compare.</p>
-        <div class="example-flag"><b>Example initiative (illustrative):</b> a shared performance dashboard that feeds results back into the brief template, closing the loop.</div>
-      </div>
-    </div>
+      <div class="matrix-enabler"><b>Approval redesign sits outside this matrix on purpose</b> — it's a cross-cutting enabler, not a quadrant candidate. Fixing it multiplies the value of whatever lands in every quadrant above.</div>
     </div>
   </div>
 
-  <!-- TAB 2 -->
-  <div class="panel" id="matrix">
-    <h2>Size of the prize &amp; feasibility — the prioritization criteria</h2>
-    <p class="panel-note">Every opportunity surfaced in the process review gets scored on these two axes before it becomes a candidate initiative.</p>
-
-    <div class="prelim-banner">This matrix identifies candidates — it doesn't fund them. Each one still needs a real business case: an MVP-level financial model (cost, ROI, payback), built with Finance, before it gets resourced.</div>
-
-    <div class="criteria-cols">
-      <div class="criteria-card">
-        <p class="cc-title">Size of the prize</p>
-        <ul>
-          <li>Estimated $ impact — cost saved plus revenue potential</li>
-          <li>Volume of content or teams it touches</li>
-          <li>Leverage — does it benefit one team, or many via shared infrastructure like the creative studio</li>
-        </ul>
-      </div>
-      <div class="criteria-card">
-        <p class="cc-title">Feasibility</p>
-        <ul>
-          <li>Technical complexity and data readiness — rules-based vs. requires judgment</li>
-          <li>Brand-risk exposure if something goes wrong</li>
-          <li>Change required — new roles, retraining, process redesign needed</li>
-          <li><b>Can it show a validated result inside the 90-day window</b> — if not, it drops into Big Bets regardless of prize size</li>
-        </ul>
+  <!-- PILLAR 2 -->
+  <div class="toppanel" id="rolesresp">
+    <div class="tabs">
+      <div class="tab active" data-tab="roles">Updated role definitions</div>
+      <div class="tab" data-tab="raci">RACI / role charter</div>
+    </div>
+    <div class="panel active" id="roles">
+      <h2>Existing roles, redefined — not new headcount</h2>
+      <p class="panel-note">The mistake in the 3 pilots was layering AI on top of the role without changing what the role does. Here the work is redefined, not the headcount added.</p>
+      <div class="prelim-banner">Illustrative — these 5 roles are an example based on roles implied by the case. The actual role inventory gets confirmed against the company's real org chart during process discovery.</div>
+      <table>
+        <tr><th>Role</th><th>Today (broken)</th><th>Redesigned (AI speed)</th></tr>
+        <tr><td>Copywriter / designer</td><td class="before">Creates every asset from scratch</td><td class="after">Curates and edits the AI-generated draft; steps in only when it fails the standard</td></tr>
+        <tr><td>Brand manager</td><td class="before">Manually reviews 100% of assets</td><td class="after">Codifies brand rules (brand-as-code) and audits by sampling</td></tr>
+        <tr><td>Marketing ops / traffic manager</td><td class="before">Routes every asset through the same 7 steps, regardless of risk</td><td class="after">Automatic routing based on a rules-defined risk level</td></tr>
+        <tr><td>Social media manager</td><td class="before">Manually edits every variant per platform</td><td class="after">Oversees automated repurposing; adjusts rules per platform</td></tr>
+        <tr><td>Legal / compliance reviewer</td><td class="before">Reviews every asset in the general queue, without prioritizing</td><td class="after">Only steps in for high risk; codifies compliance rules for low/medium</td></tr>
+      </table>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Updated role definitions — the table above, confirmed against the real org</p></div>
       </div>
     </div>
-
-    <div class="matrix-legend">
-      <span><i class="leg-chip validated"></i>Reported metric exists — prize size still unconfirmed</span>
-      <span><i class="leg-chip illustrative"></i>Illustrative — not yet built, placement unconfirmed</span>
-    </div>
-    <div class="prelim-banner">Vertical position (size of the prize) is preliminary for all 3 known pilots — none of their headline numbers are sized against a shared baseline yet (total marketing spend, total copywriting volume, or a revenue link). That's exactly what the 4 data requests already in motion are meant to confirm.</div>
-
-    <div class="matrix-wrap">
-      <div class="m-axis-y">size of the prize</div>
-      <div class="m-bands">
-        <div class="m-band beyond">Sequenced beyond day 90</div>
-        <div class="m-band within">Deliverable within 90 days</div>
+    <div class="panel" id="raci">
+      <h2>RACI — content production, human vs. AI made explicit</h2>
+      <p class="panel-note">Clarifying human vs. AI responsibilities means naming AI as an explicit actor in the chart, not leaving it implicit inside "production."</p>
+      <div class="prelim-banner">Illustrative — mapped to the redesigned roles above and the risk-tiered approval from Process Redesign. To be validated against the real org during discovery.</div>
+      <div class="legend">
+        <span><b style="background:var(--high-bg);color:var(--high);">R</b> Responsible</span>
+        <span><b style="background:var(--accent-bg);color:var(--accent);">A</b> Accountable</span>
+        <span><b style="background:var(--low-bg);color:var(--low);">C</b> Consulted</span>
+        <span><b style="background:var(--gray-bg);color:var(--ink-soft);">I</b> Informed</span>
+        <span><b style="background:var(--ai-bg);color:var(--ai);">AI</b> AI system, as an explicit actor</span>
       </div>
-      <div class="m-grid">
-        <div class="quad q-bigbets">
-          <span class="q-tag">high prize · low feasibility</span>
-          <span class="q-name">Big bets</span>
-          <div class="quad-chips">
-            <div class="init-card">
-              <p class="ic-name">Campaign creative at studio scale</p>
-              <p class="ic-metric">$800K estimated agency-fee savings</p>
-              <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend or agency budget specifically</p>
+      <div class="raci-table">
+        <table>
+          <tr><th>Activity</th><th>AI system</th><th>Copywriter / curator</th><th>Brand manager / auditor</th><th>Marketing ops</th><th>Legal / compliance</th></tr>
+          <tr><td>Brief intake</td><td class="raci-cell I ai-col">I</td><td class="raci-cell R">R</td><td class="raci-cell I">I</td><td class="raci-cell A">A</td><td class="raci-cell I">I</td></tr>
+          <tr><td>AI content generation</td><td class="raci-cell R ai-col">R</td><td class="raci-cell A">A</td><td class="raci-cell I">I</td><td class="raci-cell I">I</td><td class="raci-cell I">I</td></tr>
+          <tr><td>Quality / brand review (low risk)</td><td class="raci-cell R ai-col">R</td><td class="raci-cell I">I</td><td class="raci-cell A">A</td><td class="raci-cell I">I</td><td class="raci-cell I">I</td></tr>
+          <tr><td>Quality / brand review (medium/high risk)</td><td class="raci-cell C ai-col">C</td><td class="raci-cell C">C</td><td class="raci-cell R">R</td><td class="raci-cell I">I</td><td class="raci-cell C">C</td></tr>
+          <tr><td>Legal / compliance review (high risk only)</td><td class="raci-cell I ai-col">I</td><td class="raci-cell I">I</td><td class="raci-cell C">C</td><td class="raci-cell I">I</td><td class="raci-cell R">R</td></tr>
+          <tr><td>Approval sign-off &amp; routing</td><td class="raci-cell I ai-col">I</td><td class="raci-cell I">I</td><td class="raci-cell C">C</td><td class="raci-cell A">A</td><td class="raci-cell C">C</td></tr>
+          <tr><td>Publication</td><td class="raci-cell R ai-col">R</td><td class="raci-cell I">I</td><td class="raci-cell I">I</td><td class="raci-cell A">A</td><td class="raci-cell I">I</td></tr>
+          <tr><td>Performance monitoring &amp; feedback</td><td class="raci-cell C ai-col">C</td><td class="raci-cell I">I</td><td class="raci-cell I">I</td><td class="raci-cell R">R</td><td class="raci-cell I">I</td></tr>
+        </table>
+      </div>
+      <p class="panel-note" style="margin-top:14px;">The AI system is Responsible for generation and low-risk QA, but never Accountable — a human role always holds accountability, even where AI executes the work.</p>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">RACI / role charter — the chart above, the reference document for who owns what</p></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PILLAR 3 -->
+  <div class="toppanel" id="standards">
+    <div class="tabs">
+      <div class="tab active" data-tab="gates">Quality gates</div>
+      <div class="tab" data-tab="assets">Reusable assets</div>
+      <div class="tab" data-tab="playbook">Example playbook</div>
+    </div>
+    <div class="panel active" id="gates">
+      <h2>Quality gates, by risk tier</h2>
+      <p class="panel-note">"Quality" isn't one bar — it's a different, explicit bar per risk tier, so automation can check against it without a human re-deciding every time.</p>
+      <div class="prelim-banner">Illustrative — thresholds shown are placeholders to demonstrate the structure. Real thresholds get calibrated with the Head of Brand once sampling data exists.</div>
+      <div class="gate-cards">
+        <div class="gate low">
+          <p class="g-title">Low risk</p>
+          <ul>
+            <li>Automated brand-compliance score ≥ threshold (TBD)</li>
+            <li>5% human sampling pass rate tracked weekly</li>
+            <li>Off-brand incident rate below agreed cap</li>
+          </ul>
+        </div>
+        <div class="gate med">
+          <p class="g-title">Medium risk</p>
+          <ul>
+            <li>1 brand reviewer sign-off required, logged</li>
+            <li>Automated compliance check as a pre-filter</li>
+            <li>Revision rate tracked as a quality signal</li>
+          </ul>
+        </div>
+        <div class="gate high">
+          <p class="g-title">High risk</p>
+          <ul>
+            <li>Full review chain unchanged — no automated gate replaces it</li>
+            <li>AI output treated as a first draft only</li>
+            <li>Legal/compliance sign-off mandatory, no exceptions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Gate checklists — the tier definitions above, in a format QA can audit against</p></div>
+      </div>
+    </div>
+    <div class="panel" id="assets">
+      <h2>Reusable assets</h2>
+      <p class="panel-note">Assets that get built once and reused across teams — the mechanism that turns 3 separate pilots' worth of work into a shared foundation.</p>
+      <div class="term-note"><b>A note on terminology:</b> marketing operations distinguishes playbooks from SOPs — SOPs fit rigid, compliance-driven tasks with no room for judgment (like a legal sign-off rule); playbooks fit cross-functional, judgment-based work (like a creative handoff). Most of what this pillar produces are playbooks, not SOPs.</div>
+      <div class="prelim-banner">Illustrative — structure and ownership shown as an example; actual content gets populated as initiatives from Process Redesign go live.</div>
+      <div class="asset-grid">
+        <div class="asset-card">
+          <p class="a-title">Prompt library</p>
+          <p class="a-owner">Owner: Brand Manager / Auditor</p>
+          <ul>
+            <li>Organized by solution type — campaign creative, PDP copy, social repurposing</li>
+            <li>Versioned — no team edits a shared prompt without review</li>
+            <li>Replaces each pilot's private prompt library from before the reset</li>
+          </ul>
+        </div>
+        <div class="asset-card">
+          <p class="a-title">Brand standards</p>
+          <p class="a-owner">Owner: Brand Manager / Auditor</p>
+          <ul>
+            <li>Codified rules an automated QA check can run against</li>
+            <li>Same rules regardless of which team or tool produced the asset</li>
+            <li>Reviewed each time an incident rate crosses its threshold</li>
+          </ul>
+        </div>
+        <div class="asset-card">
+          <p class="a-title">Playbooks</p>
+          <p class="a-owner">Owner: Change &amp; Capability Lead</p>
+          <ul>
+            <li>Cross-functional guides for recurring situations — handoffs between teams, onboarding a new team to the shared studio</li>
+            <li>Written once, reused by every team that scales in</li>
+            <li>Updated as Process Redesign finds new gaps</li>
+          </ul>
+        </div>
+      </div>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Prompt library, brand standards, and a playbook library — the 3 assets above</p></div>
+      </div>
+    </div>
+    <div class="panel" id="playbook">
+      <h2>Example playbook — Brand Marketing → Social handoff</h2>
+      <p class="panel-note">A concrete example built to the standard structure marketing operations playbooks use: purpose, scope, owner, trigger, numbered steps with owner and tool, escalation path, and review cadence.</p>
+      <div class="prelim-banner">Illustrative — one example playbook, chosen because the gap it fixes is already documented in the case. The full library gets built as Process Redesign surfaces more handoffs.</div>
+      <div class="pb-meta">
+        <div class="pb-meta-item"><p class="pm-label">Owner</p><p class="pm-value">Brand Manager / Auditor</p></div>
+        <div class="pb-meta-item"><p class="pm-label">Scope</p><p class="pm-value">Low &amp; medium-risk campaign assets</p></div>
+        <div class="pb-meta-item"><p class="pm-label">Version</p><p class="pm-value">v0.1 — draft</p></div>
+        <div class="pb-meta-item"><p class="pm-label">Review cadence</p><p class="pm-value">Quarterly</p></div>
+      </div>
+      <div class="pb-section">
+        <h3>Purpose</h3>
+        <p class="panel-note" style="margin-bottom:0;">Eliminate re-briefing and duplicated work when a campaign asset moves from Brand Marketing to Social for repurposing.</p>
+      </div>
+      <div class="pb-section">
+        <h3>Trigger</h3>
+        <p class="panel-note" style="margin-bottom:0;">Brand Marketing marks an asset "ready for repurposing" in the shared asset library.</p>
+      </div>
+      <div class="pb-section">
+        <h3>Steps</h3>
+        <div class="pb-steps">
+          <div class="pb-step">
+            <div class="pb-step-num">1</div>
+            <div class="pb-step-body">
+              <p class="pb-step-title">Tag and publish the asset</p>
+              <p class="pb-step-meta"><b>Owner:</b> Brand Marketing team &nbsp;·&nbsp; <b>Tool:</b> shared asset library</p>
             </div>
-            <span class="init-chip illustrative">AI-assisted concept &amp; moodboard generation</span>
-            <span class="init-chip illustrative">Shared measurement &amp; feedback dashboard</span>
           </div>
-        </div>
-        <div class="quad q-winners">
-          <span class="q-tag">high prize · high feasibility</span>
-          <span class="q-name">Prioritize first</span>
-          <div class="quad-chips">
-            <div class="init-card">
-              <p class="ic-name">PDP copy generation</p>
-              <p class="ic-metric">70% reduction in copywriting time</p>
-              <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ cost baseline to convert time saved into value</p>
+          <div class="pb-step">
+            <div class="pb-step-num">2</div>
+            <div class="pb-step-body">
+              <p class="pb-step-title">Auto-ingest into the repurposing queue</p>
+              <p class="pb-step-meta"><b>Owner:</b> AI system, monitored by Social lead &nbsp;·&nbsp; <b>Tool:</b> repurposing engine</p>
             </div>
           </div>
-        </div>
-        <div class="quad q-drop">
-          <span class="q-tag">low prize · low feasibility</span>
-          <span class="q-name">Deprioritize</span>
-          <div class="quad-chips"><span class="empty-note">No candidates identified yet</span></div>
-        </div>
-        <div class="quad q-fillins">
-          <span class="q-tag">low prize · high feasibility</span>
-          <span class="q-name">Fill-ins</span>
-          <div class="quad-chips">
-            <div class="init-card">
-              <p class="ic-name">Social repurposing variants</p>
-              <p class="ic-metric">3x social content volume in 3 months</p>
-              <p class="ic-caveat">Prize size unconfirmed: an activity metric, not yet linked to $ cost, revenue, or conversion</p>
+          <div class="pb-step">
+            <div class="pb-step-num">3</div>
+            <div class="pb-step-body">
+              <p class="pb-step-title">Generate platform variants against the brand-as-code ruleset</p>
+              <p class="pb-step-meta"><b>Owner:</b> AI system &nbsp;·&nbsp; <b>Tool:</b> prompt library, brand standards</p>
             </div>
-            <span class="init-chip illustrative">Standardized brief template &amp; intake portal</span>
-            <span class="init-chip illustrative">Publish scheduling &amp; on-time tracking</span>
+          </div>
+          <div class="pb-step">
+            <div class="pb-step-num">4</div>
+            <div class="pb-step-body">
+              <p class="pb-step-title">Route by risk tier</p>
+              <p class="pb-step-meta"><b>Owner:</b> automated routing &nbsp;·&nbsp; low risk → 5% sampling; medium risk → 1 reviewer</p>
+            </div>
+          </div>
+          <div class="pb-step">
+            <div class="pb-step-num">5</div>
+            <div class="pb-step-body">
+              <p class="pb-step-title">Publish</p>
+              <p class="pb-step-meta"><b>Owner:</b> automated for low risk; Social lead confirms for medium risk</p>
+            </div>
           </div>
         </div>
       </div>
-      <div class="m-axis-x"><span>low feasibility</span><span>high feasibility</span></div>
+      <div class="pb-section">
+        <h3>Escalation</h3>
+        <div class="pb-escalation"><b>If a variant fails its brand-compliance score:</b> routes automatically to the Brand Manager / Auditor for manual review within 24 hours — it does not sit in a queue silently.</div>
+      </div>
+      <div class="deliv-strip">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Playbooks — this handoff, documented as the first entry in the library</p></div>
+      </div>
     </div>
-
-    <div class="matrix-enabler"><b>Approval redesign sits outside this matrix on purpose</b> — it's a cross-cutting enabler, not a quadrant candidate. Fixing it multiplies the value of whatever lands in every quadrant above, including what's already validated.</div>
   </div>
 
 </div>
 <script>
-  document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
-    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.toptab').forEach(t=>t.addEventListener('click',()=>{
+    document.querySelectorAll('.toptab').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.toppanel').forEach(x=>x.classList.remove('active'));
     t.classList.add('active');
-    document.getElementById(t.dataset.tab).classList.add('active');
+    document.getElementById(t.dataset.top).classList.add('active');
+  }));
+
+  document.querySelectorAll('.toppanel .tab').forEach(t=>t.addEventListener('click',()=>{
+    const scope = t.closest('.toppanel');
+    scope.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+    scope.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+    t.classList.add('active');
+    scope.querySelector('#'+t.dataset.tab).classList.add('active');
+  }));
+
+  document.querySelectorAll('.toggle-btn').forEach(b=>b.addEventListener('click',()=>{
+    document.querySelectorAll('.toggle-btn').forEach(x=>x.classList.remove('active'));
+    document.querySelectorAll('.flow').forEach(x=>x.classList.remove('active'));
+    b.classList.add('active');
+    document.getElementById(b.dataset.flow).classList.add('active');
   }));
 
   function selectStage(n){
     const card = document.getElementById('stage-'+n);
     const isOpen = card && card.classList.contains('visible');
     document.querySelectorAll('.stage').forEach(s=>s.classList.remove('visible'));
-    document.querySelectorAll('.flow-node').forEach((el,i)=>el.classList.remove('active-node'));
+    document.querySelectorAll('.flow-node').forEach(el=>el.classList.remove('active-node'));
     if(!isOpen && card){
+      const processTab = document.querySelector('#structure .tab[data-tab="process"]');
+      if(processTab && !processTab.classList.contains('active')) processTab.click();
       card.classList.add('visible');
       document.querySelectorAll('.flow-node')[n-1].classList.add('active-node');
     }
