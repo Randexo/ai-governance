@@ -31,33 +31,25 @@
   h2{font-size:15.5px;font-weight:500;margin:0 0 4px;}
   .panel-note{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;max-width:760px;}
 
-  /* TAB 1 — oval table layout */
-  .table-layout{display:grid;grid-template-columns:520px 1fr;gap:8px;align-items:start;}
-  @media (max-width:900px){.table-layout{grid-template-columns:1fr;}}
-  .seat{cursor:pointer;transition:opacity .15s;}
-  .seat:hover{opacity:.85;}
-  .seat circle{stroke-width:1.5;}
-  .seat.active-seat circle{stroke:var(--accent);stroke-width:3;}
+  /* TAB 1 — role comparison table */
+  .role-top{display:flex;align-items:flex-start;gap:24px;margin-bottom:20px;}
+  .role-svg-wrap{flex-shrink:0;width:260px;}
+  .role-svg-wrap svg{width:100%;display:block;}
   .seat-num{font-size:13px;fill:#fff;font-weight:700;}
   .seat-name{font-size:9px;fill:rgba(255,255,255,0.88);font-weight:500;}
-
-  .role-list{display:flex;flex-direction:column;gap:8px;padding-right:4px;}
-  .role-placeholder{font-size:13px;color:var(--ink-soft);padding:16px 0;margin:0;}
-  .role-card{display:none;border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--card);cursor:pointer;transition:border-color .15s,background .15s;}
-  .role-card.visible{display:block;animation:fadeIn .2s ease;}
-  @keyframes fadeIn{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
-  .role-card:hover{border-color:var(--accent-line);background:var(--accent-bg);}
-  .role-card.dashed-role{border-style:dashed;}
-  .role-legend{display:flex;flex-direction:column;gap:7px;margin-top:14px;}
+  .role-legend{display:flex;flex-direction:column;gap:7px;padding-top:6px;}
   .role-legend span{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);}
   .rl-dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0;}
-  .role-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
-  .role-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .role-num.green{background:#0f6e56;}
-  .role-num.brown{background:#854f0b;}
-  .role-name{font-size:13.5px;font-weight:500;}
-  .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 4px;padding-left:16px;}
-  .role-resp li{margin-bottom:4px;}
+  .role-compare{overflow-x:auto;}
+  .role-table{width:100%;border-collapse:collapse;font-size:11px;min-width:860px;}
+  .role-table th,.role-table td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;}
+  .role-th{color:#fff;font-weight:500;font-size:11px;text-align:left;line-height:1.35;}
+  .role-th.blue{background:#185fa5;}
+  .role-th.green{background:#0f6e56;}
+  .role-th.brown{background:#854f0b;}
+  .role-attr{background:var(--gray-bg);font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;width:82px;}
+  .role-table td.purpose{color:var(--ink);font-size:11.5px;line-height:1.5;}
+  .role-table td.phase{color:var(--ink-soft);line-height:1.5;}
 
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
@@ -141,137 +133,75 @@
   <!-- TAB 1 -->
   <div class="panel active" id="roles">
     <h2>Who sits at the table, and why</h2>
-    <p class="panel-note">Click a seat to see its role.</p>
 
-    <div class="table-layout">
-      <div>
-      <svg viewBox="0 0 600 440" width="100%" role="img" aria-label="Oval transformation office table with 7 seats">
-        <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
-        <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
-
-        <g class="seat" data-role="1" onclick="selectRole(1)">
-          <circle cx="300" cy="70" r="36" fill="#185fa5"/>
-          <text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text>
-          <text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text>
-        </g>
-        <g class="seat" data-role="2" onclick="selectRole(2)">
-          <circle cx="472" cy="127" r="33" fill="#0f6e56"/>
-          <text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text>
-          <text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text>
-        </g>
-        <g class="seat" data-role="3" onclick="selectRole(3)">
-          <circle cx="515" cy="253" r="33" fill="#0f6e56"/>
-          <text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text>
-          <text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text>
-        </g>
-        <g class="seat" data-role="4" onclick="selectRole(4)">
-          <circle cx="396" cy="355" r="33" fill="#854f0b"/>
-          <text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text>
-          <text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text>
-        </g>
-        <g class="seat" data-role="5" onclick="selectRole(5)">
-          <circle cx="205" cy="355" r="33" fill="#185fa5"/>
-          <text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text>
-          <text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text>
-        </g>
-        <g class="seat" data-role="6" onclick="selectRole(6)">
-          <circle cx="86" cy="253" r="33" fill="#185fa5"/>
-          <text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text>
-          <text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text>
-        </g>
-        <g class="seat" data-role="7" onclick="selectRole(7)">
-          <circle cx="128" cy="127" r="33" fill="#185fa5"/>
-          <text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text>
-          <text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text>
-        </g>
-      </svg>
+    <div class="role-top">
+      <div class="role-svg-wrap">
+        <svg viewBox="0 0 600 440" role="img" aria-label="Oval transformation office table with 7 seats">
+          <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
+          <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
+          <g><circle cx="300" cy="70" r="36" fill="#185fa5"/><text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text><text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text></g>
+          <g><circle cx="472" cy="127" r="33" fill="#0f6e56"/><text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text><text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text></g>
+          <g><circle cx="515" cy="253" r="33" fill="#0f6e56"/><text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text><text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text></g>
+          <g><circle cx="396" cy="355" r="33" fill="#854f0b"/><text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text><text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text></g>
+          <g><circle cx="205" cy="355" r="33" fill="#185fa5"/><text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text><text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text></g>
+          <g><circle cx="86" cy="253" r="33" fill="#185fa5"/><text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text><text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text></g>
+          <g><circle cx="128" cy="127" r="33" fill="#185fa5"/><text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text><text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text></g>
+        </svg>
+      </div>
       <div class="role-legend">
         <span><i class="rl-dot" style="background:#185fa5"></i>Blue — Transformation Office: run the process</span>
-        <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: execute within delegated budget</span>
-        <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: independent veto on brand risk</span>
+        <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: marketing and technology</span>
+        <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: manages brand risk</span>
       </div>
-      </div>
+    </div>
 
-      <div class="role-list" id="roleList">
-        <p class="role-placeholder" id="rolePlaceholder">Click a seat to see its role.</p>
-
-        <!-- Role 1 -->
-        <div class="role-card" data-role="1" onclick="selectRole(1)">
-          <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
-          <ul class="role-resp">
-            <li>Chairs the TO weekly; holds explicit <b>tiebreaker authority</b> within the TO — including CMO–CTO priority disagreements</li>
-            <li>Resolves operational blockers ad-hoc between sessions (target: 48 h)</li>
-            <li><b>Early on:</b> builds the opportunity inventory; removes blockers</li>
-            <li><b>Later:</b> coaches initiative owners; tracks progress against agreed criteria</li>
-          </ul>
-        </div>
-
-        <!-- Role 2 -->
-        <div class="role-card" data-role="2" onclick="selectRole(2)">
-          <div class="role-head"><span class="role-num green">2</span><span class="role-name">CMO — sponsor</span></div>
-          <ul class="role-resp">
-            <li>Executes within delegated budget (reallocation, not new capex/opex)</li>
-            <li><b>Early on:</b> validates credibility of figures</li>
-            <li>Proposes which opportunities mature for the Board — CEO decides if they go up as presented</li>
-            <li>Cannot override the Head of Brand's veto within the TO</li>
-          </ul>
-        </div>
-
-        <!-- Role 3 -->
-        <div class="role-card" data-role="3" onclick="selectRole(3)">
-          <div class="role-head"><span class="role-num green">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
-          <ul class="role-resp">
-            <li>Executes within delegated budget</li>
-            <li><b>Early on:</b> supplies negotiated licensing cost data</li>
-            <li><b>Later:</b> approves the technology standard per solution type within the TO</li>
-            <li>Present in Steering only for mandate or scope items of technological nature</li>
-          </ul>
-        </div>
-
-        <!-- Role 4 -->
-        <div class="role-card" data-role="4" onclick="selectRole(4)">
-          <div class="role-head"><span class="role-num brown">4</span><span class="role-name">Head of Brand — independent veto</span></div>
-          <ul class="role-resp">
-            <li>Holds an <b>independent veto</b> on brand risk — CMO cannot override it within the TO</li>
-            <li>If CMO disagrees, the item escalates to Steering; Brand presents its position there</li>
-            <li><b>Early on:</b> classifies brand risk by category</li>
-            <li><b>Later:</b> sets risk thresholds before sampling rates change</li>
-          </ul>
-        </div>
-
-        <!-- Role 5 -->
-        <div class="role-card" data-role="5" onclick="selectRole(5)">
-          <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
-          <ul class="role-resp">
-            <li>Certifies ROI figures and <b>classifies spend</b> (reallocation or new capex/opex) — that classification is the only trigger that routes a decision outside the TO's authority</li>
-            <li>Certifies async before the session where possible; only certified figures carry into the scorecard</li>
-            <li><b>Early on:</b> supplies agency-spend data; validates the directional ROI range</li>
-            <li><b>Later:</b> certifies net ROI per solution before scorecard entry</li>
-          </ul>
-        </div>
-
-        <!-- Role 6 -->
-        <div class="role-card" data-role="6" onclick="selectRole(6)">
-          <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
-          <ul class="role-resp">
-            <li>Acts as secretary of the TO weekly; no vote</li>
-            <li>Held by C&amp;T during ramp-up while coaching an internal successor in parallel</li>
-            <li><b>Early on:</b> runs comms so original teams stay informed</li>
-            <li><b>Later:</b> co-leads training as momentum builds, then hands off fully</li>
-          </ul>
-        </div>
-
-        <!-- Role 7 -->
-        <div class="role-card" data-role="7" onclick="selectRole(7)">
-          <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
-          <ul class="role-resp">
-            <li><b>Early on:</b> identifies and prioritizes each team's opportunities</li>
-            <li><b>Later:</b> takes direct ownership of what gets built from that work</li>
-            <li>Can escalate blockers directly to the TO Lead outside of the session cycle (target 48 h); surfaces at the TO weekly as information only if still unresolved</li>
-          </ul>
-        </div>
-
-      </div>
+    <div class="role-compare">
+      <table class="role-table">
+        <thead>
+          <tr>
+            <th class="role-attr"></th>
+            <th class="role-th blue">1 — TO Lead<br><span style="font-weight:400;opacity:.85">COO</span></th>
+            <th class="role-th green">2 — CMO<br><span style="font-weight:400;opacity:.85">Sponsor</span></th>
+            <th class="role-th green">3 — CTO<br><span style="font-weight:400;opacity:.85">Sponsor</span></th>
+            <th class="role-th brown">4 — Head of Brand</th>
+            <th class="role-th blue">5 — Finance</th>
+            <th class="role-th blue">6 — C&amp;T Lead</th>
+            <th class="role-th blue">7 — Team Leads</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="role-attr">Purpose</td>
+            <td class="purpose">Leads the transformation program. Sets the operating cadence, owns the single source of truth, and keeps the work moving end to end.</td>
+            <td class="purpose">Transformation sponsor from marketing. Ensures marketing leadership is behind the program and that teams have the direction and decisions they need.</td>
+            <td class="purpose">Lead technology advisor. Determines which tools and platforms, and why — ensures the technical foundation supports the program.</td>
+            <td class="purpose">Manages brand risk for the program. Determines what is and isn't acceptable from a brand perspective.</td>
+            <td class="purpose">Independent validation of the numbers. Certifies ROI and classifies spend to ensure only solid figures enter the scorecard.</td>
+            <td class="purpose">Manages the change process during ramp-up and coaches an internal successor to take the role over time.</td>
+            <td class="purpose">The execution layer. Know their team's work, surface the opportunities, and will own what gets built.</td>
+          </tr>
+          <tr>
+            <td class="role-attr">Early phase</td>
+            <td class="phase">Builds the opportunity inventory; ensures the team has the data needed to prioritize</td>
+            <td class="phase">Validates credibility of figures; brings the business case to life</td>
+            <td class="phase">Supplies negotiated licensing cost data</td>
+            <td class="phase">Classifies brand risk by category</td>
+            <td class="phase">Supplies agency-spend data; validates the directional ROI range</td>
+            <td class="phase">Runs comms so original teams stay informed; acts as secretary of the TO weekly</td>
+            <td class="phase">Identifies and prioritizes each team's AI opportunities</td>
+          </tr>
+          <tr>
+            <td class="role-attr">Later phase</td>
+            <td class="phase">Coaches initiative owners; tracks delivery against agreed criteria</td>
+            <td class="phase">Proposes which opportunities mature for the Board</td>
+            <td class="phase">Approves the technology standard per solution type</td>
+            <td class="phase">Sets and signs off on risk thresholds</td>
+            <td class="phase">Certifies net ROI per solution before scorecard entry</td>
+            <td class="phase">Co-leads training as momentum builds, then hands off fully</td>
+            <td class="phase">Owns delivery of their team's initiatives</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 
@@ -589,21 +519,6 @@
     t.classList.add('active');
     document.getElementById(t.dataset.subtab).classList.add('active');
   }));
-
-  function selectRole(n){
-    const card = document.querySelector('.role-card[data-role="'+n+'"]');
-    const isOpen = card && card.classList.contains('visible');
-    document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('visible'));
-    document.querySelectorAll('.seat').forEach(s=>s.classList.remove('active-seat'));
-    const ph = document.getElementById('rolePlaceholder');
-    if(!isOpen && card){
-      card.classList.add('visible');
-      document.querySelector('.seat[data-role="'+n+'"]').classList.add('active-seat');
-      if(ph) ph.style.display='none';
-    } else {
-      if(ph) ph.style.display='';
-    }
-  }
 
   // build the 28-day cadence grid
   (function(){
