@@ -40,16 +40,28 @@
   .role-legend{display:flex;flex-direction:column;gap:7px;padding-top:6px;}
   .role-legend span{display:inline-flex;align-items:center;gap:8px;font-size:11.5px;color:var(--ink-soft);}
   .rl-dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0;}
-  .role-compare{overflow-x:auto;}
-  .role-table{width:100%;border-collapse:collapse;font-size:11px;min-width:860px;}
-  .role-table th,.role-table td{border:1px solid var(--line);padding:9px 11px;vertical-align:top;}
-  .role-th{color:#fff;font-weight:500;font-size:11px;text-align:left;line-height:1.35;}
-  .role-th.blue{background:#185fa5;}
-  .role-th.green{background:#0f6e56;}
-  .role-th.brown{background:#854f0b;}
-  .role-attr{background:var(--gray-bg);font-size:10.5px;font-weight:600;color:var(--ink-soft);white-space:nowrap;width:82px;}
-  .role-table td.purpose{color:var(--ink);font-size:11.5px;line-height:1.5;}
-  .role-table td.phase{color:var(--ink-soft);line-height:1.5;}
+  /* role card slider */
+  .role-slider-section{margin-top:4px;}
+  .slider-nav{display:flex;gap:6px;justify-content:flex-end;margin-bottom:10px;}
+  .slider-btn{width:30px;height:30px;border:1px solid var(--line);border-radius:6px;background:var(--card);cursor:pointer;font-size:18px;line-height:1;display:flex;align-items:center;justify-content:center;color:var(--ink-soft);padding:0;}
+  .slider-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .role-slider{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;padding-bottom:6px;}
+  .role-slider::-webkit-scrollbar{height:3px;}
+  .role-slider::-webkit-scrollbar-track{background:var(--gray-bg);}
+  .role-slider::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px;}
+  .rsc{flex:0 0 300px;border-radius:10px;overflow:hidden;border:1px solid var(--line);scroll-snap-align:start;background:var(--card);}
+  .rsc-head{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
+  .rsc-head.blue{background:#185fa5;}
+  .rsc-head.green{background:#0f6e56;}
+  .rsc-head.brown{background:#854f0b;}
+  .rsc-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .rsc-htxt{flex:1;}
+  .rsc-title{font-size:13px;font-weight:500;color:#fff;margin:0;}
+  .rsc-sub{font-size:11px;color:rgba(255,255,255,.72);margin:2px 0 0;}
+  .rsc-body{padding:14px 16px;display:flex;flex-direction:column;gap:12px;}
+  .rsc-label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ink-soft);margin:0 0 4px;}
+  .rsc-text{font-size:12px;color:var(--ink);line-height:1.55;margin:0;}
+  .rsc-text.soft{color:var(--ink-soft);}
 
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
@@ -119,7 +131,7 @@
     <p class="eyebrow">AI transformation reset</p>
     <h1>AI Governance</h1>
     <div class="header-bottom">
-      <p class="sub">A standing governing body with real decision rights over AI priorities, standards, and resourcing. Roles, cadence, and preliminary agenda examples.</p>
+      <p class="sub">A dedicated governing body with real decision rights over AI priorities, standards, and resourcing — serving all 8 brand teams. Roles, cadence, and preliminary agenda examples.</p>
       <a class="header-link" href="operating-model/">→ Operating model</a>
     </div>
   </header>
@@ -155,53 +167,77 @@
       </div>
     </div>
 
-    <div class="role-compare">
-      <table class="role-table">
-        <thead>
-          <tr>
-            <th class="role-attr"></th>
-            <th class="role-th blue">1 — TO Lead<br><span style="font-weight:400;opacity:.85">COO</span></th>
-            <th class="role-th green">2 — CMO<br><span style="font-weight:400;opacity:.85">Sponsor</span></th>
-            <th class="role-th green">3 — CTO<br><span style="font-weight:400;opacity:.85">Sponsor</span></th>
-            <th class="role-th brown">4 — Head of Brand</th>
-            <th class="role-th blue">5 — Finance</th>
-            <th class="role-th blue">6 — C&amp;T Lead</th>
-            <th class="role-th blue">7 — Team Leads</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td class="role-attr">Purpose</td>
-            <td class="purpose">Leads the transformation program. Sets the operating cadence, owns the single source of truth, and keeps the work moving end to end.</td>
-            <td class="purpose">Transformation sponsor from marketing. Ensures marketing leadership is behind the program and that teams have the direction and decisions they need.</td>
-            <td class="purpose">Lead technology advisor. Determines which tools and platforms, and why — ensures the technical foundation supports the program.</td>
-            <td class="purpose">Manages brand risk for the program. Determines what is and isn't acceptable from a brand perspective.</td>
-            <td class="purpose">Independent validation of the numbers. Certifies ROI and classifies spend to ensure only solid figures enter the scorecard.</td>
-            <td class="purpose">Manages the change process during ramp-up and coaches an internal successor to take the role over time.</td>
-            <td class="purpose">The execution layer. Know their team's work, surface the opportunities, and will own what gets built.</td>
-          </tr>
-          <tr>
-            <td class="role-attr">Early phase</td>
-            <td class="phase">Builds the opportunity inventory; ensures the team has the data needed to prioritize</td>
-            <td class="phase">Validates credibility of figures; brings the business case to life</td>
-            <td class="phase">Supplies negotiated licensing cost data</td>
-            <td class="phase">Classifies brand risk by category</td>
-            <td class="phase">Supplies agency-spend data; validates the directional ROI range</td>
-            <td class="phase">Runs comms so original teams stay informed; acts as secretary of the TO weekly</td>
-            <td class="phase">Identifies and prioritizes each team's AI opportunities</td>
-          </tr>
-          <tr>
-            <td class="role-attr">Later phase</td>
-            <td class="phase">Coaches initiative owners; tracks delivery against agreed criteria</td>
-            <td class="phase">Proposes which opportunities mature for the Board</td>
-            <td class="phase">Approves the technology standard per solution type</td>
-            <td class="phase">Sets and signs off on risk thresholds</td>
-            <td class="phase">Certifies net ROI per solution before scorecard entry</td>
-            <td class="phase">Co-leads training as momentum builds, then hands off fully</td>
-            <td class="phase">Owns delivery of their team's initiatives</td>
-          </tr>
-        </tbody>
-      </table>
+    <div class="role-slider-section">
+      <div class="slider-nav">
+        <button class="slider-btn" onclick="slideRoles(-1)" aria-label="Previous">&#8249;</button>
+        <button class="slider-btn" onclick="slideRoles(1)" aria-label="Next">&#8250;</button>
+      </div>
+      <div class="role-slider" id="roleSlider">
+
+        <div class="rsc">
+          <div class="rsc-head blue"><span class="rsc-badge">1</span><div class="rsc-htxt"><p class="rsc-title">TO Lead</p><p class="rsc-sub">COO</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Leads the transformation program. Sets the operating cadence, owns the single source of truth, and keeps the work moving end to end.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Builds the opportunity inventory; ensures the team has the data needed to prioritize</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Coaches initiative owners; tracks delivery against agreed criteria</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head green"><span class="rsc-badge">2</span><div class="rsc-htxt"><p class="rsc-title">CMO</p><p class="rsc-sub">Sponsor</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Transformation sponsor from marketing. Ensures marketing leadership is behind the program and that teams have the direction and decisions they need.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Validates credibility of figures; brings the business case to life</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Proposes which opportunities mature for the Board</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head green"><span class="rsc-badge">3</span><div class="rsc-htxt"><p class="rsc-title">CTO</p><p class="rsc-sub">Sponsor</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Lead technology advisor. Determines which tools and platforms, and why — ensures the technical foundation supports the program.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Supplies negotiated licensing cost data</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Approves the technology standard per solution type</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head brown"><span class="rsc-badge">4</span><div class="rsc-htxt"><p class="rsc-title">Head of Brand</p><p class="rsc-sub">Independent veto</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Holds veto over brand risk. Determines what is and isn't acceptable from a brand perspective for any AI initiative.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Classifies brand risk by category</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Sets and signs off on risk thresholds</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head blue"><span class="rsc-badge">5</span><div class="rsc-htxt"><p class="rsc-title">Finance</p><p class="rsc-sub">Value assurance</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Independent validation of the numbers. Certifies ROI and classifies spend to ensure only solid figures enter the scorecard.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Supplies agency-spend data; validates the directional ROI range</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Certifies net ROI per solution before scorecard entry</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head blue"><span class="rsc-badge">6</span><div class="rsc-htxt"><p class="rsc-title">C&amp;T Lead</p><p class="rsc-sub">Change &amp; capability</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Manages the change process during ramp-up and coaches an internal successor to take the role over time.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Runs comms so original teams stay informed; acts as secretary of the TO weekly</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Co-leads training as momentum builds, then hands off fully</p></div>
+          </div>
+        </div>
+
+        <div class="rsc">
+          <div class="rsc-head blue"><span class="rsc-badge">7</span><div class="rsc-htxt"><p class="rsc-title">Team Leads</p><p class="rsc-sub">One per brand team</p></div></div>
+          <div class="rsc-body">
+            <div><p class="rsc-label">Purpose</p><p class="rsc-text">The execution layer across all 8 brand teams. Know their team's work, surface the opportunities, and will own what gets built.</p></div>
+            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Identifies and prioritizes each team's AI opportunities</p></div>
+            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Owns delivery of their team's initiatives</p></div>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -399,7 +435,7 @@
           <div class="agenda-bot-col">
             <p class="agenda-col-title">Meeting details</p>
             <p class="agenda-detail-row"><strong>Day:</strong> Monday</p>
-            <p class="agenda-detail-row"><strong>Duration:</strong> 60–90 min</p>
+            <p class="agenda-detail-row"><strong>Duration:</strong> 60 min</p>
             <p class="agenda-detail-row"><strong>Frequency:</strong> Weekly</p>
             <p class="agenda-detail-row"><strong>Format:</strong> In-person / virtual</p>
           </div>
@@ -519,6 +555,11 @@
     t.classList.add('active');
     document.getElementById(t.dataset.subtab).classList.add('active');
   }));
+
+  function slideRoles(dir){
+    const s=document.getElementById('roleSlider');
+    s.scrollBy({left:dir*312,behavior:'smooth'});
+  }
 
   // build the 28-day cadence grid
   (function(){
