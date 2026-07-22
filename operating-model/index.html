@@ -155,14 +155,7 @@
   .legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 10px;}
   .legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
   .legend b{padding:1px 7px;border-radius:5px;font-size:10.5px;}
-  .raci-table{overflow-x:auto;}
-  .raci-table table{min-width:720px;}
-  .raci-cell{text-align:center;font-weight:700;font-size:12px;}
-  .raci-cell.R{color:var(--high);}
-  .raci-cell.A{color:var(--accent);}
-  .raci-cell.C{color:var(--low);}
-  .raci-cell.I{color:var(--ink-soft);}
-  .raci-cell.AI{color:var(--ai);}
+  .stage-chip{display:inline-block;font-size:10.5px;padding:2px 8px;border-radius:5px;background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-line);font-weight:500;white-space:nowrap;}
 
   .guideline-list{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
   .guideline{display:flex;gap:14px;border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 16px;align-items:flex-start;}
@@ -217,6 +210,20 @@
   .deliv{flex:1;min-width:200px;border:1px solid var(--accent-line);background:var(--accent-bg);border-radius:10px;padding:12px 14px;}
   .deliv .dl-title{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#0c447c;font-weight:600;margin:0 0 4px;}
   .deliv .dl-text{font-size:12.5px;color:#0c447c;margin:0;}
+
+  .instr-sect{margin:20px 0 6px;}
+  .instr-label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 4px;}
+  .instr-sub{font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;max-width:700px;}
+  .instr-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:8px;}
+  @media(max-width:760px){.instr-grid{grid-template-columns:1fr;}}
+  .instr-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:14px 16px;cursor:pointer;transition:border-color .15s;}
+  .instr-card:hover{border-color:var(--accent-line);}
+  .instr-hd{display:flex;align-items:center;gap:8px;margin-bottom:10px;}
+  .instr-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .instr-pname{font-size:13px;font-weight:500;}
+  .instr-chips{display:flex;flex-direction:column;gap:5px;}
+  .instr-chip{font-size:11.5px;padding:4px 10px;background:var(--gray-bg);border-radius:6px;color:var(--ink-soft);}
+  .instr-go{font-size:10.5px;color:var(--accent);margin:8px 0 0;}
 </style>
 </head>
 <body>
@@ -229,6 +236,38 @@
       <a class="header-link" href="../">← AI governance</a>
     </div>
   </header>
+
+  <div class="instr-sect">
+    <p class="instr-label">Governance instruments</p>
+    <p class="instr-sub">The review produces 7 instruments across 3 pillars — artifacts the TO uses to govern the AI reset from day one. Click a card to open the pillar.</p>
+    <div class="instr-grid">
+      <div class="instr-card" onclick="document.querySelector('[data-top=structure]').click()">
+        <div class="instr-hd"><span class="instr-num">1</span><span class="instr-pname">Process redesign</span></div>
+        <div class="instr-chips">
+          <span class="instr-chip">Prioritized opportunity backlog</span>
+          <span class="instr-chip">Future-state process (TO-BE)</span>
+        </div>
+        <p class="instr-go">→ Open pillar</p>
+      </div>
+      <div class="instr-card" onclick="document.querySelector('[data-top=rolesresp]').click()">
+        <div class="instr-hd"><span class="instr-num">2</span><span class="instr-pname">Roles &amp; responsibilities</span></div>
+        <div class="instr-chips">
+          <span class="instr-chip">Updated role definitions</span>
+          <span class="instr-chip">Accountability guidelines</span>
+        </div>
+        <p class="instr-go">→ Open pillar</p>
+      </div>
+      <div class="instr-card" onclick="document.querySelector('[data-top=standards]').click()">
+        <div class="instr-hd"><span class="instr-num">3</span><span class="instr-pname">Enterprise standards</span></div>
+        <div class="instr-chips">
+          <span class="instr-chip">Prompt library</span>
+          <span class="instr-chip">Brand standards</span>
+          <span class="instr-chip">Playbooks</span>
+        </div>
+        <p class="instr-go">→ Open pillar</p>
+      </div>
+    </div>
+  </div>
 
   <div class="toptabs">
     <div class="toptab active" data-top="structure">1 · Process redesign</div>
