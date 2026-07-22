@@ -10,6 +10,10 @@
     --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
     --gray-bg:#f1efe8; --gray-line:#d8d4c8;
     --dashed:#8a8880;
+    --done:#0f6e56; --done-bg:#e1f5ee; --done-line:#9fe1cb;
+    --gap:#993c1d; --gap-bg:#faece7; --gap-line:#f0997b;
+    --warn:#854f0b; --warn-bg:#faeeda; --warn-line:#fac775;
+    --ai:#534ab7; --ai-bg:#eeedfe; --ai-line:#afa9ec;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
@@ -154,6 +158,65 @@
   .sub-dot.init{background:#0f6e56;}
   .sub-panel{display:none;}
   .sub-panel.active{display:block;}
+
+  /* ── Initiative tracker ── */
+  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#0c447c;margin-bottom:16px;font-weight:500;}
+  .tr-phase{margin:22px 0 0;}
+  .tr-phase-hdr{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap;}
+  .tr-badge{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap;}
+  .tr-badge.s1{background:var(--accent-bg);color:var(--accent);border:1px solid var(--accent-line);}
+  .tr-badge.s2{background:var(--done-bg);color:var(--done);border:1px solid var(--done-line);}
+  .tr-phase-title{font-size:14px;font-weight:500;}
+  .tr-phase-note{font-size:12px;color:var(--ink-soft);margin:0 0 12px;max-width:780px;}
+  .tr-tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;margin-bottom:14px;}
+  .tr-table{width:100%;border-collapse:collapse;font-size:12.5px;min-width:700px;}
+  .tr-table thead tr{background:var(--gray-bg);}
+  .tr-table th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:9px 14px;border-bottom:1px solid var(--line);}
+  .tr-table td{padding:11px 14px;vertical-align:top;border-bottom:1px solid var(--line);}
+  .tr-table tr:last-child td{border-bottom:none;}
+  .tr-table tbody tr:hover{background:var(--gray-bg);}
+  .tr-table .sub-row td{background:var(--gray-bg);padding:5px 14px;}
+  .tr-sub-label{font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;color:var(--ink-soft);}
+  .tr-sub-label.done-col{color:var(--done);}
+  .tr-sub-label.ai-col{color:var(--ai);}
+  .tn{font-weight:500;color:var(--ink);margin:0 0 1px;}
+  .ts{font-size:11px;color:var(--ink-soft);}
+  .sc-legend{font-size:11px;color:var(--ink-soft);margin:0 0 8px;display:flex;gap:14px;flex-wrap:wrap;align-items:center;}
+  .sc-legend span{display:inline-flex;align-items:center;gap:5px;}
+  .sc-row{display:flex;gap:3px;align-items:center;}
+  .sc{width:18px;height:18px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;cursor:default;}
+  .sc.cov{background:var(--done);color:#fff;}
+  .sc.miss{background:var(--gray-bg);color:var(--ink-soft);border:1px solid var(--line);}
+  .sc.unk{background:transparent;color:var(--gray-line);border:1px dashed var(--line);}
+  .tr-chip{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:20px;white-space:nowrap;}
+  .tr-chip.done{background:var(--done-bg);color:var(--done);}
+  .tr-chip.prog{background:var(--accent-bg);color:var(--accent);}
+  .tr-chip.ns{background:var(--gray-bg);color:var(--ink-soft);}
+  .tr-chip.qw{background:var(--done-bg);color:var(--done);border:1px solid var(--done-line);}
+  .tr-chip.he{background:var(--ai-bg);color:var(--ai);border:1px solid var(--ai-line);}
+  .tr-chip.tbd{background:var(--gray-bg);color:var(--ink-soft);}
+  .tr-cdot{width:6px;height:6px;border-radius:50%;display:inline-block;flex-shrink:0;}
+  .tr-cdot.done{background:var(--done);}
+  .tr-cdot.prog{background:var(--accent);}
+  .tr-cdot.ns{background:var(--gray-line);}
+  .gate-box{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:10px;padding:14px 16px;margin-bottom:4px;}
+  .gate-title{font-size:12.5px;font-weight:500;color:var(--warn);margin:0 0 10px;}
+  .gate-list{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  @media(max-width:640px){.gate-list{grid-template-columns:1fr;}}
+  .gate-cb{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--ink);cursor:pointer;user-select:none;}
+  .gate-icon{width:16px;height:16px;border:1.5px solid var(--warn);border-radius:3px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:background .1s,border-color .1s;}
+  .gate-cb.met .gate-icon{background:var(--done);border-color:var(--done);}
+  .gate-cb.met .gate-icon::after{content:'✓';color:#fff;font-size:9px;font-weight:700;}
+  .gate-foot{font-size:11px;color:var(--warn);margin:10px 0 0;font-style:italic;}
+  .gate-foot.clear{color:var(--done);}
+  .tr-arrow{display:flex;align-items:center;gap:14px;margin:20px 0 0;}
+  .tr-arrow-line{flex:1;height:1px;background:var(--line);}
+  .tr-arrow-label{font-size:11px;padding:4px 12px;background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:20px;color:var(--warn);font-weight:500;white-space:nowrap;}
+  .miss-red{font-size:11.5px;color:var(--gap);}
+  .miss-gray{font-size:11.5px;color:var(--ink-soft);font-style:italic;}
+  .sprint-lbl{font-size:12px;font-weight:500;margin:0 0 1px;}
+  .sprint-wk{font-size:10.5px;color:var(--ink-soft);margin:0;}
+  .pending-row td{background:var(--gray-bg);color:var(--ink-soft);font-size:12px;font-style:italic;}
 </style>
 </head>
 <body>
@@ -171,6 +234,7 @@
     <div class="tab active" data-tab="roles">Roles — the table</div>
     <div class="tab" data-tab="cadence">Meeting cadence</div>
     <div class="tab" data-tab="agenda">Preliminary agenda examples</div>
+    <div class="tab" data-tab="tracker">Initiative tracker</div>
   </div>
 
   <!-- TAB 1 -->
@@ -610,6 +674,241 @@
     </div>
   </div>
 
+  <!-- TAB 4 — Initiative tracker -->
+  <div class="panel" id="tracker">
+    <h2>What the TO is tracking right now</h2>
+    <p class="panel-note">Two phases, one tracker. Sprint 1 maps every team before anything is selected — no initiative enters the portfolio until the full inventory is in and the matrix is applied.</p>
+    <div class="prelim-banner">Illustrative — team names 4–8, statuses, owners, and blockers are working hypotheses the TO confirms and updates at each weekly meeting.</div>
+
+    <!-- PHASE 1: SPRINT 1 DISCOVERY -->
+    <div class="tr-phase">
+      <div class="tr-phase-hdr">
+        <span class="tr-badge s1">Sprint 1 · Wks 1–2</span>
+        <span class="tr-phase-title">Discovery — process inventory across all 8 teams</span>
+      </div>
+      <p class="tr-phase-note">Map the full 6-stage content production pipeline for every team — not just which AI tools exist, but which stages they actually touch. Nothing gets prioritized until this view is complete across all 8.</p>
+
+      <div class="sc-legend">
+        <span><span class="sc cov">2</span> AI working here</span>
+        <span><span class="sc miss">2</span> No AI — gap</span>
+        <span><span class="sc unk">?</span> Unknown — inventory pending</span>
+      </div>
+
+      <div class="tr-tbl-wrap">
+        <table class="tr-table">
+          <thead>
+            <tr>
+              <th style="width:28px">#</th>
+              <th style="min-width:150px">Team</th>
+              <th>Pipeline coverage — which of the 6 stages have AI today</th>
+              <th>Process mapped</th>
+              <th>Matrix scored</th>
+              <th>Outcome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">1</td>
+              <td><p class="tn">Brand Marketing</p><p class="ts">Existing pilot</p></td>
+              <td>
+                <div class="sc-row">
+                  <span class="sc miss" title="Stage 1 — Brief / Intake">1</span>
+                  <span class="sc cov" title="Stage 2 — Creative production ✓ Adobe Firefly / GenStudio">2</span>
+                  <span class="sc miss" title="Stage 3 — Approval">3</span>
+                  <span class="sc miss" title="Stage 4 — Adaptation & Localization">4</span>
+                  <span class="sc miss" title="Stage 5 — Publication">5</span>
+                  <span class="sc miss" title="Stage 6 — Measurement">6</span>
+                </div>
+              </td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip qw">→ Quick win</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">2</td>
+              <td><p class="tn">eCommerce</p><p class="ts">Existing pilot</p></td>
+              <td>
+                <div class="sc-row">
+                  <span class="sc miss" title="Stage 1 — Brief / Intake">1</span>
+                  <span class="sc cov" title="Stage 2 — Creative production ✓ AI copy generator">2</span>
+                  <span class="sc miss" title="Stage 3 — Approval">3</span>
+                  <span class="sc miss" title="Stage 4 — Adaptation & Localization">4</span>
+                  <span class="sc miss" title="Stage 5 — Publication">5</span>
+                  <span class="sc miss" title="Stage 6 — Measurement">6</span>
+                </div>
+              </td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip qw">→ Quick win</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">3</td>
+              <td><p class="tn">Social &amp; Content</p><p class="ts">Existing pilot</p></td>
+              <td>
+                <div class="sc-row">
+                  <span class="sc miss" title="Stage 1 — Brief / Intake">1</span>
+                  <span class="sc miss" title="Stage 2 — Creative production">2</span>
+                  <span class="sc miss" title="Stage 3 — Approval">3</span>
+                  <span class="sc cov" title="Stage 4 — Adaptation & Localization ✓ AI repurposing tool">4</span>
+                  <span class="sc miss" title="Stage 5 — Publication">5</span>
+                  <span class="sc miss" title="Stage 6 — Measurement">6</span>
+                </div>
+              </td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip done"><span class="tr-cdot done"></span>Done</span></td>
+              <td><span class="tr-chip qw">→ Quick win</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">4</td>
+              <td><p class="tn">Team 4</p><p class="ts">To be identified</p></td>
+              <td><div class="sc-row"><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span></div></td>
+              <td><span class="tr-chip prog"><span class="tr-cdot prog"></span>In progress</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></td>
+              <td><span class="tr-chip tbd">TBD</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">5</td>
+              <td><p class="tn">Team 5</p><p class="ts">To be identified</p></td>
+              <td><div class="sc-row"><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span></div></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></td>
+              <td><span class="tr-chip tbd">TBD</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">6</td>
+              <td><p class="tn">Team 6</p><p class="ts">To be identified</p></td>
+              <td><div class="sc-row"><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span></div></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></td>
+              <td><span class="tr-chip tbd">TBD</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">7</td>
+              <td><p class="tn">Team 7</p><p class="ts">To be identified</p></td>
+              <td><div class="sc-row"><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span></div></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></td>
+              <td><span class="tr-chip tbd">TBD</span></td>
+            </tr>
+            <tr>
+              <td style="color:var(--ink-soft);font-size:11px">8</td>
+              <td><p class="tn">Team 8</p><p class="ts">To be identified</p></td>
+              <td><div class="sc-row"><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span><span class="sc unk" title="Unknown">?</span></div></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></td>
+              <td><span class="tr-chip tbd">TBD</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="gate-box">
+        <p class="gate-title">Sprint 1 gate — all 4 must be met before Sprint 2 begins · click to check off</p>
+        <div class="gate-list">
+          <div class="gate-cb met" onclick="this.classList.toggle('met');updateGate()">
+            <div class="gate-icon"></div>
+            <span>TO installed and governing — at least one real prioritization or architecture decision made</span>
+          </div>
+          <div class="gate-cb" onclick="this.classList.toggle('met');updateGate()">
+            <div class="gate-icon"></div>
+            <span>Full inventory + value–effort matrix complete for all 8 teams</span>
+          </div>
+          <div class="gate-cb met" onclick="this.classList.toggle('met');updateGate()">
+            <div class="gate-icon"></div>
+            <span>Proven pilot ROI documented with explicit replicability assumptions</span>
+          </div>
+          <div class="gate-cb" onclick="this.classList.toggle('met');updateGate()">
+            <div class="gate-icon"></div>
+            <span>Preliminary brand-risk threshold agreed with Head of Brand</span>
+          </div>
+        </div>
+        <p class="gate-foot" id="gate-foot">2 of 4 conditions met — Sprint 2 cannot start yet.</p>
+      </div>
+    </div>
+
+    <!-- Connector -->
+    <div class="tr-arrow">
+      <div class="tr-arrow-line"></div>
+      <span class="tr-arrow-label">Gate passed → portfolio selected from value–effort matrix</span>
+      <div class="tr-arrow-line"></div>
+    </div>
+
+    <!-- PHASE 2: PRIORITIZED PORTFOLIO -->
+    <div class="tr-phase">
+      <div class="tr-phase-hdr">
+        <span class="tr-badge s2">Sprints 2–6 · Wks 3–12</span>
+        <span class="tr-phase-title">Prioritized portfolio — selected after the matrix</span>
+      </div>
+      <p class="tr-phase-note">Only initiatives the matrix greenlit. Quick wins launch first and prove the full TO decision cycle. The higher-effort initiative begins only once quick wins are running with real data. Teams 4–8 fill in after their inventory closes.</p>
+
+      <div class="tr-tbl-wrap">
+        <table class="tr-table">
+          <thead>
+            <tr>
+              <th style="min-width:180px">Initiative</th>
+              <th>Team</th>
+              <th>Type</th>
+              <th>Status</th>
+              <th>Owner</th>
+              <th style="min-width:80px">Sprint</th>
+              <th style="min-width:200px">What's missing / blocking</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="sub-row">
+              <td colspan="7"><span class="tr-sub-label done-col">Quick wins — launch Sprint 2, scale to compatible-profile teams Sprint 4</span></td>
+            </tr>
+            <tr>
+              <td><p class="tn">Extend Firefly / GenStudio</p><p class="ts">Scale to compatible-profile teams</p></td>
+              <td style="font-size:12px">Brand Marketing</td>
+              <td><span class="tr-chip qw">Quick win</span></td>
+              <td><span class="tr-chip prog"><span class="tr-cdot prog"></span>Launching</span></td>
+              <td style="font-size:12px">T. Lead</td>
+              <td><p class="sprint-lbl">Sprint 2</p><p class="sprint-wk">Wks 3–4</p></td>
+              <td class="miss-red">Tech standard not defined — CTO decision required (Sprint 2)</td>
+            </tr>
+            <tr>
+              <td><p class="tn">Standardize AI copy generator</p><p class="ts">Platform + prompt consolidation</p></td>
+              <td style="font-size:12px">eCommerce</td>
+              <td><span class="tr-chip qw">Quick win</span></td>
+              <td><span class="tr-chip prog"><span class="tr-cdot prog"></span>Launching</span></td>
+              <td style="font-size:12px">C&amp;T Lead</td>
+              <td><p class="sprint-lbl">Sprint 2</p><p class="sprint-wk">Wks 3–4</p></td>
+              <td class="miss-red">Custom platform vs. consolidated tool — open architecture decision</td>
+            </tr>
+            <tr>
+              <td><p class="tn">Confirm &amp; scale repurposing tool</p><p class="ts">Identify platform, expand volume</p></td>
+              <td style="font-size:12px">Social &amp; Content</td>
+              <td><span class="tr-chip qw">Quick win</span></td>
+              <td><span class="tr-chip prog"><span class="tr-cdot prog"></span>Launching</span></td>
+              <td style="font-size:12px">C&amp;T Lead</td>
+              <td><p class="sprint-lbl">Sprint 2</p><p class="sprint-wk">Wks 3–4</p></td>
+              <td class="miss-red">Platform not specified — brand-risk assessment blocked until known</td>
+            </tr>
+            <tr class="sub-row">
+              <td colspan="7"><span class="tr-sub-label ai-col">Higher-effort initiative — begins only after quick wins are running with real data</span></td>
+            </tr>
+            <tr>
+              <td><p class="tn">TBD — selected from matrix</p><p class="ts">Full process + roles + standards build</p></td>
+              <td style="font-size:12px;color:var(--ink-soft)">TBD</td>
+              <td><span class="tr-chip he">Higher effort</span></td>
+              <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
+              <td style="font-size:12px;color:var(--ink-soft)">TBD</td>
+              <td><p class="sprint-lbl">Sprint 3</p><p class="sprint-wk">Wks 5–6</p></td>
+              <td class="miss-gray">Held until Sprint 1 gate met + quick wins running with real data</td>
+            </tr>
+            <tr class="sub-row">
+              <td colspan="7"><span class="tr-sub-label">Teams 4–8 — pending Sprint 1 inventory</span></td>
+            </tr>
+            <tr class="pending-row">
+              <td colspan="7">Teams 4–8 initiatives will be added here after their inventory closes and the value–effort matrix is applied. Rollout to all 8 teams is explicitly out of scope until Sprint 4.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </div>
 <script>
   document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
@@ -625,6 +924,15 @@
     t.classList.add('active');
     document.getElementById(t.dataset.subtab).classList.add('active');
   }));
+
+  function updateGate(){
+    const total=document.querySelectorAll('.gate-cb').length;
+    const met=document.querySelectorAll('.gate-cb.met').length;
+    const foot=document.getElementById('gate-foot');
+    if(!foot)return;
+    if(met===total){foot.textContent='All '+total+' conditions met — Sprint 2 can begin.';foot.className='gate-foot clear';}
+    else{foot.textContent=met+' of '+total+' conditions met — Sprint 2 cannot start yet.';foot.className='gate-foot';}
+  }
 
   function slideRoles(dir){
     const s=document.getElementById('roleSlider');
