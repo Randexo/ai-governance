@@ -63,6 +63,37 @@
   .rsc-text{font-size:12px;color:var(--ink);line-height:1.55;margin:0;}
   .rsc-text.soft{color:var(--ink-soft);}
 
+  /* TAB 1 — decision rights */
+  .decision-section{border-top:1px solid var(--line);margin-top:28px;padding-top:22px;}
+  .decision-principle{background:var(--accent-bg);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:16px;font-size:12.5px;color:var(--ink);max-width:760px;}
+  .decision-principle strong{color:var(--accent);}
+  .decision-table{width:100%;border-collapse:collapse;border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:12px;}
+  .decision-table thead tr{background:var(--gray-bg);}
+  .decision-table th{text-align:left;font-size:10.5px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft);padding:10px 14px;border-bottom:1px solid var(--line);}
+  .decision-table td{padding:13px 14px;vertical-align:top;border-bottom:1px solid var(--line);}
+  .decision-table tr:last-child td{border-bottom:none;}
+  .decision-table tbody tr:hover{background:var(--gray-bg);}
+  .dt-cell{display:flex;align-items:flex-start;gap:10px;}
+  .dt-stripe{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:18px;}
+  .dt-stripe.blue{background:#185fa5;}
+  .dt-stripe.green{background:#0f6e56;}
+  .dt-stripe.brown{background:#854f0b;}
+  .dt-stripe.dark{background:#2b3340;}
+  .dt-text{font-size:12px;color:var(--ink);line-height:1.5;}
+  .owner-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;padding:3px 9px 3px 5px;border-radius:20px;white-space:nowrap;}
+  .owner-badge .bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+  .owner-badge.blue{color:#185fa5;background:rgba(24,95,165,.09);}
+  .owner-badge.blue .bdot{background:#185fa5;}
+  .owner-badge.green{color:#0f6e56;background:rgba(15,110,86,.09);}
+  .owner-badge.green .bdot{background:#0f6e56;}
+  .owner-badge.brown{color:#854f0b;background:rgba(133,79,11,.09);}
+  .owner-badge.brown .bdot{background:#854f0b;}
+  .owner-badge.dark{color:#2b3340;background:rgba(43,51,64,.09);}
+  .owner-badge.dark .bdot{background:#2b3340;}
+  .protects-text{font-size:11.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
+  .protects-text strong{color:var(--ink);font-weight:600;}
+  .decision-footnote{font-size:10.5px;color:var(--ink-soft);margin:8px 0 0;font-style:italic;}
+
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
   .dot-legend{width:10px;height:10px;border-radius:50%;display:inline-block;}
@@ -238,6 +269,48 @@
         </div>
 
       </div>
+    </div>
+
+    <div class="decision-section">
+      <h2>How decisions get made</h2>
+      <p class="panel-note">One right per decision type. Each stakeholder's concern has a structural answer.</p>
+      <div class="decision-principle">
+        <strong>Default rule:</strong> decide at the lowest level that has the right information. The TO closes what it can — Steering only receives what the TO genuinely cannot close on its own.
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="decision-table">
+          <thead>
+            <tr>
+              <th style="width:30%">Decision</th>
+              <th style="width:24%">Authority</th>
+              <th>What this protects</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="dt-cell"><div class="dt-stripe blue"></div><span class="dt-text">Initiative prioritization, resourcing, and standards — within delegated budget</span></div></td>
+              <td><span class="owner-badge blue"><span class="bdot"></span>TO Lead (COO)</span></td>
+              <td><p class="protects-text"><strong>Against fragmentation.</strong> One body decides what moves and in what order. No team can pull in a different direction without TO sign-off.</p></td>
+            </tr>
+            <tr>
+              <td><div class="dt-cell"><div class="dt-stripe green"></div><span class="dt-text">Technology platform and tool adoption per solution type</span></div></td>
+              <td><span class="owner-badge green"><span class="bdot"></span>CTO, validated by TO</span></td>
+              <td><p class="protects-text"><strong>Against new technical debt.</strong> No tool is adopted outside existing enterprise architecture. CTO decides the standard; TO enforces it across all 8 teams.</p></td>
+            </tr>
+            <tr>
+              <td><div class="dt-cell"><div class="dt-stripe brown"></div><span class="dt-text">Brand compliance gate on any AI-generated output before it reaches market</span></div></td>
+              <td><span class="owner-badge brown"><span class="bdot"></span>Head of Brand</span></td>
+              <td><p class="protects-text"><strong>Brand standards are not bypassed.</strong> Manual review is systematized into a gate — Head of Brand keeps the authority; what changes is the process around it, not the control.</p></td>
+            </tr>
+            <tr>
+              <td><div class="dt-cell"><div class="dt-stripe dark"></div><span class="dt-text">Mandate or scope expansion beyond delegated budget</span></div></td>
+              <td><span class="owner-badge dark"><span class="bdot"></span>CEO at Steering</span></td>
+              <td><p class="protects-text"><strong>Board commitment stays credible.</strong> No scope creep without CEO sign-off. The CMO's 90-day narrative has a real authority structure behind it.</p></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="decision-footnote">Steering Committee — monthly session chaired by the CEO. Handles mandate and scope decisions that exceed the TO's delegated budget, and any Brand-risk escalations not closed ad-hoc. All other TO decisions stand without Steering review.</p>
     </div>
   </div>
 
