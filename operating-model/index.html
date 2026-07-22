@@ -249,9 +249,9 @@
       <p class="panel-note">Brief to feedback. Green stages already have a working pilot behind them; amber stages are open — that's where sizing happens next.</p>
       <div class="prelim-banner">Preliminary — illustrative only. Every initiative example, impact figure, and risk on this tab needs to be confirmed with real company data before it enters the business case.</div>
       <div class="summary-strip">
-        <div class="stat known"><div class="num">2 of 7</div><div class="lbl">stages already have a working pilot (3 initiatives)</div></div>
-        <div class="stat gap"><div class="num">5 of 7</div><div class="lbl">stages are open opportunities to size</div></div>
-        <div class="stat gap"><div class="num">1</div><div class="lbl">cross-cutting bottleneck touches all 7</div></div>
+        <div class="stat known"><div class="num">2 of 6</div><div class="lbl">stages have working pilots — 3 initiatives running</div></div>
+        <div class="stat gap"><div class="num">4 of 6</div><div class="lbl">stages are open opportunities to size</div></div>
+        <div class="stat gap"><div class="num">1</div><div class="lbl">cross-cutting bottleneck touches all 6</div></div>
       </div>
       <div class="flow-legend">
         <span><i class="dot-legend known"></i>already has a working pilot</span>
@@ -260,12 +260,11 @@
       </div>
       <div class="flow-strip">
         <div class="flow-node" onclick="selectStage(1)"><div class="flow-circle gap">1</div><div class="flow-label">Brief / Intake</div></div>
-        <div class="flow-node" onclick="selectStage(2)"><div class="flow-circle gap">2</div><div class="flow-label">Creative &amp; Strategic Dev.</div></div>
-        <div class="flow-node" onclick="selectStage(3)"><div class="flow-circle known">3</div><div class="flow-label">Production</div></div>
-        <div class="flow-node" onclick="selectStage(4)"><div class="flow-circle gap enabler">4</div><div class="flow-label">Approval (7 steps)</div></div>
-        <div class="flow-node" onclick="selectStage(5)"><div class="flow-circle known">5</div><div class="flow-label">Adaptation &amp; Localization</div></div>
-        <div class="flow-node" onclick="selectStage(6)"><div class="flow-circle gap">6</div><div class="flow-label">Publication</div></div>
-        <div class="flow-node" onclick="selectStage(7)"><div class="flow-circle gap">7</div><div class="flow-label">Measurement &amp; Feedback</div></div>
+        <div class="flow-node" onclick="selectStage(2)"><div class="flow-circle known">2</div><div class="flow-label">Creative production</div></div>
+        <div class="flow-node" onclick="selectStage(3)"><div class="flow-circle gap enabler">3</div><div class="flow-label">Approval (7 steps)</div></div>
+        <div class="flow-node" onclick="selectStage(4)"><div class="flow-circle known">4</div><div class="flow-label">Adaptation &amp; Localization</div></div>
+        <div class="flow-node" onclick="selectStage(5)"><div class="flow-circle gap">5</div><div class="flow-label">Publication</div></div>
+        <div class="flow-node" onclick="selectStage(6)"><div class="flow-circle gap">6</div><div class="flow-label">Measurement &amp; Feedback</div></div>
       </div>
       <p class="panel-note">Click a stage to see its detail.</p>
 
@@ -280,24 +279,17 @@
       <div class="stage" id="stage-2">
         <div class="stage-num">2</div>
         <div class="stage-body">
-          <div class="stage-head"><span class="stage-name">Creative &amp; Strategic Development</span><span class="badge gap">Opportunity</span></div>
-          <p class="stage-detail">Concept and messaging — still fully human judgment, untouched by any of the 3 pilots.</p>
-          <div class="example-flag"><b>Example initiative (illustrative):</b> AI-assisted concept and moodboard generation to speed up early ideation — human-led, AI-assisted, not AI-owned.</div>
-        </div>
-      </div>
-      <div class="stage" id="stage-3">
-        <div class="stage-num">3</div>
-        <div class="stage-body">
-          <div class="stage-head"><span class="stage-name">Production</span><span class="badge known">Already addressed</span></div>
-          <p class="stage-detail">Where the asset actually gets made.</p>
+          <div class="stage-head"><span class="stage-name">Creative production</span><span class="badge known">Partly addressed</span><span class="badge gap">+ open opportunity</span></div>
+          <p class="stage-detail">From concept and messaging through to finished asset. AI is running at the execution end; the concept and ideation phase is untouched by any of the 3 pilots.</p>
           <div class="capture"><b>Brand Marketing</b> — Adobe Firefly / GenStudio → <b>$800K</b> estimated agency-fee savings</div>
           <div class="risk-flag"><b>Risks to evaluate:</b> platform/vendor lock-in; licensing cost at 8-team scale unconfirmed; no shared prompt or quality standard with the other 2 pilots — see Enterprise Standards.</div>
           <div class="capture"><b>eCommerce</b> — custom AI copy generator → <b>70%</b> reduction in copywriting time</div>
           <div class="risk-flag"><b>Risks to evaluate:</b> built on a separate platform with its own prompt library and quality standards — possible duplicated investment; ongoing engineering cost to maintain a custom build.</div>
+          <div class="example-flag"><b>Open opportunity (illustrative):</b> AI-assisted concept and moodboard generation for early ideation — human-led, AI-assisted, not AI-owned.</div>
         </div>
       </div>
-      <div class="stage" id="stage-4">
-        <div class="stage-num">4</div>
+      <div class="stage" id="stage-3">
+        <div class="stage-num">3</div>
         <div class="stage-body">
           <div class="stage-head"><span class="stage-name">Approval (7 steps)</span><span class="badge gap">Opportunity</span></div>
           <p class="stage-detail">Pre-dates every pilot. Every initiative, addressed or not, still passes through this stage unchanged.</p>
@@ -305,8 +297,8 @@
           <div class="enabler-flag">Cross-cutting enabler, not a normal opportunity — fixing this multiplies the value of everything else on this list.</div>
         </div>
       </div>
-      <div class="stage" id="stage-5">
-        <div class="stage-num">5</div>
+      <div class="stage" id="stage-4">
+        <div class="stage-num">4</div>
         <div class="stage-body">
           <div class="stage-head"><span class="stage-name">Adaptation &amp; Localization</span><span class="badge known">Already addressed</span></div>
           <p class="stage-detail">Resizing and reformatting per channel.</p>
@@ -314,16 +306,16 @@
           <div class="risk-flag"><b>Risks to evaluate:</b> underlying technology not specified — unknown platform, unknown risk profile; volume tripled without confirmed brand-risk or quality controls; no link yet to business-outcome measurement.</div>
         </div>
       </div>
-      <div class="stage" id="stage-6">
-        <div class="stage-num">6</div>
+      <div class="stage" id="stage-5">
+        <div class="stage-num">5</div>
         <div class="stage-body">
           <div class="stage-head"><span class="stage-name">Publication</span><span class="badge gap">Opportunity</span></div>
           <p class="stage-detail">No shared on-time publish tracking — each team measures its own cycle, if at all.</p>
           <div class="example-flag"><b>Example initiative (illustrative):</b> automated publish scheduling with a shared on-time tracking dashboard across channels.</div>
         </div>
       </div>
-      <div class="stage" id="stage-7">
-        <div class="stage-num">7</div>
+      <div class="stage" id="stage-6">
+        <div class="stage-num">6</div>
         <div class="stage-body">
           <div class="stage-head"><span class="stage-name">Measurement &amp; Feedback</span><span class="badge gap">Opportunity</span></div>
           <p class="stage-detail">No baseline, no shared definition of success — the gap that made the 3 pilots' numbers impossible to compare.</p>
@@ -339,7 +331,7 @@
     <div class="panel" id="approval">
       <h2>Approval: from uniform to risk-tiered</h2>
       <p class="panel-note">The case confirms only that a 7-step approval process pre-dates the pilots and still exists — it doesn't name the steps. What follows is an illustrative reconstruction, plausible for a large regulated US retailer, to be confirmed with real process documentation.</p>
-      <div class="prelim-banner">Illustrative — the 7 steps below are a working hypothesis. Gray steps are pipeline context; the 7 coral steps are the approval chain itself.</div>
+      <div class="prelim-banner">Illustrative — the 7 approval steps below are a working hypothesis. Gray steps are pipeline context; the 7 coral steps are the approval chain itself.</div>
       <div class="toggle-bar">
         <div class="toggle-btn active" data-flow="asis">AS-IS (unchanged since before the pilots)</div>
         <div class="toggle-btn" data-flow="tobe">TO-BE</div>
