@@ -53,7 +53,8 @@
   .rl-dot{width:12px;height:12px;border-radius:50%;display:inline-block;flex-shrink:0;}
   .role-head{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
   .role-num{width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:11px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-  .role-num.dashed-num{background:var(--dashed);}
+  .role-num.green{background:#0f6e56;}
+  .role-num.brown{background:#854f0b;}
   .role-name{font-size:13.5px;font-weight:500;}
   .role-resp{font-size:12px;color:var(--ink-soft);margin:0 0 4px;padding-left:16px;}
   .role-resp li{margin-bottom:4px;}
@@ -103,6 +104,7 @@
   .agenda-bot-col:last-child{border-right:none;}
   .agenda-detail-row{font-size:11.5px;color:var(--ink-soft);margin:0 0 4px;}
   .agenda-detail-row strong{color:var(--ink);}
+  .agenda-footnote{font-size:10.5px;color:var(--ink-soft);margin:8px 0 0;font-style:italic;}
 
   /* sub-tabs inside tab 3 */
   .sub-tabs{display:flex;gap:2px;margin:16px 0 20px;border-bottom:1px solid var(--gray-line);}
@@ -185,75 +187,87 @@
       </svg>
       <div class="role-legend">
         <span><i class="rl-dot" style="background:#185fa5"></i>Blue — Transformation Office: run the process</span>
-        <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: authority toward the board</span>
-        <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Governance vote: veto on brand risk</span>
+        <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: execute within delegated budget</span>
+        <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: independent veto on brand risk</span>
       </div>
       </div>
 
       <div class="role-list" id="roleList">
         <p class="role-placeholder" id="rolePlaceholder">Click a seat to see its role.</p>
 
+        <!-- Role 1 -->
         <div class="role-card" data-role="1" onclick="selectRole(1)">
           <div class="role-head"><span class="role-num">1</span><span class="role-name">Transformation Lead — held by the COO</span></div>
           <ul class="role-resp">
-            <li>Chairs the weekly action meeting and owns the single source of truth</li>
-            <li>Removes roadblocks</li>
-            <li><b>Early on:</b> chases key data points (e.g. agency spend, SKU volume, brand risk, licensing cost) to build the opportunity inventory</li>
-            <li><b>Later:</b> coaches initiative owners and tracks progress against agreed criteria</li>
+            <li>Chairs the TO weekly; holds explicit <b>tiebreaker authority</b> within the TO — including CMO–CTO priority disagreements</li>
+            <li>Resolves operational blockers ad-hoc between sessions (target: 48 h)</li>
+            <li><b>Early on:</b> builds the opportunity inventory; removes blockers</li>
+            <li><b>Later:</b> coaches initiative owners; tracks progress against agreed criteria</li>
           </ul>
         </div>
 
+        <!-- Role 2 -->
         <div class="role-card" data-role="2" onclick="selectRole(2)">
-          <div class="role-head"><span class="role-num">2</span><span class="role-name">CMO — sponsor</span></div>
+          <div class="role-head"><span class="role-num green">2</span><span class="role-name">CMO — sponsor</span></div>
           <ul class="role-resp">
-            <li>Owns the board relationship and the business case for the transformation</li>
-            <li>Makes sure the numbers are credible before they go to the board</li>
-            <li>Decides which opportunities to present to the board as they mature</li>
+            <li>Executes within delegated budget (reallocation, not new capex/opex)</li>
+            <li><b>Early on:</b> validates credibility of figures</li>
+            <li>Proposes which opportunities mature for the Board — CEO decides if they go up as presented</li>
+            <li>Cannot override the Head of Brand's veto within the TO</li>
           </ul>
         </div>
 
+        <!-- Role 3 -->
         <div class="role-card" data-role="3" onclick="selectRole(3)">
-          <div class="role-head"><span class="role-num">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
+          <div class="role-head"><span class="role-num green">3</span><span class="role-name">CTO — sponsor (technology)</span></div>
           <ul class="role-resp">
-            <li>Elevated to full sponsor given the weight of the technology consolidation</li>
+            <li>Executes within delegated budget</li>
             <li><b>Early on:</b> supplies negotiated licensing cost data</li>
-            <li><b>Later:</b> approves the technology standard per solution type</li>
+            <li><b>Later:</b> approves the technology standard per solution type within the TO</li>
+            <li>Present in Steering only for mandate or scope items of technological nature</li>
           </ul>
         </div>
 
+        <!-- Role 4 -->
         <div class="role-card" data-role="4" onclick="selectRole(4)">
-          <div class="role-head"><span class="role-num">4</span><span class="role-name">Head of Brand — voting member</span></div>
+          <div class="role-head"><span class="role-num brown">4</span><span class="role-name">Head of Brand — independent veto</span></div>
           <ul class="role-resp">
-            <li>Holds veto over the brand-risk criterion in the approval redesign</li>
-            <li><b>Early on:</b> supplies brand-risk classification by category</li>
-            <li><b>Later:</b> signs off on risk thresholds before sampling rates change</li>
+            <li>Holds an <b>independent veto</b> on brand risk — CMO cannot override it within the TO</li>
+            <li>If CMO disagrees, the item escalates to Steering; Brand presents its position there</li>
+            <li><b>Early on:</b> classifies brand risk by category</li>
+            <li><b>Later:</b> sets risk thresholds before sampling rates change</li>
           </ul>
         </div>
 
+        <!-- Role 5 -->
         <div class="role-card" data-role="5" onclick="selectRole(5)">
           <div class="role-head"><span class="role-num">5</span><span class="role-name">Finance — value assurance</span></div>
           <ul class="role-resp">
-            <li>Independent check on the ROI math</li>
-            <li><b>Early on:</b> supplies agency-spend data and validates the directional ROI range</li>
-            <li><b>Later:</b> certifies net ROI per solution before it enters the scorecard</li>
+            <li>Certifies ROI figures and <b>classifies spend</b> (reallocation or new capex/opex) — that classification is the only trigger that routes a decision outside the TO's authority</li>
+            <li>Certifies async before the session where possible; only certified figures carry into the scorecard</li>
+            <li><b>Early on:</b> supplies agency-spend data; validates the directional ROI range</li>
+            <li><b>Later:</b> certifies net ROI per solution before scorecard entry</li>
           </ul>
         </div>
 
+        <!-- Role 6 -->
         <div class="role-card" data-role="6" onclick="selectRole(6)">
           <div class="role-head"><span class="role-num">6</span><span class="role-name">Change &amp; capability lead — held by C&amp;T initially</span></div>
           <ul class="role-resp">
+            <li>Acts as secretary of the TO weekly; no vote</li>
             <li>Held by C&amp;T during ramp-up while coaching an internal successor in parallel</li>
             <li><b>Early on:</b> runs comms so original teams stay informed</li>
             <li><b>Later:</b> co-leads training as momentum builds, then hands off fully</li>
           </ul>
         </div>
 
+        <!-- Role 7 -->
         <div class="role-card" data-role="7" onclick="selectRole(7)">
           <div class="role-head"><span class="role-num">7</span><span class="role-name">Team leads — one per brand team / function</span></div>
           <ul class="role-resp">
-            <li>Active from the start with a role that evolves</li>
             <li><b>Early on:</b> identifies and prioritizes each team's opportunities</li>
             <li><b>Later:</b> takes direct ownership of what gets built from that work</li>
+            <li>Can escalate blockers directly to the TO Lead outside of the session cycle (target 48 h); surfaces at the TO weekly as information only if still unresolved</li>
           </ul>
         </div>
 
@@ -286,11 +300,11 @@
     <div class="cadence-purpose">
       <div class="purpose-card">
         <p class="pc-title">Steering committee</p>
-        <p class="pc-text">Higher-altitude checkpoint. Translates Office progress into the board-facing narrative.</p>
+        <p class="pc-text">Higher-altitude checkpoint. Resolves mandate/scope decisions and unresolved Brand-risk escalations only — all other TO decisions stand without Steering review.</p>
       </div>
       <div class="purpose-card">
         <p class="pc-title">TO weekly action meeting</p>
-        <p class="pc-text">Fast, fact-based. Removes roadblocks, tracks the single source of truth. 60–90 min.</p>
+        <p class="pc-text">Fast, fact-based. Default channel for fast-resolvable items is ad-hoc between sessions — the meeting gives visibility to what was resolved and handles what coordination could not close. 60–90 min.</p>
       </div>
       <div class="purpose-card">
         <p class="pc-title">Team standups</p>
@@ -320,7 +334,7 @@
         </div>
         <div class="agenda-meta-row" style="border-bottom:none">
           <div class="agenda-meta-label">Primary objective</div>
-          <div class="agenda-meta-val">Translate TO progress into the board-facing value narrative and resolve any decisions that require sponsor authority</div>
+          <div class="agenda-meta-val">Translate TO progress into the board-facing value narrative; resolve mandate/scope decisions and unresolved Brand-risk escalations</div>
         </div>
 
         <div class="agenda-cols">
@@ -329,8 +343,8 @@
             <ul class="agenda-bullets">
               <li>Review portfolio health at altitude</li>
               <li>Validate the value story is credible and board-ready</li>
-              <li>Approve escalations from the TO that require sponsor authority</li>
-              <li>Calibrate priorities and direction for the coming month</li>
+              <li>Decide on mandate or scope items that exceed delegated budget</li>
+              <li>Resolve Brand-risk escalations not closed ad-hoc before the session</li>
             </ul>
           </div>
 
@@ -339,25 +353,28 @@
             <table class="agenda-inner-table">
               <thead><tr><th>#</th><th>Block</th><th>Duration</th><th>Purpose</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda and recap prior decisions</td></tr>
-                <tr><td>2</td><td>Portfolio health</td><td>20 min</td><td>Transformation Lead presents overall progress, flags, and risks</td></tr>
-                <tr><td>3</td><td>Value story update</td><td>15 min</td><td>CMO presents board narrative; Finance validates the numbers</td></tr>
-                <tr><td>4</td><td>Escalations &amp; decisions</td><td>15 min</td><td>Items from the TO requiring sponsor authority</td></tr>
-                <tr><td>5</td><td>Close &amp; directives</td><td>5 min</td><td>Log decisions; give direction back to the TO</td></tr>
+                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda; recap prior decisions</td></tr>
+                <tr><td>2</td><td>Portfolio health</td><td>20 min</td><td>COO leads — operational progress and delivery risks; informative unless it touches mandate or scope</td></tr>
+                <tr><td>3</td><td>Value story update</td><td>15 min</td><td>CMO leads — board narrative; Finance certifies figures; CEO decides if it goes to the Board as presented</td></tr>
+                <tr><td>4</td><td>Mandate &amp; scope decisions</td><td>10 min</td><td>Requests that exceed delegated budget — only if there is real content this month</td></tr>
+                <tr><td>5</td><td>Brand-risk escalation</td><td>10 min</td><td>Only if CMO and Brand did not resolve ad-hoc; if resolved, reported in 2 min inside block 2</td></tr>
+                <tr><td>6</td><td>Close &amp; directives</td><td>5 min</td><td>Log decisions; give direction back to the TO</td></tr>
               </tbody>
             </table>
+            <p class="agenda-footnote">Blocks 4 and 5 only take time if there is real content that month — their absence is a healthy signal.</p>
           </div>
 
           <div class="agenda-col">
             <p class="agenda-col-title">Participants &amp; roles</p>
             <table class="agenda-inner-table">
-              <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
+              <thead><tr><th>Participant</th><th>Role in session</th><th>Presence</th></tr></thead>
               <tbody>
-                <tr><td>CMO</td><td>Co-chair</td><td>Owns board narrative; presents value story</td></tr>
-                <tr><td>CTO</td><td>Co-chair</td><td>Validates technology standard decisions</td></tr>
-                <tr><td>Transformation Lead (COO)</td><td>Presenter</td><td>Reports portfolio health; receives sponsor directives</td></tr>
-                <tr><td>Finance</td><td>Value check</td><td>Certifies ROI figures before they go upward</td></tr>
-                <tr><td>Head of Brand</td><td>Voter (as needed)</td><td>Called in when brand-risk decisions are on the agenda</td></tr>
+                <tr><td>CEO</td><td>Chair</td><td>Always</td></tr>
+                <tr><td>CMO</td><td>Leads value story block</td><td>Always</td></tr>
+                <tr><td>Transformation Lead (COO)</td><td>Leads portfolio health block</td><td>Always</td></tr>
+                <tr><td>Finance</td><td>Certifies figures going upward</td><td>Always</td></tr>
+                <tr><td>CTO</td><td>Presents mandate/scope tech items</td><td>As-needed</td></tr>
+                <tr><td>Head of Brand</td><td>Presents Brand-risk escalation</td><td>As-needed</td></tr>
               </tbody>
             </table>
           </div>
@@ -376,7 +393,8 @@
             <ul class="agenda-bullets">
               <li>Only Finance-certified figures are presented upward</li>
               <li>Transformation Lead circulates a one-pager 48 h before</li>
-              <li>Decisions made here take precedence over TO-level decisions</li>
+              <li>Decisions on mandate/scope and unresolved Brand-risk escalations take precedence over TO-level decisions — all other TO decisions stand</li>
+              <li>Each presenter leads their own block — CMO leads value story; COO leads portfolio health</li>
               <li>Minutes distributed to all TO members within 24 hours</li>
             </ul>
           </div>
@@ -402,16 +420,16 @@
         </div>
         <div class="agenda-meta-row" style="border-bottom:none">
           <div class="agenda-meta-label">Primary objective</div>
-          <div class="agenda-meta-val">Align on priorities, unblock delivery, and keep the single source of truth current</div>
+          <div class="agenda-meta-val">Give visibility to what was resolved ad-hoc this week, and decide what rapid coordination could not close</div>
         </div>
 
         <div class="agenda-cols">
           <div class="agenda-col">
             <p class="agenda-col-title">Specific objectives</p>
             <ul class="agenda-bullets">
-              <li>Review progress on active initiatives and open blockers</li>
-              <li>Make tactical decisions and escalate to sponsors when needed</li>
-              <li>Update the single source of truth after each session</li>
+              <li>Report on active initiatives</li>
+              <li>Surface blockers already resolved ad-hoc (visibility only)</li>
+              <li>Resolve blockers that rapid coordination could not close</li>
               <li>Confirm owners and deadlines for the next week</li>
             </ul>
           </div>
@@ -421,11 +439,12 @@
             <table class="agenda-inner-table">
               <thead><tr><th>#</th><th>Block</th><th>Duration</th><th>Purpose</th></tr></thead>
               <tbody>
-                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda and review prior commitments</td></tr>
-                <tr><td>2</td><td>Inventory status</td><td>10 min</td><td>Transformation Lead presents data progress and opportunity list</td></tr>
-                <tr><td>3</td><td>Initiative review</td><td>30 min</td><td>Each owner presents status, risks, and support needs</td></tr>
-                <tr><td>4</td><td>Blockers &amp; decisions</td><td>10 min</td><td>Resolve blockers; escalate to sponsors if required</td></tr>
-                <tr><td>5</td><td>Close &amp; commitments</td><td>5 min</td><td>Log all agreements with owner and deadline</td></tr>
+                <tr><td>1</td><td>Opening</td><td>5 min</td><td>Confirm agenda; review prior commitments</td></tr>
+                <tr><td>2</td><td>Inventory status</td><td>10 min</td><td>Progress on data and opportunity list</td></tr>
+                <tr><td>3</td><td>Initiative review</td><td>30 min</td><td>Each owner presents status; Finance reports certification/classification resolved async</td></tr>
+                <tr><td>4</td><td>Blockers — resolved this week</td><td>5 min</td><td>Blockers closed ad-hoc between sessions — visibility only, no re-discussion</td></tr>
+                <tr><td>5</td><td>Blockers — requiring decision</td><td>10 min</td><td>Only what coordination could not close; CMO–CTO disagreements resolved here by the TO Lead</td></tr>
+                <tr><td>6</td><td>Close &amp; commitments</td><td>5 min</td><td>Log all agreements with owner and deadline</td></tr>
               </tbody>
             </table>
           </div>
@@ -433,14 +452,14 @@
           <div class="agenda-col">
             <p class="agenda-col-title">Participants &amp; roles</p>
             <table class="agenda-inner-table">
-              <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
+              <thead><tr><th>Participant</th><th>Role</th><th>Presence</th></tr></thead>
               <tbody>
-                <tr><td>Transformation Lead (COO)</td><td>Chair</td><td>Runs the meeting, decides, updates source of truth</td></tr>
-                <tr><td>CMO / CTO</td><td>Sponsors</td><td>Unblock resources; validate prioritisation</td></tr>
-                <tr><td>Head of Brand</td><td>Voter</td><td>Signs off on brand-risk thresholds</td></tr>
-                <tr><td>Finance</td><td>Value check</td><td>Certifies ROI numbers before scorecard entry</td></tr>
-                <tr><td>Change &amp; Capability Lead</td><td>Secretary</td><td>Logs agreements; manages team comms</td></tr>
-                <tr><td>Team Leads</td><td>Owners</td><td>Report status, surface blockers, commit to next steps</td></tr>
+                <tr><td>Transformation Lead (COO)</td><td>Chair, tiebreaker</td><td>Always</td></tr>
+                <tr><td>CMO / CTO</td><td>Sponsors</td><td>Always</td></tr>
+                <tr><td>Finance</td><td>Certifies + classifies spend</td><td>Always</td></tr>
+                <tr><td>Change &amp; Capability Lead</td><td>Secretary</td><td>Always</td></tr>
+                <tr><td>Team Leads</td><td>Owners</td><td>Always</td></tr>
+                <tr><td>Head of Brand</td><td>Independent veto</td><td>As-needed</td></tr>
               </tbody>
             </table>
           </div>
@@ -457,17 +476,17 @@
           <div class="agenda-bot-col">
             <p class="agenda-col-title">Meeting rules</p>
             <ul class="agenda-bullets">
-              <li>Only reviewed data updated before the session starts</li>
-              <li>Every owner arrives with status and blockers prepared</li>
-              <li>Hard stop at 90 minutes</li>
-              <li>Every agreement is logged with owner and deadline</li>
+              <li>Default channel for any fast-resolvable item is ad-hoc (call/chat) between sessions — the meeting reports what was resolved and decides what coordination could not close</li>
+              <li>Finance certifies and classifies spend async before the session; only certified figures carry into the scorecard</li>
+              <li>CMO/CTO priority disagreements are resolved by the TO Lead on the spot — do not escalate to Steering</li>
+              <li>Hard stop at 90 minutes; every agreement logged with owner and deadline</li>
             </ul>
           </div>
           <div class="agenda-bot-col">
             <p class="agenda-col-title">KPIs reviewed</p>
             <ul class="agenda-bullets">
               <li># active initiatives vs. committed</li>
-              <li>% blockers resolved this week</li>
+              <li>% blockers resolved this week (ad-hoc + in-session)</li>
               <li>Progress vs. approval criteria per initiative</li>
               <li>Status of the 4 key data requests (Sprint 1)</li>
             </ul>
@@ -485,7 +504,7 @@
         </div>
         <div class="agenda-meta-row" style="border-bottom:none">
           <div class="agenda-meta-label">Primary objective</div>
-          <div class="agenda-meta-val">Keep delivery on track within each team — surface blockers before they reach the weekly TO meeting</div>
+          <div class="agenda-meta-val">Keep delivery on track within each team — surface blockers before they need to reach the TO Lead or the weekly TO meeting</div>
         </div>
 
         <div class="agenda-cols">
@@ -516,7 +535,7 @@
             <table class="agenda-inner-table">
               <thead><tr><th>Participant</th><th>Role</th><th>Responsibility</th></tr></thead>
               <tbody>
-                <tr><td>Team Lead</td><td>Owner</td><td>Sets the pace; escalates unresolved blockers to the TO weekly</td></tr>
+                <tr><td>Team Lead</td><td>Owner</td><td>Sets the pace; escalates unresolved blockers to the TO Lead for ad-hoc resolution (target 48 h); surfaces at the TO weekly as information only if still unresolved</td></tr>
                 <tr><td>Team members</td><td>Contributors</td><td>Report status, flag risks, commit to next steps</td></tr>
                 <tr><td>Change &amp; Capability Lead</td><td>Observer (periodic)</td><td>Checks progress; supports comms when needed</td></tr>
               </tbody>
@@ -537,7 +556,7 @@
             <ul class="agenda-bullets">
               <li>Three questions only: done / doing / blocked</li>
               <li>No decks, no status reports — spoken updates only</li>
-              <li>Blockers unresolved after 24 h go to the TO weekly</li>
+              <li>Blockers unresolved after 24 h go directly to the TO Lead for ad-hoc resolution (target 48 h) — surface at the TO weekly as information only if still unresolved</li>
               <li>Team Lead updates the source of truth immediately after</li>
             </ul>
           </div>
