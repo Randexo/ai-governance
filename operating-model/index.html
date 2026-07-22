@@ -224,6 +224,70 @@
   .instr-chips{display:flex;flex-direction:column;gap:5px;}
   .instr-chip{font-size:11.5px;padding:4px 10px;background:var(--gray-bg);border-radius:6px;color:var(--ink-soft);}
   .instr-go{font-size:10.5px;color:var(--accent);margin:8px 0 0;}
+
+  /* ── Approval fix embedded in Stage 3 ── */
+  .af-toggle-btn{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--accent);background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:6px;padding:6px 12px;cursor:pointer;margin-top:10px;font-weight:500;user-select:none;}
+  .af-toggle-btn:hover{border-color:var(--accent);}
+  .af-section{display:none;margin-top:16px;border-top:1px solid var(--line);padding-top:16px;}
+  .af-section.visible{display:block;}
+  .af-hint{font-size:11px;color:var(--ink-soft);font-style:italic;margin:0 0 14px;}
+  .af-grid{display:grid;grid-template-columns:150px 1fr;gap:0 28px;align-items:start;}
+  @media(max-width:600px){.af-grid{grid-template-columns:1fr;gap:16px;}}
+  .af-col-hdr{font-size:10px;letter-spacing:.07em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:8px;}
+  .af-v-flow{display:flex;flex-direction:column;align-items:stretch;}
+  .af-v-step{border-radius:7px;padding:6px 10px;font-size:11px;text-align:center;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);transition:background .25s,border-color .25s,color .25s;}
+  .af-v-step.pipe{background:var(--gray-bg);border-color:var(--gray-line);}
+  .af-v-step.approval{background:var(--high-bg);border-color:var(--high-line);color:var(--high);font-weight:500;}
+  .af-v-step.approval.st-low{background:var(--low-bg);border-color:var(--low-line);color:var(--low);}
+  .af-v-step.approval.st-med{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent);}
+  .af-step-tag{font-size:8px;display:block;font-weight:600;margin-bottom:1px;opacity:.8;}
+  .af-vconn{width:1px;height:10px;background:var(--gray-line);margin:0 auto;}
+  .af-vconn.appr{background:var(--high-line);transition:background .25s;}
+  .af-vconn.appr.st-low{background:var(--low-line);}
+  .af-vconn.appr.st-med{background:var(--accent-line);}
+  .af-tier-tabs{display:flex;gap:5px;margin-bottom:5px;flex-wrap:wrap;}
+  .af-tier-btn{padding:5px 11px;border-radius:20px;font-size:11.5px;font-weight:500;cursor:pointer;border:1.5px solid var(--line);background:var(--card);color:var(--ink-soft);transition:all .15s;}
+  .af-tier-btn.act-low{background:var(--low-bg);border-color:var(--low-line);color:var(--low);}
+  .af-tier-btn.act-med{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent);}
+  .af-tier-btn.act-high{background:var(--high-bg);border-color:var(--high-line);color:var(--high);}
+  .af-tier-eg{font-size:10.5px;color:var(--ink-soft);font-style:italic;margin-bottom:12px;min-height:14px;}
+  .af-panel{display:none;}
+  .af-panel.visible{display:block;}
+  .af-rv-flow{display:flex;flex-direction:column;align-items:stretch;}
+  .af-rv-row{display:flex;align-items:flex-start;gap:10px;}
+  .af-rv-step{border-radius:7px;padding:6px 10px;font-size:11px;border:1px solid var(--line);background:var(--card);color:var(--ink-soft);flex-shrink:0;white-space:nowrap;}
+  .af-rv-step.pipe{background:var(--gray-bg);border-color:var(--gray-line);}
+  .af-rv-step.nl{background:var(--low-bg);border-color:var(--low-line);color:var(--low);font-weight:500;}
+  .af-rv-step.nm{background:var(--accent-bg);border-color:var(--accent-line);color:var(--accent);font-weight:500;}
+  .af-rv-step.nh{background:var(--high-bg);border-color:var(--high-line);color:var(--high);font-weight:500;}
+  .af-rv-expl{font-size:11px;color:var(--ink-soft);line-height:1.4;padding-top:5px;flex:1;}
+  .af-rvconn{width:1px;height:10px;margin-left:44px;}
+  .af-rvconn.gray{background:var(--gray-line);}
+  .af-rvconn.lo{background:var(--low-line);}
+  .af-rvconn.me{background:var(--accent-line);}
+  .af-rvconn.hi{background:var(--high-line);}
+  .af-scope{display:flex;align-items:center;gap:7px;margin:5px 0;}
+  .af-scope-seg{flex:1;height:0;border-top:1.5px dashed;}
+  .af-scope.lo .af-scope-seg{border-color:var(--low-line);}
+  .af-scope.me .af-scope-seg{border-color:var(--accent-line);}
+  .af-scope.hi .af-scope-seg{border-color:var(--high-line);}
+  .af-scope-txt{font-size:8.5px;letter-spacing:.05em;text-transform:uppercase;font-weight:700;white-space:nowrap;padding:2px 7px;border-radius:4px;}
+  .af-scope.lo .af-scope-txt{color:var(--low);background:var(--low-bg);}
+  .af-scope.me .af-scope-txt{color:var(--accent);background:var(--accent-bg);}
+  .af-scope.hi .af-scope-txt{color:var(--high);background:var(--high-bg);}
+  .af-ctrl{display:flex;align-items:flex-start;gap:8px;border:1px dashed var(--gray-line);border-radius:7px;padding:9px 11px;margin-top:10px;background:var(--card);}
+  .af-ctrl-lbl{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--ink-soft);margin-bottom:2px;}
+  .af-ctrl-txt{font-size:11px;color:var(--ink-soft);line-height:1.4;}
+  .af-parallel{border:1px solid var(--high-line);border-radius:9px;padding:10px 12px;background:var(--high-bg);}
+  .af-parallel-lbl{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--high);margin-bottom:7px;display:flex;align-items:center;gap:6px;}
+  .af-parallel-lbl::before,.af-parallel-lbl::after{content:'';flex:1;height:1px;background:var(--high-line);}
+  .af-p-row{display:flex;align-items:flex-start;gap:9px;margin-bottom:5px;}
+  .af-p-row:last-child{margin-bottom:0;}
+  .af-p-step{border-radius:6px;padding:4px 9px;font-size:11px;border:1px solid var(--high-line);background:var(--card);color:var(--high);font-weight:500;flex-shrink:0;white-space:nowrap;}
+  .af-p-expl{font-size:10.5px;color:var(--ink-soft);line-height:1.35;padding-top:3px;flex:1;}
+  .af-oq{display:flex;gap:9px;background:var(--med-bg);border:1px solid var(--med-line);border-radius:8px;padding:10px 13px;margin-top:16px;}
+  .af-oq-lbl{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--med);margin-bottom:2px;}
+  .af-oq-txt{font-size:11.5px;color:var(--med);line-height:1.5;}
 </style>
 </head>
 <body>
@@ -279,7 +343,6 @@
   <div class="toppanel active" id="structure">
     <div class="tabs">
       <div class="tab active" data-tab="process">Process &amp; opportunities</div>
-      <div class="tab" data-tab="approval">Approval: AS-IS → TO-BE</div>
       <div class="tab" data-tab="matrix">Prioritization matrix</div>
     </div>
 
@@ -295,7 +358,7 @@
       <div class="flow-legend">
         <span><i class="dot-legend known"></i>already has a working pilot</span>
         <span><i class="dot-legend gap"></i>open opportunity to size</span>
-        <span><i class="dot-legend enabler"></i>cross-cutting enabler — see Approval tab</span>
+        <span><i class="dot-legend enabler"></i>cross-cutting enabler — click stage 3 to see the fix</span>
       </div>
       <div class="flow-strip">
         <div class="flow-node" onclick="selectStage(1)"><div class="flow-circle gap">1</div><div class="flow-label">Brief / Intake</div></div>
@@ -332,8 +395,140 @@
         <div class="stage-body">
           <div class="stage-head"><span class="stage-name">Approval (7 steps)</span><span class="badge gap">Opportunity</span></div>
           <p class="stage-detail">Pre-dates every pilot. Every initiative, addressed or not, still passes through this stage unchanged.</p>
-          <div class="example-flag"><b>Detailed redesign:</b> see the "Approval: AS-IS → TO-BE" tab above.</div>
           <div class="enabler-flag">Cross-cutting enabler, not a normal opportunity — fixing this multiplies the value of everything else on this list.</div>
+          <div class="af-toggle-btn" onclick="toggleFix(this)">→ See how the fix works</div>
+          <div class="af-section" id="af-section">
+            <p class="af-hint">Select a tier — the approval chain on the left updates to show what changes. Illustrative — to be confirmed with real process documentation.</p>
+            <div class="af-grid">
+              <div>
+                <p class="af-col-hdr">Before</p>
+                <div class="af-v-flow">
+                  <div class="af-v-step pipe">Brief</div>
+                  <div class="af-vconn"></div>
+                  <div class="af-v-step pipe">Creation</div>
+                  <div class="af-vconn appr" id="af-c0"></div>
+                  <div class="af-v-step approval" id="af-s1"><span class="af-step-tag">1</span>Intake</div>
+                  <div class="af-vconn appr" id="af-c1"></div>
+                  <div class="af-v-step approval" id="af-s2"><span class="af-step-tag">2</span>Hand-off</div>
+                  <div class="af-vconn appr" id="af-c2"></div>
+                  <div class="af-v-step approval" id="af-s3"><span class="af-step-tag">3</span>Creative dir.</div>
+                  <div class="af-vconn appr" id="af-c3"></div>
+                  <div class="af-v-step approval" id="af-s4"><span class="af-step-tag">4</span>Brand review</div>
+                  <div class="af-vconn appr" id="af-c4"></div>
+                  <div class="af-v-step approval" id="af-s5"><span class="af-step-tag">5</span>Legal</div>
+                  <div class="af-vconn appr" id="af-c5"></div>
+                  <div class="af-v-step approval" id="af-s6"><span class="af-step-tag">6</span>Regional</div>
+                  <div class="af-vconn appr" id="af-c6"></div>
+                  <div class="af-v-step approval" id="af-s7"><span class="af-step-tag">7</span>Final sign-off</div>
+                  <div class="af-vconn"></div>
+                  <div class="af-v-step pipe">Publication</div>
+                </div>
+              </div>
+              <div>
+                <p class="af-col-hdr">After</p>
+                <div class="af-tier-tabs">
+                  <div class="af-tier-btn" data-atier="low" onclick="selectAfTier('low')">Low risk</div>
+                  <div class="af-tier-btn" data-atier="med" onclick="selectAfTier('med')">Medium risk</div>
+                  <div class="af-tier-btn" data-atier="high" onclick="selectAfTier('high')">High risk</div>
+                </div>
+                <p class="af-tier-eg" id="af-tier-eg"></p>
+                <!-- LOW -->
+                <div class="af-panel" id="af-low">
+                  <div class="af-rv-flow">
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Brief</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Creation</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-scope lo"><div class="af-scope-seg"></div><span class="af-scope-txt">redesign scope ↓</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn lo"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nl">Automated QA</div>
+                      <p class="af-rv-expl">Replaces all 7 steps. Brand, regional and simplified legal rules are codified and checked automatically. <b>Legal is included</b> — for PDPs and repurposing variants, legal requirements are rule-based enough to automate.</p>
+                    </div>
+                    <div class="af-rvconn lo"></div>
+                    <div class="af-scope lo"><div class="af-scope-seg"></div><span class="af-scope-txt">scope ends ↑</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Publication</div></div>
+                  </div>
+                  <div class="af-ctrl">
+                    <span style="font-size:12px;color:var(--ink-soft);flex-shrink:0;margin-top:1px;">↺</span>
+                    <div>
+                      <p class="af-ctrl-lbl">Ongoing quality control — not a per-piece approval step</p>
+                      <p class="af-ctrl-txt">1 in 20 pieces audited by a person each week to verify the automated check is still catching what it should. If the error rate rises, the rules get tightened.</p>
+                    </div>
+                  </div>
+                </div>
+                <!-- MED -->
+                <div class="af-panel" id="af-med">
+                  <div class="af-rv-flow">
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Brief</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Creation</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-scope me"><div class="af-scope-seg"></div><span class="af-scope-txt">redesign scope ↓</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn me"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nm">AI routing + pre-check</div>
+                      <p class="af-rv-expl">Replaces steps 1 (Intake) and 2 (Hand-off) — AI tags the content, routes it automatically, and surfaces obvious issues before any human sees it.</p>
+                    </div>
+                    <div class="af-rvconn me"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nm">Consolidated review</div>
+                      <p class="af-rv-expl">Replaces steps 3 (Creative dir.), 4 (Brand) and 6 (Regional) — one specialist reviews all three against a documented checklist, without needing to be a separate expert in each domain.</p>
+                    </div>
+                    <div class="af-rvconn me"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nm">Legal sign-off</div>
+                      <p class="af-rv-expl">Step 5 retained as a dedicated human review. Pre-check filters clearly compliant content so legal focuses on what genuinely needs judgment. Step 7 (Final sign-off) absorbed here.</p>
+                    </div>
+                    <div class="af-rvconn me"></div>
+                    <div class="af-scope me"><div class="af-scope-seg"></div><span class="af-scope-txt">scope ends ↑</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Publication</div></div>
+                  </div>
+                </div>
+                <!-- HIGH -->
+                <div class="af-panel" id="af-high">
+                  <div class="af-rv-flow">
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Brief</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Creation</div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-scope hi"><div class="af-scope-seg"></div><span class="af-scope-txt">redesign scope ↓</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn hi"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nh">AI routing + intake</div>
+                      <p class="af-rv-expl">Replaces steps 1 (Intake) and 2 (Hand-off) — AI handles routing and brief tagging. No human time spent on administration before the real reviews begin.</p>
+                    </div>
+                    <div class="af-rvconn hi"></div>
+                    <div class="af-parallel">
+                      <p class="af-parallel-lbl">Expert reviews — run in parallel, not sequentially</p>
+                      <div class="af-p-row"><div class="af-p-step">Creative dir.</div><p class="af-p-expl">Step 3 — unchanged in scope, no longer waiting behind steps 1+2.</p></div>
+                      <div class="af-p-row"><div class="af-p-step">Brand review</div><p class="af-p-expl">Step 4 — runs simultaneously with Creative dir. and Regional. Rules are documented so reviewer works from a checklist.</p></div>
+                      <div class="af-p-row"><div class="af-p-step">Legal / compliance</div><p class="af-p-expl">Step 5 — full legal review retained, runs in parallel. AI pre-check surfaces obvious issues so legal focuses on genuine judgment calls.</p></div>
+                      <div class="af-p-row"><div class="af-p-step">Regional review</div><p class="af-p-expl">Step 6 — unchanged in scope, parallel with the other three.</p></div>
+                    </div>
+                    <div class="af-rvconn hi"></div>
+                    <div class="af-rv-row">
+                      <div class="af-rv-step nh">Final sign-off</div>
+                      <p class="af-rv-expl">Step 7 — unchanged. Consolidates the 4 parallel review outcomes.</p>
+                    </div>
+                    <div class="af-rvconn hi"></div>
+                    <div class="af-scope hi"><div class="af-scope-seg"></div><span class="af-scope-txt">scope ends ↑</span><div class="af-scope-seg"></div></div>
+                    <div class="af-rvconn gray"></div>
+                    <div class="af-rv-row"><div class="af-rv-step pipe">Publication</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="af-oq">
+              <span style="font-size:12px;color:var(--med);flex-shrink:0;margin-top:2px;">⚑</span>
+              <div>
+                <p class="af-oq-lbl">Open question</p>
+                <p class="af-oq-txt">Which platform runs each tier (Adobe GenStudio, a custom build, something else) is the CTO's technology-standard call in AI Governance — it also determines what goes in the prompt library and brand standards.</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="stage" id="stage-4">
@@ -367,60 +562,6 @@
       </div>
     </div>
 
-    <div class="panel" id="approval">
-      <h2>Approval: from uniform to risk-tiered</h2>
-      <p class="panel-note">The case confirms only that a 7-step approval process pre-dates the pilots and still exists — it doesn't name the steps. What follows is an illustrative reconstruction, plausible for a large regulated US retailer, to be confirmed with real process documentation.</p>
-      <div class="prelim-banner">Illustrative — the 7 approval steps below are a working hypothesis. Gray steps are pipeline context; the 7 coral steps are the approval chain itself.</div>
-      <div class="toggle-bar">
-        <div class="toggle-btn active" data-flow="asis">AS-IS (unchanged since before the pilots)</div>
-        <div class="toggle-btn" data-flow="tobe">TO-BE</div>
-      </div>
-      <div class="flow active" id="asis">
-        <div class="step-row">
-          <div class="step">Brief</div><span class="arrow">→</span>
-          <div class="step">Creation</div><span class="arrow">→</span>
-          <div class="step uniform">1 · Intake</div><span class="arrow">→</span>
-          <div class="step uniform">2 · Hand-off</div><span class="arrow">→</span>
-          <div class="step uniform">3 · Creative dir. review</div><span class="arrow">→</span>
-          <div class="step uniform">4 · Brand review</div><span class="arrow">→</span>
-          <div class="step uniform">5 · Legal / compliance</div><span class="arrow">→</span>
-          <div class="step uniform">6 · Regional review</div><span class="arrow">→</span>
-          <div class="step uniform">7 · Final sign-off</div><span class="arrow">→</span>
-          <div class="step">Publication</div>
-        </div>
-        <p class="panel-note" style="margin-top:10px">The 7 coral steps are identical for all content — a product PDP goes through the same review path as a global campaign hero visual. AI accelerated the Creation step without touching any of the 7 — this is the waste to remove.</p>
-      </div>
-      <div class="flow" id="tobe">
-        <div class="tier low">
-          <div class="tier-name">Low risk — PDPs, repurposing variants</div>
-          <div class="tier-steps"><div class="step">AI generation</div><span class="arrow">→</span><div class="step">Automated QA</div><span class="arrow">→</span><div class="step">Publication</div><span class="arrow">→</span><div class="step">5% human sampling</div></div>
-          <p class="panel-note" style="margin-top:8px;margin-bottom:0;">Nothing gets skipped — steps 2 through 7 get checked automatically, against the same rules a person used to check by hand (see Enterprise Standards). A person still checks 1 in 20 pieces, to make sure the automated check is working.</p>
-        </div>
-        <div class="tier med">
-          <div class="tier-name">Medium risk — campaign copy, ads</div>
-          <div class="tier-steps"><div class="step">AI generation</div><span class="arrow">→</span><div class="step">1 brand reviewer</div><span class="arrow">→</span><div class="step">Publication</div></div>
-          <p class="panel-note" style="margin-top:8px;margin-bottom:0;">One person now checks everything steps 2 through 7 used to check separately — because the rules for brand, legal, and regional are already written down, not something each reviewer has to know by memory.</p>
-        </div>
-        <div class="tier high">
-          <div class="tier-name">High risk — new global launches</div>
-          <div class="tier-steps">
-            <div class="step">AI drafts first version</div><span class="arrow">→</span>
-            <div class="step uniform">1 · Intake</div><span class="arrow">→</span>
-            <div class="step uniform">2 · Hand-off</div><span class="arrow">→</span>
-            <div class="step uniform">3 · Creative dir. review</div><span class="arrow">→</span>
-            <div class="step uniform">4 · Brand review</div><span class="arrow">→</span>
-            <div class="step uniform">5 · Legal / compliance</div><span class="arrow">→</span>
-            <div class="step uniform">6 · Regional review</div><span class="arrow">→</span>
-            <div class="step uniform">7 · Final sign-off</div>
-          </div>
-          <p class="panel-note" style="margin-top:8px;margin-bottom:0;">All 7 steps stay exactly as they are today — AI only speeds up getting to step 1, nothing after that changes.</p>
-        </div>
-      </div>
-      <div class="prelim-banner">Open question, not decided here — which platform runs each tier (Adobe GenStudio, a custom build, something else) is the CTO's technology-standard call in AI Governance. It also determines what goes in the prompt library and brand standards under Enterprise Standards. This flow assumes that decision gets made; it doesn't make it.</div>
-      <div class="deliv-strip">
-        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Future-state process — the TO-BE risk-tiered approval flow above</p></div>
-      </div>
-    </div>
 
     <div class="panel" id="matrix">
       <h2>Size of the prize &amp; feasibility — the prioritization criteria</h2>
@@ -736,12 +877,28 @@
     scope.querySelector('#'+t.dataset.tab).classList.add('active');
   }));
 
-  document.querySelectorAll('.toggle-btn').forEach(b=>b.addEventListener('click',()=>{
-    document.querySelectorAll('.toggle-btn').forEach(x=>x.classList.remove('active'));
-    document.querySelectorAll('.flow').forEach(x=>x.classList.remove('active'));
-    b.classList.add('active');
-    document.getElementById(b.dataset.flow).classList.add('active');
-  }));
+  function toggleFix(btn){
+    const sec=document.getElementById('af-section');
+    const open=sec.classList.contains('visible');
+    sec.classList.toggle('visible');
+    btn.textContent=open?'→ See how the fix works':'↑ Hide fix';
+    if(!open) selectAfTier('low');
+  }
+
+  const afEx={low:'e.g. product descriptions (PDPs), social format variants, repurposed assets',med:'e.g. campaign headlines, promotional copy, paid ads',high:'e.g. new global brand launches, campaign hero visuals, regulated markets'};
+
+  function selectAfTier(tier){
+    document.querySelectorAll('.af-tier-btn').forEach(b=>b.classList.remove('act-low','act-med','act-high'));
+    document.querySelector('.af-tier-btn[data-atier="'+tier+'"]').classList.add('act-'+tier);
+    document.querySelectorAll('.af-panel').forEach(p=>p.classList.remove('visible'));
+    document.getElementById('af-'+tier).classList.add('visible');
+    document.getElementById('af-tier-eg').textContent=afEx[tier];
+    const steps=document.querySelectorAll('.af-v-step.approval');
+    const conns=document.querySelectorAll('.af-vconn.appr');
+    steps.forEach(s=>s.classList.remove('st-low','st-med'));
+    conns.forEach(c=>c.classList.remove('st-low','st-med'));
+    if(tier!=='high'){steps.forEach(s=>s.classList.add('st-'+tier));conns.forEach(c=>c.classList.add('st-'+tier));}
+  }
 
   function selectStage(n){
     const card = document.getElementById('stage-'+n);
