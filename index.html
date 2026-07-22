@@ -36,9 +36,22 @@
   .panel-note{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;max-width:760px;}
 
   /* TAB 1 — role comparison table */
-  .role-top{display:flex;align-items:flex-start;gap:24px;margin-bottom:20px;}
-  .role-svg-wrap{flex-shrink:0;width:380px;}
+  .role-top{display:grid;grid-template-columns:440px 1fr;gap:32px;align-items:start;margin-bottom:24px;}
+  .role-left{display:flex;flex-direction:column;gap:10px;}
+  .role-svg-wrap{width:100%;}
   .role-svg-wrap svg{width:100%;display:block;}
+  .role-desc-list{display:flex;flex-direction:column;gap:0;padding-top:2px;}
+  .role-desc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);}
+  .role-desc-item:last-child{border-bottom:none;}
+  .rdi-badge{width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
+  .rdi-badge.blue{background:#185fa5;}
+  .rdi-badge.green{background:#0f6e56;}
+  .rdi-badge.brown{background:#854f0b;}
+  .rdi-content{flex:1;}
+  .rdi-head-line{display:flex;align-items:baseline;gap:6px;margin-bottom:3px;}
+  .rdi-name{font-size:13px;font-weight:600;color:var(--ink);}
+  .rdi-sub{font-size:11px;color:var(--ink-soft);}
+  .rdi-text{font-size:12px;color:var(--ink-soft);line-height:1.55;margin:0;}
   .seat-num{font-size:13px;fill:#fff;font-weight:700;}
   .seat-name{font-size:9px;fill:rgba(255,255,255,0.88);font-weight:500;}
   .role-legend{display:flex;flex-direction:column;gap:7px;padding-top:6px;}
@@ -118,8 +131,14 @@
 
   .cadence-purpose{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:22px;}
   @media (max-width:760px){.cadence-purpose{grid-template-columns:1fr;}}
-  .purpose-card{border:1px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;}
-  .pc-title{font-size:12.5px;font-weight:500;margin:0 0 4px;}
+  .purpose-card{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;}
+  .purpose-card.steer{border-left-color:#854f0b;}
+  .purpose-card.to-card{border-left-color:var(--accent);}
+  .purpose-card.init{border-left-color:#0f6e56;}
+  .pc-title{font-size:12.5px;font-weight:600;margin:0 0 4px;}
+  .purpose-card.steer .pc-title{color:#854f0b;}
+  .purpose-card.to-card .pc-title{color:var(--accent);}
+  .purpose-card.init .pc-title{color:#0f6e56;}
   .pc-text{font-size:11.5px;color:var(--ink-soft);margin:0;}
 
   /* TAB 3 — meeting agenda card */
@@ -276,7 +295,7 @@
     <div class="tab active" data-tab="roles">Roles — the table</div>
     <div class="tab" data-tab="cadence">Meeting cadence</div>
     <div class="tab" data-tab="agenda">Preliminary agenda examples</div>
-    <div class="tab" data-tab="tracker">Initiative tracker</div>
+    <div class="tab" data-tab="tracker">Tracker</div>
   </div>
 
   <!-- TAB 1 -->
@@ -284,96 +303,77 @@
     <h2>Who sits at the table, and why</h2>
 
     <div class="role-top">
-      <div class="role-svg-wrap">
-        <svg viewBox="0 0 600 440" role="img" aria-label="Oval transformation office table with 7 seats">
-          <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
-          <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
-          <g><circle cx="300" cy="70" r="36" fill="#185fa5"/><text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text><text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text></g>
-          <g><circle cx="472" cy="127" r="33" fill="#0f6e56"/><text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text><text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text></g>
-          <g><circle cx="515" cy="253" r="33" fill="#0f6e56"/><text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text><text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text></g>
-          <g><circle cx="396" cy="355" r="33" fill="#854f0b"/><text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text><text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text></g>
-          <g><circle cx="205" cy="355" r="33" fill="#185fa5"/><text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text><text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text></g>
-          <g><circle cx="86" cy="253" r="33" fill="#185fa5"/><text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text><text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text></g>
-          <g><circle cx="128" cy="127" r="33" fill="#185fa5"/><text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text><text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text></g>
-        </svg>
+      <div class="role-left">
+        <div class="role-svg-wrap">
+          <svg viewBox="0 0 600 440" role="img" aria-label="Oval transformation office table with 7 seats">
+            <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
+            <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
+            <g><circle cx="300" cy="70" r="36" fill="#185fa5"/><text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text><text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text></g>
+            <g><circle cx="472" cy="127" r="33" fill="#0f6e56"/><text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text><text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text></g>
+            <g><circle cx="515" cy="253" r="33" fill="#0f6e56"/><text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text><text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text></g>
+            <g><circle cx="396" cy="355" r="33" fill="#854f0b"/><text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text><text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text></g>
+            <g><circle cx="205" cy="355" r="33" fill="#185fa5"/><text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text><text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text></g>
+            <g><circle cx="86" cy="253" r="33" fill="#185fa5"/><text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text><text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text></g>
+            <g><circle cx="128" cy="127" r="33" fill="#185fa5"/><text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text><text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text></g>
+          </svg>
+        </div>
+        <div class="role-legend">
+          <span><i class="rl-dot" style="background:#185fa5"></i>Blue — Transformation Office: run the process</span>
+          <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: marketing and technology</span>
+          <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: manages brand risk</span>
+        </div>
       </div>
-      <div class="role-legend">
-        <span><i class="rl-dot" style="background:#185fa5"></i>Blue — Transformation Office: run the process</span>
-        <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: marketing and technology</span>
-        <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: manages brand risk</span>
-      </div>
-    </div>
 
-    <div class="role-slider-section">
-      <div class="slider-nav">
-        <button class="slider-btn" onclick="slideRoles(-1)" aria-label="Previous">&#8249;</button>
-        <button class="slider-btn" onclick="slideRoles(1)" aria-label="Next">&#8250;</button>
-      </div>
-      <div class="role-slider" id="roleSlider">
-
-        <div class="rsc">
-          <div class="rsc-head blue"><span class="rsc-badge">1</span><div class="rsc-htxt"><p class="rsc-title">TO Lead</p><p class="rsc-sub">COO</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Leads the transformation program. Sets the operating cadence, owns the single source of truth, and keeps the work moving end to end.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Builds the opportunity inventory; ensures the team has the data needed to prioritize</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Coaches initiative owners; tracks delivery against agreed criteria</p></div>
+      <div class="role-desc-list">
+        <div class="role-desc-item">
+          <span class="rdi-badge blue">1</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">TO Lead</span><span class="rdi-sub">COO</span></div>
+            <p class="rdi-text">Leads the transformation program. Sets the operating cadence, owns the single source of truth, and keeps the work moving end to end.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head green"><span class="rsc-badge">2</span><div class="rsc-htxt"><p class="rsc-title">CMO</p><p class="rsc-sub">Sponsor</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Transformation sponsor from marketing. Ensures marketing leadership is behind the program and that teams have the direction and decisions they need.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Validates credibility of figures; brings the business case to life</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Proposes which opportunities mature for the Board</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge green">2</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">CMO</span><span class="rdi-sub">Sponsor</span></div>
+            <p class="rdi-text">Transformation sponsor from marketing. Ensures leadership is behind the program and that teams have the direction and decisions they need.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head green"><span class="rsc-badge">3</span><div class="rsc-htxt"><p class="rsc-title">CTO</p><p class="rsc-sub">Sponsor</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Lead technology advisor. Determines which tools and platforms, and why — ensures the technical foundation supports the program.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Supplies negotiated licensing cost data</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Approves the technology standard per solution type</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge green">3</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">CTO</span><span class="rdi-sub">Sponsor</span></div>
+            <p class="rdi-text">Lead technology advisor. Determines which tools and platforms, and why — ensures the technical foundation supports the program.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head brown"><span class="rsc-badge">4</span><div class="rsc-htxt"><p class="rsc-title">Head of Brand</p><p class="rsc-sub">Independent veto</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Holds veto over brand risk. Determines what is and isn't acceptable from a brand perspective for any AI initiative.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Classifies brand risk by category</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Sets and signs off on risk thresholds</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge brown">4</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">Head of Brand</span><span class="rdi-sub">Independent veto</span></div>
+            <p class="rdi-text">Holds veto over brand risk. Determines what is and isn't acceptable from a brand perspective for any AI initiative.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head blue"><span class="rsc-badge">5</span><div class="rsc-htxt"><p class="rsc-title">Finance</p><p class="rsc-sub">Value assurance</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Independent validation of the numbers. Certifies ROI and classifies spend to ensure only solid figures enter the scorecard.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Supplies agency-spend data; validates the directional ROI range</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Certifies net ROI per solution before scorecard entry</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge blue">5</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">Finance</span><span class="rdi-sub">Value assurance</span></div>
+            <p class="rdi-text">Independent validation of the numbers. Certifies ROI and classifies spend so only solid figures enter the scorecard.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head blue"><span class="rsc-badge">6</span><div class="rsc-htxt"><p class="rsc-title">C&amp;T Lead</p><p class="rsc-sub">Change &amp; capability</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">Manages the change process during ramp-up and coaches an internal successor to take the role over time.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Runs comms so original teams stay informed; acts as secretary of the TO weekly</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Co-leads training as momentum builds, then hands off fully</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge blue">6</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">C&amp;T Lead</span><span class="rdi-sub">Change &amp; capability</span></div>
+            <p class="rdi-text">Manages the change process during ramp-up and coaches an internal successor to take the role over time.</p>
           </div>
         </div>
-
-        <div class="rsc">
-          <div class="rsc-head blue"><span class="rsc-badge">7</span><div class="rsc-htxt"><p class="rsc-title">Team Leads</p><p class="rsc-sub">One per brand team</p></div></div>
-          <div class="rsc-body">
-            <div><p class="rsc-label">Purpose</p><p class="rsc-text">The execution layer across all 8 brand teams. Know their team's work, surface the opportunities, and will own what gets built.</p></div>
-            <div><p class="rsc-label">Early phase</p><p class="rsc-text soft">Identifies and prioritizes each team's AI opportunities</p></div>
-            <div><p class="rsc-label">Later phase</p><p class="rsc-text soft">Owns delivery of their team's initiatives</p></div>
+        <div class="role-desc-item">
+          <span class="rdi-badge blue">7</span>
+          <div class="rdi-content">
+            <div class="rdi-head-line"><span class="rdi-name">Team Leads</span><span class="rdi-sub">One per brand team</span></div>
+            <p class="rdi-text">The execution layer across all 8 brand teams. Know their team's work, surface the opportunities, and will own what gets built.</p>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -440,15 +440,15 @@
     <p class="panel-note" style="margin-top:16px;">Team-level standups run from week one — early on they track diagnostic progress and help shape candidate initiatives; once initiatives are prioritized, the same rhythm shifts to tracking delivery.</p>
 
     <div class="cadence-purpose">
-      <div class="purpose-card">
+      <div class="purpose-card steer">
         <p class="pc-title">Steering committee</p>
         <p class="pc-text">Higher-altitude checkpoint. Resolves mandate/scope decisions and unresolved Brand-risk escalations only — all other TO decisions stand without Steering review.</p>
       </div>
-      <div class="purpose-card">
+      <div class="purpose-card to-card">
         <p class="pc-title">TO weekly action meeting</p>
         <p class="pc-text">Fast, fact-based. Default channel for fast-resolvable items is ad-hoc between sessions — the meeting gives visibility to what was resolved and handles what coordination could not close. 60–90 min.</p>
       </div>
-      <div class="purpose-card">
+      <div class="purpose-card init">
         <p class="pc-title">Team standups</p>
         <p class="pc-text">Same slot, different job over time: early on it tracks diagnostic progress and helps surface candidate opportunities; later it becomes a day-to-day delivery check for the team's own work.</p>
       </div>
@@ -719,7 +719,7 @@
   <!-- TAB 4 — Initiative tracker -->
   <div class="panel" id="tracker">
     <h2>What the TO is tracking right now</h2>
-    <p class="panel-note">Two phases, one tracker. Sprint 1 maps every team before anything is selected — no initiative enters the portfolio until the full inventory is in and the matrix is applied.</p>
+    <p class="panel-note">Two phases, one tracker. Sprint 1 maps every team before anything is selected — no initiative enters the portfolio until the full inventory is in and prioritization criteria are applied.</p>
     <div class="prelim-banner">Illustrative — team names 4–8, statuses, owners, and blockers are working hypotheses the TO confirms and updates at each weekly meeting.</div>
 
     <!-- PHASE 1: SPRINT 1 DISCOVERY -->
@@ -850,7 +850,7 @@
         <div class="gate-group">
           <div class="gate-label">
             <span class="gate-num open">1</span>
-            <span class="gate-heading">Full inventory + value–effort matrix complete — all 8 teams</span>
+            <span class="gate-heading">Full inventory + prioritization criteria applied — all 8 teams</span>
           </div>
           <div class="action-list">
             <div class="action-row">
@@ -896,7 +896,7 @@
               <div class="action-cell"><span class="tr-chip urgent"><span class="tr-cdot urgent"></span>Unassigned</span></div>
             </div>
             <div class="action-row">
-              <div class="action-cell"><p class="action-desc">Apply value–effort matrix once all 8 mappings are in</p><p class="action-sub">Matrix scores determine which initiatives enter the portfolio</p></div>
+              <div class="action-cell"><p class="action-desc">Apply prioritization criteria once all 8 mappings are in</p><p class="action-sub">Criteria scores determine which initiatives enter the portfolio</p></div>
               <div class="action-cell"><span style="font-size:12px">TO Lead + C&amp;T Lead</span></div>
               <div class="action-cell"><span class="action-due wk2">Wk 2<span class="action-due-sub">Fri 1 Aug</span></span></div>
               <div class="action-cell"><span class="tr-chip ns"><span class="tr-cdot ns"></span>Pending</span></div>
@@ -976,7 +976,7 @@
     <!-- Connector -->
     <div class="tr-arrow">
       <div class="tr-arrow-line"></div>
-      <span class="tr-arrow-label">Gate passed → portfolio selected from value–effort matrix</span>
+      <span class="tr-arrow-label">Gate passed → portfolio selected from prioritization criteria</span>
       <div class="tr-arrow-line"></div>
     </div>
 
@@ -984,9 +984,9 @@
     <div class="tr-phase">
       <div class="tr-phase-hdr">
         <span class="tr-badge s2">Sprints 2–6 · Wks 3–12</span>
-        <span class="tr-phase-title">Prioritized portfolio — selected after the matrix</span>
+        <span class="tr-phase-title">Prioritized portfolio — selected after criteria are applied</span>
       </div>
-      <p class="tr-phase-note">Only initiatives the matrix greenlit. Quick wins launch first and prove the full TO decision cycle. The higher-effort initiative begins only once quick wins are running with real data. Teams 4–8 fill in after their inventory closes.</p>
+      <p class="tr-phase-note">Only initiatives that cleared the prioritization criteria. Quick wins launch first and prove the full TO decision cycle. The higher-effort initiative begins only once quick wins are running with real data. Teams 4–8 fill in after their inventory closes.</p>
 
       <div class="tr-tbl-wrap">
         <table class="tr-table">
@@ -1036,7 +1036,7 @@
               <td colspan="7"><span class="tr-sub-label ai-col">Higher-effort initiative — begins only after quick wins are running with real data</span></td>
             </tr>
             <tr>
-              <td><p class="tn">TBD — selected from matrix</p><p class="ts">Full process + roles + standards build</p></td>
+              <td><p class="tn">TBD — selected after criteria applied</p><p class="ts">Full process + roles + standards build</p></td>
               <td style="font-size:12px;color:var(--ink-soft)">TBD</td>
               <td><span class="tr-chip he">Higher effort</span></td>
               <td><span class="tr-chip ns"><span class="tr-cdot ns"></span>Not started</span></td>
@@ -1048,7 +1048,7 @@
               <td colspan="7"><span class="tr-sub-label">Teams 4–8 — pending Sprint 1 inventory</span></td>
             </tr>
             <tr class="pending-row">
-              <td colspan="7">Teams 4–8 initiatives will be added here after their inventory closes and the value–effort matrix is applied. Rollout to all 8 teams is explicitly out of scope until Sprint 4.</td>
+              <td colspan="7">Teams 4–8 initiatives will be added here after their inventory closes and prioritization criteria are applied. Rollout to all 8 teams is explicitly out of scope until Sprint 4.</td>
             </tr>
           </tbody>
         </table>
