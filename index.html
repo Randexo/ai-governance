@@ -6,14 +6,14 @@
 <title>Transformation Office — roles and meeting cadence</title>
 <style>
   :root{
-    --ink:#1c2126; --ink-soft:#4a5058; --line:#dcd8cf; --paper:#faf8f3; --card:#ffffff;
-    --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
-    --gray-bg:#f1efe8; --gray-line:#d8d4c8;
-    --dashed:#8a8880;
-    --done:#0f6e56; --done-bg:#e1f5ee; --done-line:#9fe1cb;
-    --gap:#993c1d; --gap-bg:#faece7; --gap-line:#f0997b;
-    --warn:#854f0b; --warn-bg:#faeeda; --warn-line:#fac775;
-    --ai:#534ab7; --ai-bg:#eeedfe; --ai-line:#afa9ec;
+    --ink:#3d3d3d; --ink-soft:#7e7f7e; --line:#dfdfdf; --paper:#f1f2f1; --card:#ffffff;
+    --accent:#001f5f; --accent-bg:#cfdee1; --accent-line:#7b9daf;
+    --gray-bg:#e8e8e7; --gray-line:#c8c5c0;
+    --dashed:#b9b9b9;
+    --done:#1a5f42; --done-bg:#ebf5f0; --done-line:#8ecba8;
+    --gap:#8a2520; --gap-bg:#faf0ef; --gap-line:#d09090;
+    --warn:#7a5010; --warn-bg:#fbf3e5; --warn-line:#c5a36a;
+    --ai:#001f5f; --ai-bg:#cfdee1; --ai-line:#7b9daf;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
@@ -44,9 +44,9 @@
   .role-desc-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);}
   .role-desc-item:last-child{border-bottom:none;}
   .rdi-badge{width:22px;height:22px;border-radius:50%;color:#fff;font-size:11px;font-weight:700;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px;}
-  .rdi-badge.blue{background:#185fa5;}
-  .rdi-badge.green{background:#0f6e56;}
-  .rdi-badge.brown{background:#854f0b;}
+  .rdi-badge.blue{background:#001f5f;}
+  .rdi-badge.green{background:#1a5f42;}
+  .rdi-badge.brown{background:#7a5010;}
   .rdi-content{flex:1;}
   .rdi-head-line{display:flex;align-items:baseline;gap:6px;margin-bottom:3px;}
   .rdi-name{font-size:13px;font-weight:600;color:var(--ink);}
@@ -68,9 +68,9 @@
   .role-slider::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px;}
   .rsc{flex:0 0 300px;border-radius:10px;overflow:hidden;border:1px solid var(--line);scroll-snap-align:start;background:var(--card);}
   .rsc-head{padding:14px 16px;display:flex;align-items:flex-start;gap:10px;}
-  .rsc-head.blue{background:#185fa5;}
-  .rsc-head.green{background:#0f6e56;}
-  .rsc-head.brown{background:#854f0b;}
+  .rsc-head.blue{background:#001f5f;}
+  .rsc-head.green{background:#1a5f42;}
+  .rsc-head.brown{background:#7a5010;}
   .rsc-badge{width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,.22);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .rsc-htxt{flex:1;}
   .rsc-title{font-size:13px;font-weight:500;color:#fff;margin:0;}
@@ -92,21 +92,21 @@
   .decision-table tbody tr:hover{background:var(--gray-bg);}
   .dt-cell{display:flex;align-items:flex-start;gap:10px;}
   .dt-stripe{width:3px;border-radius:2px;flex-shrink:0;align-self:stretch;min-height:18px;}
-  .dt-stripe.blue{background:#185fa5;}
-  .dt-stripe.green{background:#0f6e56;}
-  .dt-stripe.brown{background:#854f0b;}
-  .dt-stripe.dark{background:#2b3340;}
+  .dt-stripe.blue{background:#001f5f;}
+  .dt-stripe.green{background:#1a5f42;}
+  .dt-stripe.brown{background:#7a5010;}
+  .dt-stripe.dark{background:#3d3d3d;}
   .dt-text{font-size:12px;color:var(--ink);line-height:1.5;}
   .owner-badge{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;font-weight:500;padding:3px 9px 3px 5px;border-radius:20px;white-space:nowrap;}
   .owner-badge .bdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
-  .owner-badge.blue{color:#185fa5;background:rgba(24,95,165,.09);}
-  .owner-badge.blue .bdot{background:#185fa5;}
-  .owner-badge.green{color:#0f6e56;background:rgba(15,110,86,.09);}
-  .owner-badge.green .bdot{background:#0f6e56;}
-  .owner-badge.brown{color:#854f0b;background:rgba(133,79,11,.09);}
-  .owner-badge.brown .bdot{background:#854f0b;}
-  .owner-badge.dark{color:#2b3340;background:rgba(43,51,64,.09);}
-  .owner-badge.dark .bdot{background:#2b3340;}
+  .owner-badge.blue{color:#001f5f;background:rgba(0,31,95,.09);}
+  .owner-badge.blue .bdot{background:#001f5f;}
+  .owner-badge.green{color:#1a5f42;background:rgba(26,95,66,.09);}
+  .owner-badge.green .bdot{background:#1a5f42;}
+  .owner-badge.brown{color:#7a5010;background:rgba(122,80,16,.09);}
+  .owner-badge.brown .bdot{background:#7a5010;}
+  .owner-badge.dark{color:#3d3d3d;background:rgba(61,61,61,.09);}
+  .owner-badge.dark .bdot{background:#3d3d3d;}
   .protects-text{font-size:11.5px;color:var(--ink-soft);line-height:1.55;margin:0;}
   .protects-text strong{color:var(--ink);font-weight:600;}
   .decision-footnote{font-size:10.5px;color:var(--ink-soft);margin:8px 0 0;font-style:italic;}
@@ -114,9 +114,9 @@
   .cadence-legend{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:18px;}
   .cadence-legend span{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-soft);}
   .dot-legend{width:10px;height:10px;border-radius:50%;display:inline-block;}
-  .dot-legend.steer{background:#854f0b;}
+  .dot-legend.steer{background:#7a5010;}
   .dot-legend.to{background:var(--accent);}
-  .dot-legend.init{background:#0f6e56;}
+  .dot-legend.init{background:#1a5f42;}
 
   .cadence-weeks{display:grid;grid-template-columns:170px repeat(28,1fr);column-gap:3px;margin-bottom:4px;}
   .week-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);text-align:center;border-bottom:1px solid var(--line);padding-bottom:4px;}
@@ -125,20 +125,20 @@
   .row-label{font-size:12px;color:var(--ink);padding-right:8px;}
   .day-cell{aspect-ratio:1;border-radius:50%;background:var(--line);opacity:.5;}
   .day-cell.active{opacity:1;}
-  .day-cell.active.steer{background:#854f0b;}
+  .day-cell.active.steer{background:#7a5010;}
   .day-cell.active.to{background:var(--accent);}
-  .day-cell.active.init{background:#0f6e56;}
+  .day-cell.active.init{background:#1a5f42;}
 
   .cadence-purpose{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:22px;}
   @media (max-width:760px){.cadence-purpose{grid-template-columns:1fr;}}
   .purpose-card{border:1px solid var(--line);border-left:3px solid var(--line);border-radius:10px;background:var(--card);padding:12px 14px;}
-  .purpose-card.steer{border-left-color:#854f0b;}
+  .purpose-card.steer{border-left-color:#7a5010;}
   .purpose-card.to-card{border-left-color:var(--accent);}
-  .purpose-card.init{border-left-color:#0f6e56;}
+  .purpose-card.init{border-left-color:#1a5f42;}
   .pc-title{font-size:12.5px;font-weight:600;margin:0 0 4px;}
-  .purpose-card.steer .pc-title{color:#854f0b;}
+  .purpose-card.steer .pc-title{color:#7a5010;}
   .purpose-card.to-card .pc-title{color:var(--accent);}
-  .purpose-card.init .pc-title{color:#0f6e56;}
+  .purpose-card.init .pc-title{color:#1a5f42;}
   .pc-text{font-size:11.5px;color:var(--ink-soft);margin:0;}
 
   /* TAB 3 — meeting agenda card */
@@ -168,18 +168,18 @@
   .sub-tabs{display:flex;gap:2px;margin:16px 0 20px;border-bottom:1px solid var(--gray-line);}
   .sub-tab{display:flex;align-items:center;gap:7px;padding:7px 14px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;border-bottom:2px solid transparent;user-select:none;}
   .sub-tab.active{font-weight:500;}
-  .sub-tab[data-color="steer"].active{color:#854f0b;border-bottom-color:#854f0b;}
+  .sub-tab[data-color="steer"].active{color:#7a5010;border-bottom-color:#7a5010;}
   .sub-tab[data-color="to"].active{color:var(--accent);border-bottom-color:var(--accent);}
-  .sub-tab[data-color="init"].active{color:#0f6e56;border-bottom-color:#0f6e56;}
+  .sub-tab[data-color="init"].active{color:#1a5f42;border-bottom-color:#1a5f42;}
   .sub-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-  .sub-dot.steer{background:#854f0b;}
+  .sub-dot.steer{background:#7a5010;}
   .sub-dot.to{background:var(--accent);}
-  .sub-dot.init{background:#0f6e56;}
+  .sub-dot.init{background:#1a5f42;}
   .sub-panel{display:none;}
   .sub-panel.active{display:block;}
 
   /* ── Initiative tracker ── */
-  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#0c447c;margin-bottom:16px;font-weight:500;}
+  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#001f5f;margin-bottom:16px;font-weight:500;}
   .tr-phase{margin:22px 0 0;}
   .tr-phase-hdr{display:flex;align-items:center;gap:10px;margin-bottom:5px;flex-wrap:wrap;}
   .tr-badge{font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;padding:3px 10px;border-radius:20px;white-space:nowrap;}
@@ -306,21 +306,21 @@
       <div class="role-left">
         <div class="role-svg-wrap">
           <svg viewBox="0 0 600 440" role="img" aria-label="Oval transformation office table with 7 seats">
-            <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#c9c4b6" stroke-width="10"/>
-            <ellipse cx="300" cy="220" rx="205" ry="135" fill="#efece2" stroke="none"/>
-            <g><circle cx="300" cy="70" r="36" fill="#185fa5"/><text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text><text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text></g>
-            <g><circle cx="472" cy="127" r="33" fill="#0f6e56"/><text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text><text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text></g>
-            <g><circle cx="515" cy="253" r="33" fill="#0f6e56"/><text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text><text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text></g>
-            <g><circle cx="396" cy="355" r="33" fill="#854f0b"/><text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text><text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text></g>
-            <g><circle cx="205" cy="355" r="33" fill="#185fa5"/><text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text><text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text></g>
-            <g><circle cx="86" cy="253" r="33" fill="#185fa5"/><text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text><text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text></g>
-            <g><circle cx="128" cy="127" r="33" fill="#185fa5"/><text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text><text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text></g>
+            <ellipse cx="300" cy="220" rx="220" ry="150" fill="none" stroke="#b9b6b1" stroke-width="10"/>
+            <ellipse cx="300" cy="220" rx="205" ry="135" fill="#e8e8e7" stroke="none"/>
+            <g><circle cx="300" cy="70" r="36" fill="#001f5f"/><text class="seat-num" x="300" y="63" text-anchor="middle" dominant-baseline="central">1</text><text class="seat-name" x="300" y="80" text-anchor="middle" dominant-baseline="central">T. Lead</text></g>
+            <g><circle cx="472" cy="127" r="33" fill="#1a5f42"/><text class="seat-num" x="472" y="120" text-anchor="middle" dominant-baseline="central">2</text><text class="seat-name" x="472" y="137" text-anchor="middle" dominant-baseline="central">CMO</text></g>
+            <g><circle cx="515" cy="253" r="33" fill="#1a5f42"/><text class="seat-num" x="515" y="246" text-anchor="middle" dominant-baseline="central">3</text><text class="seat-name" x="515" y="263" text-anchor="middle" dominant-baseline="central">CTO</text></g>
+            <g><circle cx="396" cy="355" r="33" fill="#7a5010"/><text class="seat-num" x="396" y="348" text-anchor="middle" dominant-baseline="central">4</text><text class="seat-name" x="396" y="365" text-anchor="middle" dominant-baseline="central">Brand</text></g>
+            <g><circle cx="205" cy="355" r="33" fill="#001f5f"/><text class="seat-num" x="205" y="348" text-anchor="middle" dominant-baseline="central">5</text><text class="seat-name" x="205" y="365" text-anchor="middle" dominant-baseline="central">Finance</text></g>
+            <g><circle cx="86" cy="253" r="33" fill="#001f5f"/><text class="seat-num" x="86" y="246" text-anchor="middle" dominant-baseline="central">6</text><text class="seat-name" x="86" y="263" text-anchor="middle" dominant-baseline="central">C&amp;T Lead</text></g>
+            <g><circle cx="128" cy="127" r="33" fill="#001f5f"/><text class="seat-num" x="128" y="120" text-anchor="middle" dominant-baseline="central">7</text><text class="seat-name" x="128" y="137" text-anchor="middle" dominant-baseline="central">Teams</text></g>
           </svg>
         </div>
         <div class="role-legend">
-          <span><i class="rl-dot" style="background:#185fa5"></i>Blue — Transformation Office: run the process</span>
-          <span><i class="rl-dot" style="background:#0f6e56"></i>Green — Sponsors: marketing and technology</span>
-          <span><i class="rl-dot" style="background:#854f0b"></i>Brown — Head of Brand: manages brand risk</span>
+          <span><i class="rl-dot" style="background:#001f5f"></i>Blue — Transformation Office: run the process</span>
+          <span><i class="rl-dot" style="background:#1a5f42"></i>Green — Sponsors: marketing and technology</span>
+          <span><i class="rl-dot" style="background:#7a5010"></i>Brown — Head of Brand: manages brand risk</span>
         </div>
       </div>
 
