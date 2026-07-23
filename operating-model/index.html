@@ -6,15 +6,15 @@
 <title>Operating model</title>
 <style>
   :root{
-    --ink:#1c2126; --ink-soft:#4a5058; --line:#dcd8cf; --paper:#faf8f3; --card:#ffffff;
-    --low:#0f6e56; --low-bg:#e1f5ee; --low-line:#9fe1cb;
-    --med:#854f0b; --med-bg:#faeeda; --med-line:#fac775;
-    --high:#993c1d; --high-bg:#faece7; --high-line:#f0997b;
-    --known:#0f6e56; --known-bg:#e1f5ee; --known-line:#9fe1cb;
-    --gap:#993c1d; --gap-bg:#faece7; --gap-line:#f0997b;
-    --accent:#185fa5; --accent-bg:#e6f1fb; --accent-line:#85b7eb;
-    --ai:#534ab7; --ai-bg:#eeedfe; --ai-line:#afa9ec;
-    --gray-bg:#f1efe8; --gray-line:#d8d4c8;
+    --ink:#3D3D3D; --ink-soft:#7E7F7E; --ink-muted:#B9B9B9; --line:#DFDFDF; --paper:#F1F2F1; --card:#FFFFFF;
+    --low:#1A5F42; --low-bg:#EBF5F0; --low-line:#8ECBA8;
+    --med:#7A5010; --med-bg:#FBF3E5; --med-line:#C5A36A;
+    --high:#8A2520; --high-bg:#FAF0EF; --high-line:#D09090;
+    --known:#1A5F42; --known-bg:#EBF5F0; --known-line:#8ECBA8;
+    --gap:#8A2520; --gap-bg:#FAF0EF; --gap-line:#D09090;
+    --accent:#001F5F; --accent-bg:#CFDEE1; --accent-line:#7B9DAF;
+    --ai:#001F5F; --ai-bg:#CFDEE1; --ai-line:#7B9DAF;
+    --gray-bg:#E8E8E7; --gray-line:#C8C5C0;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
@@ -41,7 +41,7 @@
 
   h2{font-size:15.5px;font-weight:500;margin:0 0 4px;}
   .panel-note{font-size:12.5px;color:var(--ink-soft);margin:0 0 18px;max-width:760px;}
-  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:#0c447c;margin-bottom:18px;font-weight:500;}
+  .prelim-banner{background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--accent);margin-bottom:18px;font-weight:500;}
   .term-note{background:var(--gray-bg);border-radius:8px;padding:10px 14px;font-size:12px;color:var(--ink-soft);margin-bottom:18px;}
   .term-note b{color:var(--ink);}
 
@@ -220,8 +220,8 @@
 
   .deliv-strip{display:flex;gap:10px;margin-top:24px;flex-wrap:wrap;}
   .deliv{flex:1;min-width:200px;border:1px solid var(--accent-line);background:var(--accent-bg);border-radius:10px;padding:12px 14px;}
-  .deliv .dl-title{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:#0c447c;font-weight:600;margin:0 0 4px;}
-  .deliv .dl-text{font-size:12.5px;color:#0c447c;margin:0;}
+  .deliv .dl-title{font-size:11px;text-transform:uppercase;letter-spacing:.03em;color:var(--accent);font-weight:600;margin:0 0 4px;}
+  .deliv .dl-text{font-size:12.5px;color:var(--accent);margin:0;}
 
   .instr-sect{margin:20px 0 6px;}
   .instr-label{font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 4px;}
@@ -300,6 +300,43 @@
   .af-oq{display:flex;gap:9px;background:var(--med-bg);border:1px solid var(--med-line);border-radius:8px;padding:10px 13px;margin-top:16px;}
   .af-oq-lbl{font-size:8.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:700;color:var(--med);margin-bottom:2px;}
   .af-oq-txt{font-size:11.5px;color:var(--med);line-height:1.5;}
+
+  /* ── 3×2 Prioritization Matrix ── */
+  .matrix-l{display:grid;grid-template-columns:26px 1fr;gap:0 10px;}
+  .y-axis{display:flex;flex-direction:column;align-items:center;padding:0;}
+  .y-seg{display:flex;align-items:center;justify-content:center;flex:1;width:100%;}
+  .y-lbl{font-size:9px;font-weight:800;color:var(--ink-soft);letter-spacing:.04em;}
+  .m-grid-3x2{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:auto auto auto;
+    border-left:2px solid var(--accent);
+    border-bottom:2px solid var(--accent);
+  }
+  .mq{padding:14px 16px;}
+  .mq-bigbets{grid-column:1;grid-row:1;border-right:1px dashed var(--gray-line);border-bottom:1px dashed var(--gray-line);}
+  .mq-pf    {grid-column:2;grid-row:1;border-bottom:1px dashed var(--gray-line);}
+  .mq-depr  {grid-column:1;grid-row:2/4;border-right:1px dashed var(--gray-line);}
+  .mq-prove {grid-column:2;grid-row:2;border-bottom:1px dashed var(--gray-line);}
+  .mq-fillins{grid-column:2;grid-row:3;}
+  .mq-tier{display:inline-block;font-size:7.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);border:1px solid var(--gray-line);border-radius:2px;padding:1px 5px;margin-bottom:7px;}
+  .mq-name{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 3px;}
+  .mq-desc{font-size:10px;color:var(--ink-soft);margin:0 0 10px;line-height:1.4;}
+  .upgrade-note{font-size:10px;color:var(--med);background:var(--med-bg);border:1px solid var(--med-line);border-radius:3px;padding:7px 10px;line-height:1.45;margin-top:8px;}
+  .ic-ev{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  .ic-ev-row{display:grid;grid-template-columns:60px 14px 1fr;gap:2px 5px;align-items:baseline;margin-bottom:2px;}
+  .ic-ev-row:last-child{margin-bottom:0;}
+  .ic-ev-axis{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.05em;}
+  .ic-ev-val{font-size:8.5px;font-weight:800;text-align:center;}
+  .ic-ev-val.h{color:var(--low);}
+  .ic-ev-val.l{color:var(--high);}
+  .ic-ev-val.yes{color:var(--low);}
+  .ic-ev-val.no{color:var(--high);}
+  .ic-ev-basis{font-size:9px;color:var(--ink-soft);line-height:1.35;}
+  .mx-axis-row{display:grid;grid-template-columns:26px 1fr;gap:0 10px;margin-top:5px;}
+  .mx-x-row{display:flex;justify-content:space-between;padding:0 4px;}
+  .mx-x-lbl{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;}
+  .mx-x-title{font-size:10px;color:var(--ink-soft);letter-spacing:.02em;padding-left:4px;margin-top:2px;}
 </style>
 </head>
 <body>
@@ -576,100 +613,131 @@
 
 
     <div class="panel" id="matrix">
-      <h2>Size of the prize &amp; feasibility — the prioritization criteria</h2>
-      <p class="panel-note">Every opportunity surfaced in the process review gets scored on these two axes before it becomes a candidate initiative.</p>
-      <div class="prelim-banner">This matrix identifies candidates — it doesn't fund them. Each one still needs a real business case: an MVP-level financial model (cost, ROI, payback), built with Finance, before it gets resourced.</div>
+      <h2>Size of the prize &amp; feasibility</h2>
+      <p class="panel-note">Every opportunity from the process review is scored on two axes and placed here before it gets built. Prize is scored H / M / L. Feasibility is binary: can you show a validated result inside 90 days, or not? Each confirmed card still needs an MVP business case with Finance before it’s resourced.</p>
       <div class="matrix-legend">
-        <span><i class="leg-chip validated"></i>Reported metric — prize size unconfirmed</span>
-        <span><i class="leg-chip illustrative"></i>Illustrative — placement unconfirmed</span>
-        <span style="border-left:1px solid var(--line);padding-left:20px;">Vertical positions are preliminary for all 3 pilots — headline numbers not yet sized against a shared baseline.</span>
+        <span><i class="leg-chip validated"></i>Reported metric — prize size still unconfirmed</span>
+        <span><i class="leg-chip illustrative"></i>Illustrative — placement unconfirmed · Vertical positions preliminary for all 3 pilots</span>
       </div>
       <div class="matrix-outer">
-      <div class="matrix-wrap">
-        <div class="m-axis-y">size of the prize</div>
-        <div class="m-bands">
-          <div class="m-band beyond">Sequenced beyond day 90</div>
-          <div class="m-band within">Deliverable within 90 days</div>
-        </div>
-        <div class="m-grid">
-          <div class="quad q-bigbets">
-            <span class="q-tag">high prize · low feasibility</span>
-            <span class="q-name">Big bets</span>
-            <div class="quad-chips">
-              <div class="init-card">
-                <p class="ic-name">Campaign creative at studio scale</p>
-                <p class="ic-metric">$800K estimated agency-fee savings</p>
-                <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend or agency budget specifically</p>
-                <div class="ic-scores">
-                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
-                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
+        <!-- LEFT: axes + 3×2 grid -->
+        <div>
+          <div class="matrix-l">
+            <div class="y-axis">
+              <div class="y-seg"><span class="y-lbl">H</span></div>
+              <div class="y-seg"><span class="y-lbl">M</span></div>
+              <div class="y-seg"><span class="y-lbl">L</span></div>
+            </div>
+            <div class="m-grid-3x2">
+              <!-- H × No -->
+              <div class="mq mq-bigbets">
+                <span class="mq-tier">H prize · no 90-day result</span>
+                <p class="mq-name">Big bets</p>
+                <p class="mq-desc">High prize but no result possible inside 90 days — sequence after quick wins are proven.</p>
+                <div class="init-card">
+                  <p class="ic-name">Campaign creative at studio scale</p>
+                  <p class="ic-metric">$800K estimated agency-fee savings</p>
+                  <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend</p>
+                  <div class="ic-ev">
+                    <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val h">H</span><span class="ic-ev-basis">agency-fee proxy · shared infra replicable across all 8 brands</span></div>
+                    <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val no">No</span><span class="ic-ev-basis">vendor decision + new platform · no milestone possible in any brand</span></div>
+                  </div>
+                </div>
+                <span class="init-chip illustrative">AI-assisted concept &amp; moodboard generation</span>
+                <span class="init-chip illustrative">Shared measurement &amp; feedback dashboard</span>
+              </div>
+              <!-- H × Yes -->
+              <div class="mq mq-pf">
+                <span class="mq-tier">H prize · 90-day result ✓</span>
+                <p class="mq-name">Prioritize first</p>
+                <p class="mq-desc">High prize and can show a validated result inside 90 days — where to focus next.</p>
+                <div class="init-card">
+                  <p class="ic-name">PDP copy generation</p>
+                  <p class="ic-metric">70% reduction in copywriting time</p>
+                  <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ baseline to convert time saved</p>
+                  <div class="ic-ev">
+                    <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val h">H</span><span class="ic-ev-basis">70% time reduction · eCommerce live · model replicable across brands</span></div>
+                    <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val yes">Yes</span><span class="ic-ev-basis">rules-based copy · already running in 1 brand · result visible now</span></div>
+                  </div>
                 </div>
               </div>
-              <span class="init-chip illustrative">AI-assisted concept &amp; moodboard generation</span>
-              <span class="init-chip illustrative">Shared measurement &amp; feedback dashboard</span>
-            </div>
-          </div>
-          <div class="quad q-winners">
-            <span class="q-tag">high prize · high feasibility</span>
-            <span class="q-name">Prioritize first</span>
-            <div class="quad-chips">
-              <div class="init-card">
-                <p class="ic-name">PDP copy generation</p>
-                <p class="ic-metric">70% reduction in copywriting time</p>
-                <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ cost baseline to convert time saved into value</p>
-                <div class="ic-scores">
-                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
-                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
+              <!-- M+L × No — spans rows 2-3 -->
+              <div class="mq mq-depr">
+                <span class="mq-tier">M or L prize · no 90-day result</span>
+                <p class="mq-name">Deprioritize</p>
+                <p class="mq-desc">Medium or low prize with no 90-day result possible. Neither return nor speed justifies the investment — sequence last or drop.</p>
+                <span class="empty-note">No candidates identified yet</span>
+              </div>
+              <!-- M × Yes -->
+              <div class="mq mq-prove">
+                <span class="mq-tier">M prize · 90-day result ✓</span>
+                <p class="mq-name">Prove it</p>
+                <p class="mq-desc">Medium prize but provable in 90 days. Run it to find out if the prize upgrades to H.</p>
+                <div class="upgrade-note">⛑ Built-in checkpoint: if the 90-day result doesn’t increase the prize estimate, this initiative moves to Fill-ins.</div>
+                <span class="empty-note" style="display:block;margin-top:10px;">No candidates identified yet</span>
+              </div>
+              <!-- L × Yes -->
+              <div class="mq mq-fillins">
+                <span class="mq-tier">L prize · 90-day result ✓</span>
+                <p class="mq-name">Fill-ins</p>
+                <p class="mq-desc">Fast to prove but limited impact. Run alongside bigger initiatives — don’t lead with these.</p>
+                <div class="init-card">
+                  <p class="ic-name">Social repurposing variants</p>
+                  <p class="ic-metric">3× social content volume in 3 months</p>
+                  <p class="ic-caveat">Prize size unconfirmed: activity metric, not linked to $ yet</p>
+                  <div class="ic-ev">
+                    <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val l">L</span><span class="ic-ev-basis">3× volume is activity only · single brand · no $ link yet</span></div>
+                    <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val yes">Yes</span><span class="ic-ev-basis">tool already running · low risk · can extend to other brands</span></div>
+                  </div>
                 </div>
+                <span class="init-chip illustrative">Standardized brief template &amp; intake portal</span>
+                <span class="init-chip illustrative">Publish scheduling &amp; on-time tracking</span>
               </div>
             </div>
           </div>
-          <div class="quad q-drop">
-            <span class="q-tag">low prize · low feasibility</span>
-            <span class="q-name">Deprioritize</span>
-            <div class="quad-chips"><span class="empty-note">No candidates identified yet</span></div>
-          </div>
-          <div class="quad q-fillins">
-            <span class="q-tag">low prize · high feasibility</span>
-            <span class="q-name">Fill-ins</span>
-            <div class="quad-chips">
-              <div class="init-card">
-                <p class="ic-name">Social repurposing variants</p>
-                <p class="ic-metric">3x social content volume in 3 months</p>
-                <p class="ic-caveat">Prize size unconfirmed: an activity metric, not yet linked to $ cost, revenue, or conversion</p>
-                <div class="ic-scores">
-                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
-                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
-                </div>
-              </div>
-              <span class="init-chip illustrative">Standardized brief template &amp; intake portal</span>
-              <span class="init-chip illustrative">Publish scheduling &amp; on-time tracking</span>
+          <!-- X-axis -->
+          <div class="mx-axis-row">
+            <div></div>
+            <div class="mx-x-row">
+              <span class="mx-x-lbl">No 90-day result possible</span>
+              <span class="mx-x-lbl">Result deliverable in 90 days →</span>
             </div>
           </div>
+          <div class="mx-axis-row" style="margin-top:2px;">
+            <div></div>
+            <p class="mx-x-title">Can this show a validated result inside 90 days?</p>
+          </div>
+          <div class="matrix-enabler" style="margin-top:16px;"><b>Approval redesign sits outside this matrix on purpose</b> — it’s a cross-cutting enabler, not a quadrant candidate. Fixing it multiplies the value of every initiative above.</div>
         </div>
-        <div class="m-axis-x"><span>low feasibility</span><span>high feasibility</span></div>
-      </div>
-      <div class="matrix-sidebar">
-        <div class="criteria-card">
-          <p class="cc-title">Size of the prize</p>
-          <ul>
-            <li>Estimated $ impact — cost saved plus revenue potential</li>
-            <li>Volume of content or teams it touches</li>
-            <li>Leverage — one team or many via shared infrastructure</li>
-          </ul>
+        <!-- RIGHT: criteria sidebar -->
+        <div class="matrix-sidebar">
+          <div class="criteria-card">
+            <p class="cc-title" style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">Size of the prize</p>
+            <p style="font-size:10px;color:var(--ink-soft);margin:0 0 10px;line-height:1.4;">Scored H / M / L relative to each other — not against an absolute figure.</p>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <div style="display:grid;grid-template-columns:14px 1fr;gap:4px 6px;align-items:start;"><span style="font-size:9px;font-weight:800;color:var(--low);padding-top:2px;">H</span><span style="font-size:10.5px;color:var(--ink-soft);line-height:1.4;">Significant $ impact <em>and</em> the model is replicable across brands via shared infrastructure — confirmed, not assumed</span></div>
+              <div style="display:grid;grid-template-columns:14px 1fr;gap:4px 6px;align-items:start;"><span style="font-size:9px;font-weight:800;color:var(--med);padding-top:2px;">M</span><span style="font-size:10.5px;color:var(--ink-soft);line-height:1.4;">Confirmed impact for one brand, with a <em>named</em> replication path — not “could scale”</span></div>
+              <div style="display:grid;grid-template-columns:14px 1fr;gap:4px 6px;align-items:start;"><span style="font-size:9px;font-weight:800;color:var(--high);padding-top:2px;">L</span><span style="font-size:10.5px;color:var(--ink-soft);line-height:1.4;">Activity metric only, single brand, no $ link — or potential without a named path</span></div>
+            </div>
+          </div>
+          <div class="criteria-card">
+            <p class="cc-title" style="color:var(--accent);font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px;">90-day feasibility</p>
+            <p style="font-size:10px;color:var(--ink-soft);margin:0 0 10px;line-height:1.4;">Binary — yes or no. No middle ground.</p>
+            <div style="display:flex;flex-direction:column;gap:7px;">
+              <div style="display:grid;grid-template-columns:22px 1fr;gap:4px 6px;align-items:start;"><span style="font-size:9px;font-weight:800;color:var(--low);padding-top:2px;">Yes</span><span style="font-size:10.5px;color:var(--ink-soft);line-height:1.4;">A specific 90-day milestone exists that constitutes a validated result in at least one brand</span></div>
+              <div style="display:grid;grid-template-columns:22px 1fr;gap:4px 6px;align-items:start;"><span style="font-size:9px;font-weight:800;color:var(--high);padding-top:2px;">No</span><span style="font-size:10.5px;color:var(--ink-soft);line-height:1.4;">No 90-day result possible — requires new platform, vendor decision, or data not yet available</span></div>
+            </div>
+          </div>
+          <div style="border:1px solid var(--med-line);border-radius:4px;background:var(--med-bg);padding:10px 12px;font-size:10.5px;color:var(--med);line-height:1.5;">
+            <strong style="display:block;font-size:9px;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;">Closing the M loophole</strong>
+            If you’re saying “potential to scale” or “could show something” — that’s L prize and No, respectively. M prize requires confirmed data. 90-day Yes requires a named milestone.
+          </div>
+          <div style="background:var(--accent-bg);border:1px solid var(--accent-line);border-radius:4px;padding:12px 14px;font-size:10.5px;color:var(--ink);line-height:1.5;">
+            <strong style="color:var(--accent);display:block;margin-bottom:4px;font-size:9px;text-transform:uppercase;letter-spacing:.06em;">Across 8 brands</strong>
+            Same rubric for every brand. An initiative that’s H prize for one brand but without a confirmed replication path stays M until the path is named.
+          </div>
         </div>
-        <div class="criteria-card">
-          <p class="cc-title">Feasibility</p>
-          <ul>
-            <li>Technical complexity — rules-based vs. requires judgment</li>
-            <li>Brand-risk exposure if something goes wrong</li>
-            <li>Change required — roles, retraining, process redesign</li>
-            <li><b>Can it show a result inside 90 days</b> — if not, it drops into Big Bets regardless of prize size</li>
-          </ul>
-        </div>
       </div>
-      </div>
-      <div class="matrix-enabler"><b>Approval redesign sits outside this matrix on purpose</b> — it's a cross-cutting enabler, not a quadrant candidate. Fixing it multiplies the value of whatever lands in every quadrant above.</div>
     </div>
   </div>
 
