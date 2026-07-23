@@ -377,6 +377,13 @@
   .itrk-empty{font-size:10px;color:var(--ink-muted);font-style:italic;margin:0;}
   .itrk-note{margin-top:14px;font-size:11.5px;color:var(--ink-soft);background:var(--gray-bg);border-radius:6px;padding:10px 14px;max-width:760px;}
   .itrk-note strong{color:var(--accent);}
+  .itrk-skip-banner{background:var(--med-bg);border:1px solid var(--med-line);border-radius:6px;padding:10px 14px;font-size:11.5px;color:var(--med);margin-bottom:14px;max-width:760px;line-height:1.5;}
+  .itrk-skipped{background:repeating-linear-gradient(135deg,transparent,transparent 6px,rgba(0,0,0,.018) 6px,rgba(0,0,0,.018) 12px);}
+  .itrk-skip-marker{margin-top:6px;font-size:9.5px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--med);border:1px dashed var(--med-line);border-radius:4px;padding:6px 8px;text-align:center;}
+  .itc-missing{margin-top:8px;padding-top:7px;border-top:1px solid var(--med-line);display:flex;flex-direction:column;gap:3px;}
+  .itc-missing-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--med);margin-bottom:1px;}
+  .itc-gap{font-size:9.5px;color:var(--med);line-height:1.35;padding-left:8px;position:relative;}
+  .itc-gap::before{content:'·';position:absolute;left:0;}
 </style>
 </head>
 <body>
@@ -751,12 +758,15 @@
 
     <div class="panel" id="tracker">
       <h2>From priority to value</h2>
-      <p class="panel-note">Each initiative that comes out of the prioritization matrix enters Stage 1 and must pass through every gate before it can capture value. The 3 pilots running today are proof-of-concepts — they need to complete the formal stages before expanding to all 8 brands.</p>
+      <p class="panel-note">Five stages from the matrix to proven value. Each one requires a gate to advance — the gate exists to protect the next stage's investment.</p>
+      <div class="itrk-skip-banner">
+        The 3 current pilots went directly into production without a business case or an implementation plan. They are running in 1 brand and cannot expand until Stages 2 and 3 are completed.
+      </div>
       <div class="itrk-legend">
-        <span><span class="itrk-dot pf"></span>Prioritize first (H prize · Yes)</span>
-        <span><span class="itrk-dot bb"></span>Big bet (H prize · No)</span>
-        <span><span class="itrk-dot fi"></span>Fill-in (L prize · Yes)</span>
-        <span><span class="itrk-dot il"></span>Illustrative — not yet confirmed</span>
+        <span><span class="itrk-dot pf"></span>Prioritize first (H · Yes)</span>
+        <span><span class="itrk-dot bb"></span>Big bet (H · No)</span>
+        <span><span class="itrk-dot fi"></span>Fill-in (L · Yes)</span>
+        <span><span class="itrk-dot il"></span>Illustrative</span>
       </div>
       <div class="itrk-pipeline">
         <!-- Stage 1 -->
@@ -765,41 +775,25 @@
           <p class="itrk-stg-name">Prioritized</p>
           <p class="itrk-gate"><strong>Gate in</strong>Prize and feasibility scored in the matrix; initiative accepted for formal development</p>
           <div class="itrk-cards">
-            <div class="itrk-card pf">
-              <p class="itc-name">PDP copy generation</p>
-              <p class="itc-note">Pilot running in 1 brand — not yet formally scoped for 8-brand rollout</p>
-            </div>
-            <div class="itrk-card bb">
-              <p class="itc-name">Campaign creative at studio scale</p>
-              <p class="itc-note">Big Bet — sequence after a Prioritize First initiative reaches Stage 5</p>
-            </div>
-            <div class="itrk-card fi">
-              <p class="itc-name">Social repurposing variants</p>
-              <p class="itc-note">Pilot running in 1 brand — confirm metric link to $ before expanding</p>
-            </div>
             <div class="itrk-card il">
               <p class="itc-name">Standardized brief template</p>
-              <p class="itc-note">Illustrative — placement unconfirmed</p>
+              <p class="itc-note">Illustrative — not yet started</p>
             </div>
           </div>
         </div>
         <!-- Stage 2 -->
-        <div class="itrk-stage">
+        <div class="itrk-stage itrk-skipped">
           <p class="itrk-stg-num">Stage 2</p>
           <p class="itrk-stg-name">Business case validated</p>
           <p class="itrk-gate"><strong>Gate in</strong>MVP financial model (cost, ROI, payback) built with Finance. Prize estimate confirmed or revised with real data</p>
-          <div class="itrk-cards">
-            <p class="itrk-empty">No initiatives here yet</p>
-          </div>
+          <div class="itrk-skip-marker">Skipped by current pilots</div>
         </div>
         <!-- Stage 3 -->
-        <div class="itrk-stage">
+        <div class="itrk-stage itrk-skipped">
           <p class="itrk-stg-num">Stage 3</p>
           <p class="itrk-stg-name">Implementation plan</p>
           <p class="itrk-gate"><strong>Gate in</strong>Technical spec completed; resources and owners assigned; delivery timeline agreed</p>
-          <div class="itrk-cards">
-            <p class="itrk-empty">No initiatives here yet</p>
-          </div>
+          <div class="itrk-skip-marker">Skipped by current pilots</div>
         </div>
         <!-- Stage 4 -->
         <div class="itrk-stage">
@@ -807,7 +801,33 @@
           <p class="itrk-stg-name">In production</p>
           <p class="itrk-gate"><strong>Gate in</strong>Live in at least one brand, collecting result data. 90-day milestone clock starts</p>
           <div class="itrk-cards">
-            <p class="itrk-empty">No initiatives here yet</p>
+            <div class="itrk-card pf">
+              <p class="itc-name">PDP copy generation</p>
+              <p class="itc-note">Running · 70% time reduction · 1 brand (eCommerce)</p>
+              <div class="itc-missing">
+                <span class="itc-missing-lbl">Missing — cannot expand yet</span>
+                <span class="itc-gap">No business case: no SKU volume or $ baseline to size the prize</span>
+                <span class="itc-gap">No implementation plan for the remaining 7 brands</span>
+              </div>
+            </div>
+            <div class="itrk-card bb">
+              <p class="itc-name">Campaign creative at studio scale</p>
+              <p class="itc-note">Running · $800K estimated savings · 1 brand (Adobe Firefly)</p>
+              <div class="itc-missing">
+                <span class="itc-missing-lbl">Missing — cannot expand yet</span>
+                <span class="itc-gap">No business case: prize size unconfirmed, unknown % of total budget</span>
+                <span class="itc-gap">No implementation plan: platform decision for other brands pending</span>
+              </div>
+            </div>
+            <div class="itrk-card fi">
+              <p class="itc-name">Social repurposing variants</p>
+              <p class="itc-note">Running · 3× content volume · 1 brand</p>
+              <div class="itc-missing">
+                <span class="itc-missing-lbl">Missing — cannot expand yet</span>
+                <span class="itc-gap">No business case: metric is volume only, no $ link established</span>
+                <span class="itc-gap">No implementation plan for other brands</span>
+              </div>
+            </div>
           </div>
         </div>
         <!-- Stage 5 -->
@@ -820,7 +840,7 @@
           </div>
         </div>
       </div>
-      <div class="itrk-note">Initiatives in <strong>Big Bet</strong> (Stage 1) are not blocked — they're deliberately sequenced last. Once a Prioritize First initiative reaches Stage 5 and the prize is confirmed, the Big Bet business case becomes much easier to justify.</div>
+      <div class="itrk-note"><strong>Next step for all 3:</strong> Complete Stage 2 before attempting to expand. The business case is not bureaucracy — it's the only way to know whether the prize estimate from the matrix holds at 8-brand scale.</div>
     </div>
   </div>
 
