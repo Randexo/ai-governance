@@ -115,7 +115,17 @@
   .criteria-card .cc-title{font-size:13px;font-weight:500;margin:0 0 8px;}
   .criteria-card ul{margin:0;padding-left:18px;font-size:12px;color:var(--ink-soft);}
   .criteria-card li{margin-bottom:5px;}
-  .matrix-wrap{display:grid;grid-template-columns:32px 1fr;grid-template-rows:24px 1fr 30px;gap:6px 10px;max-width:760px;}
+  .matrix-wrap{display:grid;grid-template-columns:32px 1fr;grid-template-rows:24px 1fr 30px;gap:6px 10px;}
+  .matrix-outer{display:grid;grid-template-columns:1fr 220px;gap:24px;align-items:start;}
+  @media(max-width:860px){.matrix-outer{grid-template-columns:1fr;}}
+  .matrix-sidebar{display:flex;flex-direction:column;gap:12px;}
+  .ic-scores{display:flex;flex-direction:column;gap:4px;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  .ic-score-row{display:flex;align-items:center;gap:8px;}
+  .ic-score-lbl{font-size:10px;color:var(--ink-soft);width:60px;flex-shrink:0;}
+  .ic-dots{display:flex;gap:3px;}
+  .ic-dot{width:7px;height:7px;border-radius:50%;background:var(--line);}
+  .ic-score-row.prize .ic-dot.on{background:var(--known);}
+  .ic-score-row.feas .ic-dot.on{background:var(--accent);}
   .m-axis-y{grid-row:2;grid-column:1;writing-mode:vertical-rl;transform:rotate(180deg);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--ink-soft);}
   .m-axis-x{grid-row:3;grid-column:2;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:var(--ink-soft);padding:0 4px;}
   .m-bands{grid-row:1;grid-column:2;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
@@ -569,30 +579,12 @@
       <h2>Size of the prize &amp; feasibility — the prioritization criteria</h2>
       <p class="panel-note">Every opportunity surfaced in the process review gets scored on these two axes before it becomes a candidate initiative.</p>
       <div class="prelim-banner">This matrix identifies candidates — it doesn't fund them. Each one still needs a real business case: an MVP-level financial model (cost, ROI, payback), built with Finance, before it gets resourced.</div>
-      <div class="criteria-cols">
-        <div class="criteria-card">
-          <p class="cc-title">Size of the prize</p>
-          <ul>
-            <li>Estimated $ impact — cost saved plus revenue potential</li>
-            <li>Volume of content or teams it touches</li>
-            <li>Leverage — does it benefit one team, or many via shared infrastructure</li>
-          </ul>
-        </div>
-        <div class="criteria-card">
-          <p class="cc-title">Feasibility</p>
-          <ul>
-            <li>Technical complexity and data readiness — rules-based vs. requires judgment</li>
-            <li>Brand-risk exposure if something goes wrong</li>
-            <li>Change required — new roles, retraining, process redesign needed</li>
-            <li><b>Can it show a validated result inside the 90-day window</b> — if not, it drops into Big Bets regardless of prize size</li>
-          </ul>
-        </div>
-      </div>
       <div class="matrix-legend">
         <span><i class="leg-chip validated"></i>Reported metric — prize size unconfirmed</span>
         <span><i class="leg-chip illustrative"></i>Illustrative — placement unconfirmed</span>
         <span style="border-left:1px solid var(--line);padding-left:20px;">Vertical positions are preliminary for all 3 pilots — headline numbers not yet sized against a shared baseline.</span>
       </div>
+      <div class="matrix-outer">
       <div class="matrix-wrap">
         <div class="m-axis-y">size of the prize</div>
         <div class="m-bands">
@@ -608,6 +600,10 @@
                 <p class="ic-name">Campaign creative at studio scale</p>
                 <p class="ic-metric">$800K estimated agency-fee savings</p>
                 <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend or agency budget specifically</p>
+                <div class="ic-scores">
+                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
+                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
+                </div>
               </div>
               <span class="init-chip illustrative">AI-assisted concept &amp; moodboard generation</span>
               <span class="init-chip illustrative">Shared measurement &amp; feedback dashboard</span>
@@ -621,6 +617,10 @@
                 <p class="ic-name">PDP copy generation</p>
                 <p class="ic-metric">70% reduction in copywriting time</p>
                 <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ cost baseline to convert time saved into value</p>
+                <div class="ic-scores">
+                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
+                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
+                </div>
               </div>
             </div>
           </div>
@@ -637,6 +637,10 @@
                 <p class="ic-name">Social repurposing variants</p>
                 <p class="ic-metric">3x social content volume in 3 months</p>
                 <p class="ic-caveat">Prize size unconfirmed: an activity metric, not yet linked to $ cost, revenue, or conversion</p>
+                <div class="ic-scores">
+                  <div class="ic-score-row prize"><span class="ic-score-lbl">Prize</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i><i class="ic-dot"></i><i class="ic-dot"></i></div></div>
+                  <div class="ic-score-row feas"><span class="ic-score-lbl">Feasibility</span><div class="ic-dots"><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot on"></i><i class="ic-dot"></i></div></div>
+                </div>
               </div>
               <span class="init-chip illustrative">Standardized brief template &amp; intake portal</span>
               <span class="init-chip illustrative">Publish scheduling &amp; on-time tracking</span>
@@ -644,6 +648,26 @@
           </div>
         </div>
         <div class="m-axis-x"><span>low feasibility</span><span>high feasibility</span></div>
+      </div>
+      <div class="matrix-sidebar">
+        <div class="criteria-card">
+          <p class="cc-title">Size of the prize</p>
+          <ul>
+            <li>Estimated $ impact — cost saved plus revenue potential</li>
+            <li>Volume of content or teams it touches</li>
+            <li>Leverage — one team or many via shared infrastructure</li>
+          </ul>
+        </div>
+        <div class="criteria-card">
+          <p class="cc-title">Feasibility</p>
+          <ul>
+            <li>Technical complexity — rules-based vs. requires judgment</li>
+            <li>Brand-risk exposure if something goes wrong</li>
+            <li>Change required — roles, retraining, process redesign</li>
+            <li><b>Can it show a result inside 90 days</b> — if not, it drops into Big Bets regardless of prize size</li>
+          </ul>
+        </div>
+      </div>
       </div>
       <div class="matrix-enabler"><b>Approval redesign sits outside this matrix on purpose</b> — it's a cross-cutting enabler, not a quadrant candidate. Fixing it multiplies the value of whatever lands in every quadrant above.</div>
     </div>
