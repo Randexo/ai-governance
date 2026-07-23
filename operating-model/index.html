@@ -120,31 +120,33 @@
   .m-axis-x{grid-row:3;grid-column:2;display:flex;justify-content:space-between;font-size:12px;font-weight:500;color:var(--ink-soft);padding:0 4px;}
   .m-bands{grid-row:1;grid-column:2;display:grid;grid-template-columns:1fr 1fr;gap:10px;}
   .m-band{text-align:center;font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;padding:4px;border-radius:6px;font-weight:600;}
-  .m-band.beyond{background:var(--gap-bg);color:var(--gap);}
+  .m-band.beyond{background:var(--gray-bg);color:var(--ink-soft);}
   .m-band.within{background:var(--known-bg);color:var(--known);}
   .m-grid{grid-row:2;grid-column:2;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;min-height:420px;}
   .quad{border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;flex-direction:column;gap:6px;}
   .quad .q-tag{font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;color:var(--ink-soft);}
   .quad .q-name{font-size:14.5px;font-weight:600;margin-bottom:4px;}
-  .quad.q-winners{background:var(--known-bg);border-color:var(--known-line);}
-  .quad.q-bigbets{background:var(--accent-bg);border-color:var(--accent-line);}
+  .quad.q-winners{background:#f3fbf7;border-color:#c8e9d8;}
+  .quad.q-bigbets{background:#f3f7fd;border-color:#ccddf5;}
   .quad.q-fillins{background:var(--gray-bg);}
-  .quad.q-drop{background:var(--gap-bg);border-color:var(--gap-line);}
+  .quad.q-drop{background:#fdf9f7;}
+  .quad.q-winners .q-name{color:var(--known);}
+  .quad.q-bigbets .q-name{color:var(--accent);}
   .quad-chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;}
   .init-chip{border-radius:8px;padding:6px 10px;font-size:11.5px;background:var(--card);max-width:100%;}
   .init-chip.illustrative{border:1.5px dashed var(--ink-soft);color:var(--ink-soft);}
-  .init-card{border:1.5px solid var(--known);border-radius:8px;padding:8px 10px;background:var(--card);font-size:11.5px;max-width:100%;}
+  .init-card{border:1px solid var(--line);border-left:3px solid var(--accent-line);border-radius:8px;padding:8px 10px;background:var(--card);font-size:11.5px;max-width:100%;}
   .init-card .ic-name{font-weight:600;color:var(--ink);margin:0 0 2px;}
-  .init-card .ic-metric{color:var(--known);font-weight:500;margin:0 0 4px;}
-  .init-card .ic-caveat{color:var(--gap);font-size:10.5px;margin:0;}
+  .init-card .ic-metric{color:var(--ink);font-weight:500;margin:0 0 4px;}
+  .init-card .ic-caveat{color:var(--med);font-size:10.5px;margin:0;}
   .empty-note{font-size:11.5px;color:var(--ink-soft);font-style:italic;}
   .matrix-legend{display:flex;gap:20px;flex-wrap:wrap;margin:14px 0 18px;}
   .matrix-legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
   .leg-chip{display:inline-block;width:16px;height:12px;border-radius:4px;background:var(--card);}
   .leg-chip.validated{border:1.5px solid var(--known);}
   .leg-chip.illustrative{border:1.5px dashed var(--ink-soft);}
-  .matrix-enabler{margin-top:16px;border:1px dashed var(--gap-line);background:var(--gap-bg);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--gap);max-width:760px;}
-  .matrix-enabler b{color:var(--gap);}
+  .matrix-enabler{margin-top:16px;border:1px solid var(--line);background:var(--gray-bg);border-radius:10px;padding:12px 16px;font-size:12px;color:var(--ink-soft);max-width:760px;}
+  .matrix-enabler b{color:var(--ink);}
 
   table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:8px;}
   th{text-align:left;padding:8px 10px;font-weight:500;color:var(--ink-soft);font-size:11px;text-transform:uppercase;letter-spacing:.03em;border-bottom:1px solid var(--line);}
@@ -587,10 +589,10 @@
         </div>
       </div>
       <div class="matrix-legend">
-        <span><i class="leg-chip validated"></i>Reported metric exists — prize size still unconfirmed</span>
-        <span><i class="leg-chip illustrative"></i>Illustrative — not yet built, placement unconfirmed</span>
+        <span><i class="leg-chip validated"></i>Reported metric — prize size unconfirmed</span>
+        <span><i class="leg-chip illustrative"></i>Illustrative — placement unconfirmed</span>
+        <span style="border-left:1px solid var(--line);padding-left:20px;">Vertical positions are preliminary for all 3 pilots — headline numbers not yet sized against a shared baseline.</span>
       </div>
-      <div class="prelim-banner">Vertical position (size of the prize) is preliminary for all 3 known pilots — none of their headline numbers are sized against a shared baseline yet. That's exactly what the 4 data requests already in motion are meant to confirm.</div>
       <div class="matrix-wrap">
         <div class="m-axis-y">size of the prize</div>
         <div class="m-bands">
