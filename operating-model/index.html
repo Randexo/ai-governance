@@ -337,6 +337,46 @@
   .mx-x-row{display:flex;justify-content:space-between;padding:0 4px;}
   .mx-x-lbl{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;}
   .mx-x-title{font-size:10px;color:var(--ink-soft);letter-spacing:.02em;padding-left:4px;margin-top:2px;}
+
+  /* ── Initiative tracker ── */
+  .itrk-legend{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 18px;}
+  .itrk-legend span{display:inline-flex;align-items:center;gap:6px;font-size:11.5px;color:var(--ink-soft);}
+  .itrk-dot{display:inline-block;width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+  .itrk-dot.pf{background:var(--low);}
+  .itrk-dot.bb{background:var(--accent);}
+  .itrk-dot.fi{background:var(--high);}
+  .itrk-dot.il{background:var(--gray-line);border:1px dashed var(--ink-muted);}
+
+  .itrk-pipeline{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    border:1px solid var(--line);
+    border-radius:8px;
+    overflow:hidden;
+  }
+  @media(max-width:860px){.itrk-pipeline{grid-template-columns:1fr 1fr;}}
+  @media(max-width:520px){.itrk-pipeline{grid-template-columns:1fr;}}
+  .itrk-stage{padding:14px 12px;border-right:1px solid var(--line);}
+  .itrk-stage:last-child{border-right:none;}
+  .itrk-stg-num{font-size:8.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--ink-muted);margin:0 0 2px;}
+  .itrk-stg-name{font-size:12px;font-weight:600;color:var(--ink);margin:0 0 10px;padding-bottom:8px;border-bottom:2px solid var(--accent);}
+  .itrk-gate{font-size:9px;color:var(--ink-muted);line-height:1.4;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed var(--gray-line);}
+  .itrk-gate strong{display:block;font-size:8px;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-soft);margin-bottom:2px;}
+  .itrk-cards{display:flex;flex-direction:column;gap:6px;}
+  .itrk-card{border-radius:5px;padding:8px 10px;background:var(--card);border:1px solid var(--line);font-size:10.5px;border-left-width:3px;}
+  .itrk-card.pf{border-left-color:var(--low);}
+  .itrk-card.bb{border-left-color:var(--accent);}
+  .itrk-card.fi{border-left-color:var(--high);}
+  .itrk-card.il{border-left-color:var(--gray-line);border-left-style:dashed;}
+  .itrk-card .itc-name{font-weight:600;color:var(--ink);margin:0 0 2px;font-size:10.5px;}
+  .itrk-card.pf .itc-name{color:var(--low);}
+  .itrk-card.bb .itc-name{color:var(--accent);}
+  .itrk-card.fi .itc-name{color:var(--high);}
+  .itrk-card.il .itc-name{color:var(--ink-soft);}
+  .itrk-card .itc-note{font-size:9.5px;color:var(--ink-soft);margin:0;line-height:1.35;}
+  .itrk-empty{font-size:10px;color:var(--ink-muted);font-style:italic;margin:0;}
+  .itrk-note{margin-top:14px;font-size:11.5px;color:var(--ink-soft);background:var(--gray-bg);border-radius:6px;padding:10px 14px;max-width:760px;}
+  .itrk-note strong{color:var(--accent);}
 </style>
 </head>
 <body>
@@ -350,38 +390,6 @@
     </div>
   </header>
 
-  <div class="instr-sect">
-    <p class="instr-label">Governance instruments</p>
-    <p class="instr-sub">The review produces 7 instruments across 3 pillars — artifacts the TO uses to govern the AI reset from day one. Click a card to open the pillar.</p>
-    <div class="instr-grid">
-      <div class="instr-card" onclick="document.querySelector('[data-top=structure]').click()">
-        <div class="instr-hd"><span class="instr-num">1</span><span class="instr-pname">Process redesign</span></div>
-        <div class="instr-chips">
-          <span class="instr-chip">Prioritized opportunity backlog</span>
-          <span class="instr-chip">Future-state process (TO-BE)</span>
-        </div>
-        <p class="instr-go">→ Open pillar</p>
-      </div>
-      <div class="instr-card" onclick="document.querySelector('[data-top=rolesresp]').click()">
-        <div class="instr-hd"><span class="instr-num">2</span><span class="instr-pname">Roles &amp; responsibilities</span></div>
-        <div class="instr-chips">
-          <span class="instr-chip">Updated role definitions</span>
-          <span class="instr-chip">Accountability guidelines</span>
-        </div>
-        <p class="instr-go">→ Open pillar</p>
-      </div>
-      <div class="instr-card" onclick="document.querySelector('[data-top=standards]').click()">
-        <div class="instr-hd"><span class="instr-num">3</span><span class="instr-pname">Enterprise standards</span></div>
-        <div class="instr-chips">
-          <span class="instr-chip">Prompt library</span>
-          <span class="instr-chip">Brand standards</span>
-          <span class="instr-chip">Playbooks</span>
-        </div>
-        <p class="instr-go">→ Open pillar</p>
-      </div>
-    </div>
-  </div>
-
   <div class="toptabs">
     <div class="toptab active" data-top="structure">1 · Process redesign</div>
     <div class="toptab" data-top="rolesresp">2 · Roles &amp; responsibilities</div>
@@ -393,6 +401,7 @@
     <div class="tabs">
       <div class="tab active" data-tab="process">Process &amp; opportunities</div>
       <div class="tab" data-tab="matrix">Prioritization matrix</div>
+      <div class="tab" data-tab="tracker">Initiative tracker</div>
     </div>
 
     <div class="panel active" id="process">
@@ -738,6 +747,80 @@
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="panel" id="tracker">
+      <h2>From priority to value</h2>
+      <p class="panel-note">Each initiative that comes out of the prioritization matrix enters Stage 1 and must pass through every gate before it can capture value. The 3 pilots running today are proof-of-concepts — they need to complete the formal stages before expanding to all 8 brands.</p>
+      <div class="itrk-legend">
+        <span><span class="itrk-dot pf"></span>Prioritize first (H prize · Yes)</span>
+        <span><span class="itrk-dot bb"></span>Big bet (H prize · No)</span>
+        <span><span class="itrk-dot fi"></span>Fill-in (L prize · Yes)</span>
+        <span><span class="itrk-dot il"></span>Illustrative — not yet confirmed</span>
+      </div>
+      <div class="itrk-pipeline">
+        <!-- Stage 1 -->
+        <div class="itrk-stage">
+          <p class="itrk-stg-num">Stage 1</p>
+          <p class="itrk-stg-name">Prioritized</p>
+          <p class="itrk-gate"><strong>Gate in</strong>Prize and feasibility scored in the matrix; initiative accepted for formal development</p>
+          <div class="itrk-cards">
+            <div class="itrk-card pf">
+              <p class="itc-name">PDP copy generation</p>
+              <p class="itc-note">Pilot running in 1 brand — not yet formally scoped for 8-brand rollout</p>
+            </div>
+            <div class="itrk-card bb">
+              <p class="itc-name">Campaign creative at studio scale</p>
+              <p class="itc-note">Big Bet — sequence after a Prioritize First initiative reaches Stage 5</p>
+            </div>
+            <div class="itrk-card fi">
+              <p class="itc-name">Social repurposing variants</p>
+              <p class="itc-note">Pilot running in 1 brand — confirm metric link to $ before expanding</p>
+            </div>
+            <div class="itrk-card il">
+              <p class="itc-name">Standardized brief template</p>
+              <p class="itc-note">Illustrative — placement unconfirmed</p>
+            </div>
+          </div>
+        </div>
+        <!-- Stage 2 -->
+        <div class="itrk-stage">
+          <p class="itrk-stg-num">Stage 2</p>
+          <p class="itrk-stg-name">Business case validated</p>
+          <p class="itrk-gate"><strong>Gate in</strong>MVP financial model (cost, ROI, payback) built with Finance. Prize estimate confirmed or revised with real data</p>
+          <div class="itrk-cards">
+            <p class="itrk-empty">No initiatives here yet</p>
+          </div>
+        </div>
+        <!-- Stage 3 -->
+        <div class="itrk-stage">
+          <p class="itrk-stg-num">Stage 3</p>
+          <p class="itrk-stg-name">Implementation plan</p>
+          <p class="itrk-gate"><strong>Gate in</strong>Technical spec completed; resources and owners assigned; delivery timeline agreed</p>
+          <div class="itrk-cards">
+            <p class="itrk-empty">No initiatives here yet</p>
+          </div>
+        </div>
+        <!-- Stage 4 -->
+        <div class="itrk-stage">
+          <p class="itrk-stg-num">Stage 4</p>
+          <p class="itrk-stg-name">In production</p>
+          <p class="itrk-gate"><strong>Gate in</strong>Live in at least one brand, collecting result data. 90-day milestone clock starts</p>
+          <div class="itrk-cards">
+            <p class="itrk-empty">No initiatives here yet</p>
+          </div>
+        </div>
+        <!-- Stage 5 -->
+        <div class="itrk-stage">
+          <p class="itrk-stg-num">Stage 5</p>
+          <p class="itrk-stg-name">Value captured</p>
+          <p class="itrk-gate"><strong>Gate in</strong>90-day result achieved and measured. Prize estimate updated with actual data. 8-brand rollout decision made</p>
+          <div class="itrk-cards">
+            <p class="itrk-empty">No initiatives here yet</p>
+          </div>
+        </div>
+      </div>
+      <div class="itrk-note">Initiatives in <strong>Big Bet</strong> (Stage 1) are not blocked — they're deliberately sequenced last. Once a Prioritize First initiative reaches Stage 5 and the prize is confirmed, the Big Bet business case becomes much easier to justify.</div>
     </div>
   </div>
 
