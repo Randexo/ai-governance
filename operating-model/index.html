@@ -15,6 +15,8 @@
     --accent:#001F5F; --accent-bg:#CFDEE1; --accent-line:#7B9DAF;
     --ai:#001F5F; --ai-bg:#CFDEE1; --ai-line:#7B9DAF;
     --gray-bg:#E8E8E7; --gray-line:#C8C5C0;
+    --chart-blue:#2a78d6; --chart-orange:#eb6834;
+    --cb:#2a78d6; --co:#eb6834; --cg:#1A5F42; --now:#C05010;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--paper);color:var(--ink);font-family:"Anthropic Sans","Segoe UI",Helvetica,Arial,sans-serif;line-height:1.55;padding:0 0 60px;}
@@ -384,6 +386,35 @@
   .itc-missing-lbl{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--med);margin-bottom:1px;}
   .itc-gap{font-size:9.5px;color:var(--med);line-height:1.35;padding-left:8px;position:relative;}
   .itc-gap::before{content:'·';position:absolute;left:0;}
+
+  /* ── Stage 4 economic tracker ── */
+  .lsq{width:9px;height:9px;border-radius:2px;display:inline-block;flex-shrink:0;}
+  .ldash{width:16px;border-top:2px dashed #a9a9a4;display:inline-block;flex-shrink:0;}
+  .lnow{width:14px;border-top:1.5px dashed var(--now);display:inline-block;flex-shrink:0;}
+  .chart-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 14px 10px;margin-bottom:8px;}
+  .chart-hdr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;gap:8px;flex-wrap:wrap;}
+  .chart-ttl{font-size:11.5px;font-weight:600;color:var(--ink-soft);margin:0;}
+  .tgl-grp{display:flex;gap:2px;background:var(--gray-bg);border-radius:6px;padding:2px;flex-shrink:0;}
+  .tgl{background:none;border:none;padding:3px 9px;font-size:10px;border-radius:4px;cursor:pointer;color:var(--ink-soft);font-family:inherit;}
+  .tgl.on{background:var(--card);color:var(--ink);font-weight:600;box-shadow:0 1px 2px rgba(0,0,0,.12);}
+  .chart-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+  .chart-scroll svg{display:block;}
+  .chart-note{font-size:10.5px;color:var(--ink-muted);margin-top:8px;padding-top:8px;border-top:1px solid var(--line);line-height:1.55;}
+  .g-grid{stroke:var(--line);stroke-width:.5;}
+  .g-ax{stroke:var(--gray-line);stroke-width:1;}
+  .g-spdiv{stroke:var(--line);stroke-width:.7;}
+  .gl{font-size:8px;fill:var(--ink-muted);}
+  .gl2{font-size:6.5px;fill:var(--ink-muted);}
+  .gv{font-size:7.5px;font-weight:600;fill:var(--ink-soft);}
+  .gv-now{font-size:7.5px;font-weight:700;fill:var(--now);}
+  .gv-proj{font-size:7.5px;fill:var(--ink-muted);}
+  .bline{stroke:#b0b0a8;stroke-width:1.7;stroke-dasharray:5,4;fill:none;}
+  .ba{fill:var(--cb);}
+  .bb{fill:var(--co);}
+  .bc{fill:var(--cg);}
+  .mode-cum{display:none;}
+  #cw.show-cum .mode-cum{display:block;}
+  #cw.show-cum .mode-init{display:none;}
 </style>
 </head>
 <body>
@@ -841,6 +872,137 @@
         </div>
       </div>
       <div class="itrk-note"><strong>Next step for all 3:</strong> Complete Stage 2 before attempting to expand. The business case is not bureaucracy — it's the only way to know whether the prize estimate from the matrix holds at 8-brand scale.</div>
+
+      <!-- Stage 4 economic impact chart -->
+      <div style="margin-top:24px;border-top:1px solid var(--line);padding-top:20px;">
+        <p class="eyebrow" style="margin-bottom:4px;">Stage 4 tracker · 90-day sprint roadmap · Week 9 of 12</p>
+        <h2 style="margin-bottom:3px;">Value Captured — Initiatives in Production</h2>
+        <p class="panel-note">Cumulative value captured against a counterfactual baseline. Capture begins Sprint 3. Sprint 4 jump is the rollout to compatible brand teams. Weeks 11–12 are projected.</p>
+        <div class="prelim-banner">Illustrative — placeholder figures to be replaced with real Finance data before use in TO reviews.</div>
+        <div class="legend" style="margin-bottom:12px;">
+          <span><span class="lsq" style="background:var(--cb)"></span>Initiative A</span>
+          <span><span class="lsq" style="background:var(--co)"></span>Initiative B</span>
+          <span><span class="lsq" style="background:var(--cg)"></span>Initiative C</span>
+          <span><span class="ldash"></span>Baseline</span>
+          <span><span class="lnow"></span>Week 9 (now)</span>
+        </div>
+        <div class="chart-card">
+          <div class="chart-hdr">
+            <p class="chart-ttl">Value captured, cumulative ($K net)</p>
+            <div class="tgl-grp">
+              <button class="tgl on" data-mode="init">By initiative</button>
+              <button class="tgl"    data-mode="cum">Cumulative</button>
+            </div>
+          </div>
+          <div class="chart-scroll" id="weekly-scroll">
+            <svg id="cw" viewBox="0 0 760 210" width="760" height="210" style="font-family:'Segoe UI',Helvetica,Arial,sans-serif;">
+              <!-- Foundation zone W1-W4 -->
+              <rect x="53" y="22" width="207" height="148" fill="var(--gray-bg)" opacity=".28"/>
+              <text x="156" y="90"  class="gl" text-anchor="middle">Foundation</text>
+              <text x="156" y="101" class="gl" text-anchor="middle">and Selection</text>
+              <!-- Sprint dividers -->
+              <line x1="156" y1="22" x2="156" y2="170" class="g-spdiv"/>
+              <line x1="266" y1="22" x2="266" y2="170" class="g-spdiv"/>
+              <line x1="376" y1="22" x2="376" y2="170" class="g-spdiv"/>
+              <line x1="486" y1="22" x2="486" y2="170" class="g-spdiv"/>
+              <line x1="596" y1="22" x2="596" y2="170" class="g-spdiv"/>
+              <!-- Capture start marker -->
+              <line x1="266" y1="22" x2="266" y2="170" stroke="var(--accent-line)" stroke-width="1.2" stroke-dasharray="3,2"/>
+              <text x="269" y="19" font-size="6.5" fill="var(--accent-line)">capture begins</text>
+              <!-- Grid lines -->
+              <line x1="55" y1="133" x2="720" y2="133" class="g-grid"/>
+              <line x1="55" y1="96"  x2="720" y2="96"  class="g-grid"/>
+              <line x1="55" y1="59"  x2="720" y2="59"  class="g-grid"/>
+              <line x1="55" y1="22"  x2="720" y2="22"  class="g-grid"/>
+              <!-- Y labels -->
+              <text x="51" y="173" class="gl" text-anchor="end">$0</text>
+              <text x="51" y="136" class="gl" text-anchor="end">$20K</text>
+              <text x="51" y="99"  class="gl" text-anchor="end">$40K</text>
+              <text x="51" y="62"  class="gl" text-anchor="end">$60K</text>
+              <text x="51" y="25"  class="gl" text-anchor="end">$80K</text>
+              <!-- X axis -->
+              <line x1="55" y1="170" x2="720" y2="170" class="g-ax"/>
+              <!-- MODE INIT: stacked by initiative -->
+              <g class="mode-init">
+                <rect x="275" y="161" width="38" height="9"  class="bc" rx="1"/>
+                <rect x="275" y="157" width="38" height="4"  class="bb" rx="1"/>
+                <rect x="275" y="150" width="38" height="7"  class="ba" rx="1"/>
+                <rect x="330" y="151" width="38" height="19" class="bc" rx="1"/>
+                <rect x="330" y="142" width="38" height="9"  class="bb" rx="1"/>
+                <rect x="330" y="127" width="38" height="15" class="ba" rx="1"/>
+                <rect x="385" y="142" width="38" height="28" class="bc" rx="1"/>
+                <rect x="385" y="120" width="38" height="22" class="bb" rx="1"/>
+                <rect x="385" y="100" width="38" height="20" class="ba" rx="1"/>
+                <rect x="440" y="133" width="38" height="37" class="bc" rx="1"/>
+                <rect x="440" y="92"  width="38" height="41" class="bb" rx="1"/>
+                <rect x="440" y="64"  width="38" height="28" class="ba" rx="1"/>
+                <rect x="495" y="127" width="38" height="43" class="bc" rx="1"/>
+                <rect x="495" y="81"  width="38" height="46" class="bb" rx="1"/>
+                <rect x="495" y="59"  width="38" height="22" class="ba" rx="1"/>
+                <rect x="550" y="122" width="38" height="48" class="bc" rx="1"/>
+                <rect x="550" y="70"  width="38" height="52" class="bb" rx="1"/>
+                <rect x="550" y="50"  width="38" height="20" class="ba" rx="1"/>
+                <rect x="605" y="122" width="38" height="48" class="bc" rx="1" opacity=".3"/>
+                <rect x="605" y="66"  width="38" height="56" class="bb" rx="1" opacity=".3"/>
+                <rect x="605" y="38"  width="38" height="28" class="ba" rx="1" opacity=".3"/>
+                <rect x="660" y="122" width="38" height="48" class="bc" rx="1" opacity=".3"/>
+                <rect x="660" y="63"  width="38" height="59" class="bb" rx="1" opacity=".3"/>
+                <rect x="660" y="26"  width="38" height="37" class="ba" rx="1" opacity=".3"/>
+                <text x="490" y="56" font-size="6.5" fill="var(--cb)" text-anchor="end" font-weight="600">A↓</text>
+                <text x="548" y="47" font-size="6.5" fill="var(--cb)" text-anchor="end" font-weight="600">A↓↓</text>
+                <text x="607" y="35" font-size="6.5" fill="var(--cb)" text-anchor="start" opacity=".5">A↑</text>
+              </g>
+              <!-- MODE CUM: single cumulative bar -->
+              <g class="mode-cum">
+                <rect x="275" y="150" width="38" height="20"  fill="var(--cb)" rx="1"/>
+                <rect x="330" y="127" width="38" height="43"  fill="var(--cb)" rx="1"/>
+                <rect x="385" y="100" width="38" height="70"  fill="var(--cb)" rx="1"/>
+                <rect x="440" y="64"  width="38" height="106" fill="var(--cb)" rx="1"/>
+                <rect x="495" y="59"  width="38" height="111" fill="var(--cb)" rx="1"/>
+                <rect x="550" y="50"  width="38" height="120" fill="var(--cb)" rx="1"/>
+                <rect x="605" y="39"  width="38" height="131" fill="var(--cb)" rx="1" opacity=".3"/>
+                <rect x="660" y="26"  width="38" height="144" fill="var(--cb)" rx="1" opacity=".3"/>
+              </g>
+              <!-- Shared value labels -->
+              <text x="294" y="146" class="gv"      text-anchor="middle">$11K</text>
+              <text x="349" y="123" class="gv"      text-anchor="middle">$23K</text>
+              <text x="404" y="96"  class="gv"      text-anchor="middle">$38K</text>
+              <text x="459" y="60"  class="gv"      text-anchor="middle">$57K</text>
+              <text x="514" y="55"  class="gv-now"  text-anchor="middle">$60K</text>
+              <text x="569" y="46"  class="gv"      text-anchor="middle">$65K</text>
+              <text x="624" y="35"  class="gv-proj" text-anchor="middle">$71K</text>
+              <text x="679" y="22"  class="gv-proj" text-anchor="middle">$78K</text>
+              <!-- Baseline -->
+              <polyline points="74,169 129,166 184,163 239,159 294,153 349,148 404,141 459,133 514,124 569,115 624,103 679,92" class="bline"/>
+              <text x="723" y="90" font-size="7" fill="#b0b0a8">Baseline</text>
+              <!-- Week 9 Now marker -->
+              <line x1="514" y1="22" x2="514" y2="170" stroke="var(--now)" stroke-width="1.2" stroke-dasharray="3,3"/>
+              <text x="514" y="16" font-size="6.5" fill="var(--now)" font-weight="700" text-anchor="middle">Week 9</text>
+              <!-- X labels -->
+              <text x="74"  y="182" class="gl" text-anchor="middle">W1</text>
+              <text x="129" y="182" class="gl" text-anchor="middle">W2</text>
+              <text x="184" y="182" class="gl" text-anchor="middle">W3</text>
+              <text x="239" y="182" class="gl" text-anchor="middle">W4</text>
+              <text x="294" y="182" class="gl" text-anchor="middle">W5</text>
+              <text x="349" y="182" class="gl" text-anchor="middle">W6</text>
+              <text x="404" y="182" class="gl" text-anchor="middle">W7</text>
+              <text x="459" y="182" class="gl" text-anchor="middle">W8</text>
+              <text x="514" y="182" class="gl" text-anchor="middle" font-weight="700" fill="var(--now)">W9</text>
+              <text x="569" y="182" class="gl" text-anchor="middle">W10</text>
+              <text x="624" y="182" class="gl" text-anchor="middle" opacity=".45">W11</text>
+              <text x="679" y="182" class="gl" text-anchor="middle" opacity=".45">W12</text>
+              <!-- Sprint labels -->
+              <text x="101"  y="198" class="gl2" text-anchor="middle">Sprint 1</text>
+              <text x="211"  y="198" class="gl2" text-anchor="middle">Sprint 2</text>
+              <text x="321"  y="198" class="gl2" text-anchor="middle">Sprint 3</text>
+              <text x="431"  y="198" class="gl2" text-anchor="middle">Sprint 4</text>
+              <text x="541"  y="198" class="gl2" text-anchor="middle">Sprint 5</text>
+              <text x="651"  y="198" class="gl2" text-anchor="middle" opacity=".5">Sprint 6</text>
+            </svg>
+          </div>
+          <p class="chart-note">Initiative A (blue) compresses in W9–10 reflecting a transitory adjustment, then recovers in W11–12. The gap between bars and baseline at W12 is the net value figure Finance validates for the enterprise rollout plan.</p>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1109,6 +1271,18 @@
       document.querySelectorAll('.flow-node')[n-1].classList.add('active-node');
     }
   }
+
+  document.querySelectorAll('.tgl').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      document.querySelectorAll('.tgl').forEach(b=>b.classList.remove('on'));
+      this.classList.add('on');
+      const svg=document.getElementById('cw');
+      if(this.dataset.mode==='cum'){svg.classList.add('show-cum');}
+      else{svg.classList.remove('show-cum');}
+    });
+  });
+  const wscroll=document.getElementById('weekly-scroll');
+  if(wscroll) wscroll.scrollLeft=210;
 </script>
 </body>
 </html>
