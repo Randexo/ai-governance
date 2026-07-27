@@ -298,6 +298,28 @@
   .wrap{max-width:960px;}
   /* Hide horizontal tab bar — sidebar handles navigation */
   .tabs{display:none;}
+  /* Purpose cards in cadence — clickable */
+  .purpose-card{cursor:pointer;transition:box-shadow .15s,background .15s;}
+  .purpose-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.09);}
+  .purpose-card.steer.active{background:#fbf3e5;box-shadow:0 0 0 2px #c5a36a;}
+  .purpose-card.to-card.active{background:var(--accent-bg);box-shadow:0 0 0 2px var(--accent-line);}
+  .purpose-card.init.active{background:var(--done-bg);box-shadow:0 0 0 2px var(--done-line);}
+  .pc-hint{font-size:10.5px;font-weight:500;margin:8px 0 0;}
+  .purpose-card.steer .pc-hint{color:#7a5010;}
+  .purpose-card.to-card .pc-hint{color:var(--accent);}
+  .purpose-card.init .pc-hint{color:#1a5f42;}
+  .purpose-card.active .pc-hint{display:none;}
+  /* Inline agenda expansion */
+  .ae-wrap{margin-top:16px;border-radius:10px;overflow:hidden;border:1px solid var(--line);animation:fadeIn .2s ease;}
+  .ae-hdr{padding:16px 20px;}
+  .ae-hdr.steer-h{background:#7a5010;}
+  .ae-hdr.to-h{background:#001f5f;}
+  .ae-hdr.std-h{background:#1a5f42;}
+  .ae-ey{font-size:9px;letter-spacing:.09em;text-transform:uppercase;color:rgba(255,255,255,.6);margin:0 0 3px;}
+  .ae-nm{font-size:15px;font-weight:600;color:#fff;margin:0 0 6px;}
+  .ae-ob{font-size:12px;color:rgba(255,255,255,.82);margin:0;line-height:1.5;max-width:700px;}
+  .ae-body .agenda-card{border-radius:0;border:none;}
+  .ae-body .agenda-card>.agenda-meta-row{display:none;}
 </style>
 </head>
 <body>
@@ -311,7 +333,7 @@
     <div class="sb-item active" data-tab="roles">Governance structure</div>
     <div class="sb-item" data-tab="cadence">Meeting cadence</div>
     <p class="sb-group">Operations</p>
-    <div class="sb-item" data-tab="agenda">Preliminary agendas</div>
+    <div class="sb-item" data-tab="cadence">Preliminary agendas</div>
     <div class="sb-item" data-tab="tracker">Tracker</div>
   </nav>
   <div class="sb-foot">
@@ -477,18 +499,29 @@
     <p class="panel-note" style="margin-top:16px;">Team-level standups run from week one — early on they track diagnostic progress and help shape candidate initiatives; once initiatives are prioritized, the same rhythm shifts to tracking delivery.</p>
 
     <div class="cadence-purpose">
-      <div class="purpose-card steer">
+      <div class="purpose-card steer" data-mtg="steer">
         <p class="pc-title">Steering committee</p>
         <p class="pc-text">Higher-altitude checkpoint. Resolves mandate/scope decisions and unresolved Brand-risk escalations only — all other TO decisions stand without Steering review.</p>
+        <p class="pc-hint">See full agenda →</p>
       </div>
-      <div class="purpose-card to-card">
+      <div class="purpose-card to-card" data-mtg="to">
         <p class="pc-title">TO weekly action meeting</p>
         <p class="pc-text">Fast, fact-based. Default channel for fast-resolvable items is ad-hoc between sessions — the meeting gives visibility to what was resolved and handles what coordination could not close. 60–90 min.</p>
+        <p class="pc-hint">See full agenda →</p>
       </div>
-      <div class="purpose-card init">
+      <div class="purpose-card init" data-mtg="std">
         <p class="pc-title">Team standups</p>
         <p class="pc-text">Same slot, different job over time: early on it tracks diagnostic progress and helps surface candidate opportunities; later it becomes a day-to-day delivery check for the team's own work.</p>
+        <p class="pc-hint">See full agenda →</p>
       </div>
+    </div>
+    <div class="ae-wrap" id="ae-wrap" style="display:none;">
+      <div class="ae-hdr" id="ae-hdr">
+        <p class="ae-ey" id="ae-ey"></p>
+        <p class="ae-nm" id="ae-nm"></p>
+        <p class="ae-ob" id="ae-ob"></p>
+      </div>
+      <div class="ae-body" id="ae-body"></div>
     </div>
   </div>
 
@@ -1157,6 +1190,31 @@
     });
     grid.innerHTML = html;
   })();
+
+  // Purpose cards → inline agenda expansion with color header
+  const aeMap={
+    steer:{ey:'Steering committee · Monthly · 60 min',nm:'AI Transformation — Steering Committee',ob:'Confirm the transformation is on track to deliver the business case; authorize scope or budget decisions only the CEO can make.',hc:'steer-h',src:'steer'},
+    to:{ey:'TO weekly action meeting · Every Monday · 60 min',nm:'Transformation Office — Weekly Action Meeting',ob:'Drive the program forward — one unified decision cycle per week so every team has clarity and nothing stalls.',hc:'to-h',src:'to'},
+    std:{ey:'Team standup · Tue & Thu · 15–20 min',nm:'Team Initiative Standup',ob:'Keep each team\'s initiative moving — catch blockers early enough to resolve before they need to escalate.',hc:'std-h',src:'standup'}
+  };
+  document.querySelectorAll('.purpose-card[data-mtg]').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const k=card.dataset.mtg, d=aeMap[k];
+      const wasActive=card.classList.contains('active');
+      document.querySelectorAll('.purpose-card').forEach(c=>c.classList.remove('active'));
+      const wrap=document.getElementById('ae-wrap');
+      if(wasActive){wrap.style.display='none';return;}
+      card.classList.add('active');
+      document.getElementById('ae-hdr').className='ae-hdr '+d.hc;
+      document.getElementById('ae-ey').textContent=d.ey;
+      document.getElementById('ae-nm').textContent=d.nm;
+      document.getElementById('ae-ob').textContent=d.ob;
+      const src=document.getElementById(d.src);
+      document.getElementById('ae-body').innerHTML=src?src.innerHTML:'';
+      wrap.style.display='block';
+      setTimeout(()=>wrap.scrollIntoView({behavior:'smooth',block:'nearest'}),50);
+    });
+  });
 </script>
 </body>
 </html>
