@@ -289,6 +289,9 @@
   .sb-group::after{content:'';flex:1;height:1px;background:var(--line);}
   .sb-group:first-child{padding-top:10px;}
   .sb-prelim{font-size:10px;font-weight:400;color:var(--ink-muted);font-style:italic;}
+  .sb-collapsible{cursor:pointer;user-select:none;}
+  .sb-collapsible::after{content:'›';flex:none;background:none;height:auto;margin-left:auto;font-size:14px;color:var(--ink-muted);line-height:1;transition:transform .2s;}
+  .sb-collapsible.expanded::after{transform:rotate(90deg);}
   .sb-item{display:block;padding:7px 16px 7px 14px;font-size:12px;color:var(--ink-soft);cursor:pointer;border-left:2px solid transparent;user-select:none;line-height:1.4;transition:color .1s,background .1s;}
   .sb-item:hover{color:var(--ink);background:var(--paper);}
   .sb-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-bg);font-weight:500;}
@@ -334,8 +337,10 @@
     <p class="sb-group">Governing body</p>
     <div class="sb-item active" data-tab="roles">Governance structure</div>
     <div class="sb-item" data-tab="cadence">Meeting cadence <span class="sb-prelim">(preliminary)</span></div>
-    <p class="sb-group">Operations</p>
-    <div class="sb-item" data-tab="tracker">Tracker <span class="sb-prelim">(preliminary)</span></div>
+    <p class="sb-group sb-collapsible" data-controls="ops-items">Operations</p>
+    <div id="ops-items" style="display:none;">
+      <div class="sb-item" data-tab="tracker">Tracker <span class="sb-prelim">(preliminary)</span></div>
+    </div>
   </nav>
   <div class="sb-foot">
     <a href="operating-model/">→ Operating model</a>
@@ -1203,6 +1208,15 @@
     to:{ey:'TO weekly action meeting · Every Monday · 60 min',nm:'Transformation Office — Weekly Action Meeting',ob:'Drive the program forward — one unified decision cycle per week so every team has clarity and nothing stalls.',hc:'to-h',src:'to'},
     std:{ey:'Team standup · Tue & Thu · 15–20 min',nm:'Team Initiative Standup',ob:'Keep each team\'s initiative moving — catch blockers early enough to resolve before they need to escalate.',hc:'std-h',src:'standup'}
   };
+  document.querySelectorAll('.sb-collapsible').forEach(grp=>{
+    grp.addEventListener('click',()=>{
+      const isExp=grp.classList.contains('expanded');
+      grp.classList.toggle('expanded',!isExp);
+      const el=document.getElementById(grp.dataset.controls);
+      if(el) el.style.display=isExp?'none':'block';
+    });
+  });
+
   document.querySelectorAll('.purpose-card[data-mtg]').forEach(card=>{
     card.addEventListener('click',()=>{
       const k=card.dataset.mtg, d=aeMap[k];
