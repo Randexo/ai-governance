@@ -1,4 +1,4 @@
-<title>Measure & Learn System</title>
+<title>Measurement System</title>
 <style>
 :root{
   --ink:#2E2E2E;--ink-soft:#6B6B6B;--ink-muted:#B0B0AD;
@@ -9,25 +9,31 @@
   --formula-bg:#F7F7F5;--formula-border:#D8D8D4;
 }
 *{box-sizing:border-box;margin:0;padding:0;}
-body{background:var(--paper);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;padding:28px 24px 60px;}
+body{background:var(--paper);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;padding-left:218px;}
 
 .eyebrow{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
 h1{font-size:18px;font-weight:500;margin-bottom:20px;}
 
-/* Layout */
-.layout{display:flex;gap:0;align-items:flex-start;}
-
-/* Sidebar */
-.sidebar{width:172px;flex-shrink:0;border-right:1px solid var(--line);padding-right:0;}
-.sb-head{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);padding:0 16px 12px;}
-.sb-item{padding:10px 16px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;border-left:3px solid transparent;line-height:1.3;transition:background .12s,color .12s;}
-.sb-item:hover{color:var(--ink);background:rgba(0,31,95,.04);}
-.sb-item.active{color:var(--accent);font-weight:600;border-left-color:var(--accent);background:var(--accent-lt);}
-.sb-unit{font-size:10px;font-weight:400;color:var(--ink-muted);display:block;margin-top:2px;}
+/* Fixed sidebar */
+.sidebar{position:fixed;top:0;left:0;width:218px;height:100vh;background:var(--card);border-right:1px solid var(--line);display:flex;flex-direction:column;z-index:100;overflow:hidden;}
+.sb-logo{padding:18px 16px 14px;border-bottom:1px solid var(--line);flex-shrink:0;}
+.sb-logo-eye{font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 2px;}
+.sb-logo-title{font-size:13.5px;font-weight:600;color:var(--ink);margin:0;line-height:1.3;}
+.sb-nav{flex:1;padding:8px 0;overflow-y:auto;}
+.sb-group{font-size:8.5px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:var(--accent);padding:14px 14px 5px 16px;margin:0;display:flex;align-items:center;gap:8px;}
+.sb-group::after{content:'';flex:1;height:1px;background:var(--line);}
+.sb-group:first-child{padding-top:10px;}
+.sb-item{display:block;padding:7px 16px 7px 14px;font-size:12px;color:var(--ink-soft);cursor:pointer;border-left:2px solid transparent;user-select:none;line-height:1.4;transition:color .1s,background .1s;}
+.sb-item:hover{color:var(--ink);background:var(--paper);}
+.sb-item.active{color:var(--accent);border-left-color:var(--accent);background:var(--accent-lt);font-weight:500;}
+.sb-unit{font-size:10px;font-weight:400;color:var(--ink-muted);display:block;margin-top:1px;}
 .sb-item.active .sb-unit{color:var(--accent);opacity:.55;}
+.sb-foot{padding:12px 16px;border-top:1px solid var(--line);flex-shrink:0;}
+.sb-foot a{font-size:11.5px;color:var(--accent);text-decoration:none;}
+.sb-foot a:hover{text-decoration:underline;}
 
-/* Main */
-.main{flex:1;min-width:0;padding:0 0 40px 28px;}
+/* Content */
+.content{padding:28px 28px 60px;}
 .tab-pane{display:none;}
 .tab-pane.active{display:block;}
 
@@ -82,19 +88,24 @@ h1{font-size:18px;font-weight:500;margin-bottom:20px;}
 .callout-text{font-size:12px;color:#2d6b4f;line-height:1.6;max-width:600px;}
 </style>
 
-<p class="eyebrow">AI transformation reset &nbsp;·&nbsp; <a href="../operating-model/" style="color:inherit;text-decoration:none;opacity:.7;">← Operating model</a></p>
-<h1>Measure &amp; Learn System</h1>
-
-<div class="layout">
-  <div class="sidebar">
-    <p class="sb-head">L1 Business KPIs</p>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <p class="sb-logo-eye">AI transformation reset</p>
+    <p class="sb-logo-title">Measurement System</p>
+  </div>
+  <nav class="sb-nav">
+    <p class="sb-group">L1 Business KPIs</p>
     <div class="sb-item active" data-tab="roi">Marketing ROI<span class="sb-unit">% return / $ spent</span></div>
     <div class="sb-item" data-tab="revenue">Revenue growth<span class="sb-unit">% YoY</span></div>
     <div class="sb-item" data-tab="savings">Agency cost savings<span class="sb-unit">$ cumulative</span></div>
     <div class="sb-item" data-tab="compliance">Brand compliance<span class="sb-unit">score 0–100</span></div>
+  </nav>
+  <div class="sb-foot">
+    <a href="../operating-model/">← Operating model</a>
   </div>
+</aside>
 
-  <div class="main">
+<div class="content">
 
     <!-- ══ TAB 1: Marketing ROI ══ -->
     <div class="tab-pane active" id="tab-roi">
@@ -427,8 +438,7 @@ h1{font-size:18px;font-weight:500;margin-bottom:20px;}
       </div>
     </div>
 
-  </div><!-- /main -->
-</div><!-- /layout -->
+</div><!-- /content -->
 
 <script>
 document.querySelectorAll('.sb-item').forEach(item=>{
