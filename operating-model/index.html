@@ -325,7 +325,14 @@
   .mq-name{font-size:12.5px;font-weight:700;color:var(--ink);margin:0 0 3px;}
   .mq-desc{font-size:10px;color:var(--ink-soft);margin:0 0 10px;line-height:1.4;}
   .upgrade-note{font-size:10px;color:var(--med);background:var(--med-bg);border:1px solid var(--med-line);border-radius:3px;padding:7px 10px;line-height:1.45;margin-top:8px;}
-  .ic-ev{margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  /* Interactive init-card */
+  .init-card{cursor:pointer;transition:box-shadow .15s,border-left-color .15s;}
+  .init-card:hover{box-shadow:0 1px 6px rgba(0,0,0,.09);border-left-color:var(--accent);}
+  .init-card.open{border-left-color:var(--accent);box-shadow:0 0 0 2px rgba(0,31,95,.07);}
+  .ic-hint{font-size:9px;color:var(--ink-muted);font-style:italic;margin:5px 0 0;}
+  .init-card.open .ic-hint{display:none;}
+  .ic-ev{display:none;margin-top:8px;padding-top:8px;border-top:1px solid var(--line);}
+  .init-card.open .ic-ev{display:block;}
   .ic-ev-row{display:grid;grid-template-columns:60px 14px 1fr;gap:2px 5px;align-items:baseline;margin-bottom:2px;}
   .ic-ev-row:last-child{margin-bottom:0;}
   .ic-ev-axis{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.05em;}
@@ -335,6 +342,39 @@
   .ic-ev-val.yes{color:var(--low);}
   .ic-ev-val.no{color:var(--high);}
   .ic-ev-basis{font-size:9px;color:var(--ink-soft);line-height:1.35;}
+  /* RACI table (scoped) */
+  .raci-layout{display:grid;grid-template-columns:1fr 200px;gap:20px;align-items:start;}
+  @media(max-width:820px){.raci-layout{grid-template-columns:1fr;}}
+  .raci-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;}
+  .raci-leg{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--ink-soft);}
+  .raci-dot{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;}
+  .raci-dot.r{background:var(--accent);color:#fff;}
+  .raci-dot.a{background:var(--med);color:#fff;}
+  .raci-dot.c{background:var(--done-bg,#EBF5F0);color:var(--low);border:1px solid var(--done-line,#8ECBA8);}
+  .raci-dot.i{background:var(--paper);color:var(--ink-muted);border:1px solid var(--line);}
+  .raci-tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--line);background:var(--card);}
+  .raci-tbl-wrap table{width:100%;border-collapse:collapse;min-width:560px;}
+  .raci-tbl-wrap thead th{padding:9px 12px;font-size:8.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--line);text-align:center;white-space:nowrap;}
+  .raci-tbl-wrap thead th:first-child{text-align:left;width:200px;}
+  .raci-tbl-wrap .stage-hd td{padding:7px 12px 3px;font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--paper);color:var(--ink-muted);border-top:1px solid var(--line);}
+  .raci-tbl-wrap .data-r td{padding:9px 12px;border-top:1px solid var(--line);vertical-align:middle;}
+  .raci-tbl-wrap .data-r:last-child td{border-bottom:none;}
+  .raci-act{font-size:11.5px;color:var(--ink);font-weight:500;}
+  .raci-act-sub{font-size:10.5px;color:var(--ink-soft);font-weight:400;margin-top:2px;}
+  .raci-c{text-align:center;}
+  .raci-badge{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:4px;font-size:10.5px;font-weight:700;}
+  .raci-badge.r{background:var(--accent);color:#fff;}
+  .raci-badge.a{background:var(--med);color:#fff;}
+  .raci-badge.c{background:var(--done-bg,#EBF5F0);color:var(--low);border:1px solid var(--done-line,#8ECBA8);}
+  .raci-badge.i{background:var(--paper);color:var(--ink-muted);border:1px solid var(--line);}
+  .raci-principles{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;}
+  .raci-prin-title{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+  .raci-prin-item{display:flex;gap:8px;align-items:flex-start;margin-bottom:10px;}
+  .raci-prin-item:last-child{margin-bottom:0;}
+  .raci-prin-num{width:18px;height:18px;border-radius:50%;background:var(--accent);color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+  .raci-prin-body{}
+  .raci-prin-name{font-size:11px;font-weight:600;color:var(--ink);line-height:1.3;margin-bottom:2px;}
+  .raci-prin-text{font-size:10.5px;color:var(--ink-soft);line-height:1.45;}
   .mx-axis-row{display:grid;grid-template-columns:26px 1fr;gap:0 10px;margin-top:5px;}
   .mx-x-row{display:flex;justify-content:space-between;padding:0 4px;}
   .mx-x-lbl{font-size:8.5px;color:var(--ink-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;}
@@ -431,6 +471,7 @@
   .sb-foot{padding:12px 16px;border-top:1px solid var(--line);flex-shrink:0;}
   .sb-foot a{font-size:11.5px;color:var(--accent);text-decoration:none;}
   .sb-foot a:hover{text-decoration:underline;}
+  .sb-ext{display:block;text-decoration:none;color:inherit;}
   /* Push content right to clear sidebar */
   body{padding-left:218px;}
   .wrap{max-width:900px;}
@@ -458,12 +499,11 @@
     <div class="sb-item" data-top="standards" data-tab="gates">Quality gates</div>
     <div class="sb-item" data-top="standards" data-tab="assets">Reusable assets</div>
     <div class="sb-item" data-top="standards" data-tab="playbook">Example playbook</div>
+    <p class="sb-group">Measure &amp; Learn</p>
+    <a class="sb-item sb-ext" href="../measure/">KPI system &amp; worked examples</a>
   </nav>
   <div class="sb-foot">
     <a href="../">← AI governance</a>
-    <a href="matrix.html" style="display:block;margin-top:6px;">→ Interactive matrix</a>
-    <a href="raci.html" style="display:block;margin-top:6px;">→ Brand team RACI</a>
-    <a href="../measure/" style="display:block;margin-top:6px;">→ Measure &amp; Learn</a>
   </div>
 </aside>
 <div class="wrap">
@@ -733,6 +773,7 @@
                   <p class="ic-name">Campaign creative at studio scale</p>
                   <p class="ic-metric">$800K estimated agency-fee savings</p>
                   <p class="ic-caveat">Prize size unconfirmed: unknown % of total marketing spend</p>
+                  <p class="ic-hint">See scoring →</p>
                   <div class="ic-ev">
                     <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val h">H</span><span class="ic-ev-basis">agency-fee proxy · shared infra replicable across all 8 brands</span></div>
                     <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val no">No</span><span class="ic-ev-basis">vendor decision + new platform · no milestone possible in any brand</span></div>
@@ -750,6 +791,7 @@
                   <p class="ic-name">PDP copy generation</p>
                   <p class="ic-metric">70% reduction in copywriting time</p>
                   <p class="ic-caveat">Prize size unconfirmed: no SKU volume or $ baseline to convert time saved</p>
+                  <p class="ic-hint">See scoring →</p>
                   <div class="ic-ev">
                     <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val h">H</span><span class="ic-ev-basis">70% time reduction · eCommerce live · model replicable across brands</span></div>
                     <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val yes">Yes</span><span class="ic-ev-basis">rules-based copy · already running in 1 brand · result visible now</span></div>
@@ -780,6 +822,7 @@
                   <p class="ic-name">Social repurposing variants</p>
                   <p class="ic-metric">3× social content volume in 3 months</p>
                   <p class="ic-caveat">Prize size unconfirmed: activity metric, not linked to $ yet</p>
+                  <p class="ic-hint">See scoring →</p>
                   <div class="ic-ev">
                     <div class="ic-ev-row"><span class="ic-ev-axis">Prize</span><span class="ic-ev-val l">L</span><span class="ic-ev-basis">3× volume is activity only · single brand · no $ link yet</span></div>
                     <div class="ic-ev-row"><span class="ic-ev-axis">90-day?</span><span class="ic-ev-val yes">Yes</span><span class="ic-ev-basis">tool already running · low risk · can extend to other brands</span></div>
@@ -1079,41 +1122,94 @@
       </div>
     </div>
     <div class="panel" id="raci">
-      <h2>Who's on the hook — 4 simple rules</h2>
-      <p class="panel-note">Instead of a detailed chart for every single step, 4 plain rules that cover how AI and people share the work.</p>
-      <div class="prelim-banner">Illustrative — to be validated against the real org during discovery.</div>
-      <div class="guideline-list">
-        <div class="guideline">
-          <div class="g-num">1</div>
-          <div class="g-body">
-            <p class="g-title">AI does the work, a person is on the hook</p>
-            <p class="g-text">AI writes drafts and runs basic checks. But a human is always the one accountable if something goes wrong — never the AI.</p>
-          </div>
+      <h2>Accountability — brand team example</h2>
+      <p class="panel-note">Who does what in the redesigned content process. R = Responsible · A = Accountable · C = Consulted · I = Informed. Illustrative — to be validated against the real org during discovery.</p>
+      <div class="raci-legend">
+        <div class="raci-leg"><div class="raci-dot r">R</div> Responsible — does the work</div>
+        <div class="raci-leg"><div class="raci-dot a">A</div> Accountable — owns the outcome</div>
+        <div class="raci-leg"><div class="raci-dot c">C</div> Consulted — input before decision</div>
+        <div class="raci-leg"><div class="raci-dot i">I</div> Informed — notified after</div>
+      </div>
+      <div class="raci-layout">
+        <div class="raci-tbl-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left">Activity</th>
+                <th>Copywriter /<br>Designer</th>
+                <th>Brand<br>Manager</th>
+                <th>Marketing<br>Ops</th>
+                <th>Social Media<br>Manager</th>
+                <th>Legal /<br>Compliance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="stage-hd"><td colspan="6">Brief &amp; intake</td></tr>
+              <tr class="data-r">
+                <td class="raci-act">Receive &amp; triage creative brief<div class="raci-act-sub">Intake form → risk level assigned automatically</div></td>
+                <td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+              <tr class="stage-hd"><td colspan="6">Production</td></tr>
+              <tr class="data-r">
+                <td class="raci-act">Generate AI draft (copy + visual)<div class="raci-act-sub">Prompt library + brand guidelines as inputs</div></td>
+                <td class="raci-c"><span class="raci-badge r">R</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+              <tr class="data-r">
+                <td class="raci-act">Curate &amp; edit AI output<div class="raci-act-sub">Steps in only when draft fails the standard</div></td>
+                <td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+              <tr class="stage-hd"><td colspan="6">Brand review</td></tr>
+              <tr class="data-r">
+                <td class="raci-act">Automated brand compliance check<div class="raci-act-sub">Rules-as-code flags deviations; no manual queue</div></td>
+                <td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge r">R</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+              <tr class="data-r">
+                <td class="raci-act">Maintain &amp; update brand rule library<div class="raci-act-sub">Codifies brand standards; audits by sampling only</div></td>
+                <td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge c">C</span></td>
+              </tr>
+              <tr class="stage-hd"><td colspan="6">Routing &amp; approval</td></tr>
+              <tr class="data-r">
+                <td class="raci-act">Risk-based routing decision<div class="raci-act-sub">Automatic for low/medium; flags high-risk for human review</div></td>
+                <td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge c">C</span></td>
+              </tr>
+              <tr class="data-r">
+                <td class="raci-act">Legal &amp; compliance review<div class="raci-act-sub">High-risk assets only; codifies rules for low/medium</div></td>
+                <td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge a">A</span></td>
+              </tr>
+              <tr class="stage-hd"><td colspan="6">Adaptation &amp; distribution</td></tr>
+              <tr class="data-r">
+                <td class="raci-act">Platform adaptation &amp; variant generation<div class="raci-act-sub">Oversees automated repurposing; adjusts rules per channel</div></td>
+                <td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+              <tr class="data-r">
+                <td class="raci-act">Final sign-off &amp; publish<div class="raci-act-sub">Approval gated by risk level; ops owns the queue</div></td>
+                <td class="raci-c"><span class="raci-badge i">I</span></td><td class="raci-c"><span class="raci-badge c">C</span></td><td class="raci-c"><span class="raci-badge a">A</span></td><td class="raci-c"><span class="raci-badge r">R</span></td><td class="raci-c"><span class="raci-badge i">I</span></td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="guideline">
-          <div class="g-num">2</div>
-          <div class="g-body">
-            <p class="g-title">Low-risk content: spot-checked, not reviewed one by one</p>
-            <p class="g-text">The Brand Manager / Auditor doesn't approve every single piece — they check a sample and fix the rules if something's off.</p>
+        <div class="raci-principles">
+          <p class="raci-prin-title">4 accountability rules</p>
+          <div class="raci-prin-item">
+            <div class="raci-prin-num">1</div>
+            <div class="raci-prin-body"><p class="raci-prin-name">AI does the work, a person is on the hook</p><p class="raci-prin-text">A human is always accountable if something goes wrong — never the AI.</p></div>
           </div>
-        </div>
-        <div class="guideline">
-          <div class="g-num">3</div>
-          <div class="g-body">
-            <p class="g-title">Medium or high-risk content: a person reviews before it goes out</p>
-            <p class="g-text">AI prepares the draft. A person decides if it's ready. AI never gets the final say on anything risky.</p>
+          <div class="raci-prin-item">
+            <div class="raci-prin-num">2</div>
+            <div class="raci-prin-body"><p class="raci-prin-name">Low-risk: spot-checked, not reviewed one by one</p><p class="raci-prin-text">Brand Manager checks a sample and fixes the rules if something's off.</p></div>
           </div>
-        </div>
-        <div class="guideline">
-          <div class="g-num">4</div>
-          <div class="g-body">
-            <p class="g-title">Legal only steps in for high-risk content — and has the final word</p>
-            <p class="g-text">Low and medium-risk content never reaches Legal. When it's high-risk, Legal's decision is final.</p>
+          <div class="raci-prin-item">
+            <div class="raci-prin-num">3</div>
+            <div class="raci-prin-body"><p class="raci-prin-name">Medium/high-risk: a person reviews before it goes out</p><p class="raci-prin-text">AI prepares the draft. A person decides if it's ready.</p></div>
+          </div>
+          <div class="raci-prin-item">
+            <div class="raci-prin-num">4</div>
+            <div class="raci-prin-body"><p class="raci-prin-name">Legal only steps in for high-risk — and has the final word</p><p class="raci-prin-text">Low and medium-risk never reaches Legal.</p></div>
           </div>
         </div>
       </div>
-      <div class="deliv-strip">
-        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Accountability guidelines — the 4 rules above, the reference for who's on the hook</p></div>
+      <div class="deliv-strip" style="margin-top:16px;">
+        <div class="deliv"><p class="dl-title">Deliverable</p><p class="dl-text">Accountability guidelines — RACI confirmed against the real org during discovery</p></div>
       </div>
     </div>
   </div>
@@ -1334,7 +1430,7 @@
   const wscroll=document.getElementById('weekly-scroll');
   if(wscroll) wscroll.scrollLeft=210;
 
-  document.querySelectorAll('.sb-item').forEach(item=>{
+  document.querySelectorAll('.sb-item:not(.sb-ext)').forEach(item=>{
     item.addEventListener('click',()=>{
       document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
       item.classList.add('active');
@@ -1344,6 +1440,14 @@
       top.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
       document.getElementById(item.dataset.tab).classList.add('active');
       window.scrollTo(0,0);
+    });
+  });
+
+  document.querySelectorAll('.init-card').forEach(card=>{
+    card.addEventListener('click',()=>{
+      const wasOpen=card.classList.contains('open');
+      document.querySelectorAll('.init-card').forEach(c=>c.classList.remove('open'));
+      if(!wasOpen) card.classList.add('open');
     });
   });
 </script>
