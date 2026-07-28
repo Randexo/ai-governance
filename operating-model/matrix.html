@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Prioritization matrix</title>
+<style>
+:root{
+  --ink:#3D3D3D;--ink-soft:#7E7F7E;--ink-muted:#B9B9B9;--line:#DFDFDF;--paper:#F1F2F1;--card:#FFFFFF;
+  --low:#1A5F42;--low-bg:#EBF5F0;--low-line:#8ECBA8;
+  --med:#7A5010;--med-bg:#FBF3E5;--med-line:#C5A36A;
+  --high:#8A2520;--high-bg:#FAF0EF;--high-line:#D09090;
+  --accent:#001F5F;--accent-bg:#CFDEE1;--accent-line:#7B9DAF;
+  --gray-line:#D0CCC7;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;line-height:1.5;padding:28px 24px 60px;}
+.eyebrow{font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:4px;}
+h1{font-size:17px;font-weight:500;margin-bottom:20px;}
+
+/* Matrix grid */
+.matrix-wrap{display:grid;grid-template-columns:20px 1fr 1fr;grid-template-rows:auto auto auto;border-left:2px solid var(--accent);border-bottom:2px solid var(--accent);}
+.y-label{display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:var(--ink-soft);writing-mode:horizontal-tb;}
+
+/* Quadrant cells */
+.mq{padding:16px 18px;border:1px solid transparent;}
+.mq-bigbets  {grid-column:2;grid-row:1;border-right:1px dashed var(--gray-line);border-bottom:1px dashed var(--gray-line);}
+.mq-pf       {grid-column:3;grid-row:1;border-bottom:1px dashed var(--gray-line);}
+.mq-depr     {grid-column:2;grid-row:2/4;border-right:1px dashed var(--gray-line);}
+.mq-prove    {grid-column:3;grid-row:2;border-bottom:1px dashed var(--gray-line);}
+.mq-fillins  {grid-column:3;grid-row:3;}
+.y-h{grid-column:1;grid-row:1;}
+.y-m{grid-column:1;grid-row:2;}
+.y-l{grid-column:1;grid-row:3;}
+
+.mq-tier{display:inline-block;font-size:7px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);border:1px solid var(--gray-line);border-radius:2px;padding:1px 5px;margin-bottom:6px;}
+.mq-name{font-size:12px;font-weight:700;color:var(--ink);margin-bottom:10px;}
+.empty-note{font-size:10.5px;color:var(--ink-muted);font-style:italic;}
+
+/* x-axis */
+.ax-row{display:grid;grid-template-columns:20px 1fr 1fr;margin-top:5px;}
+.ax-x{display:flex;justify-content:space-between;font-size:8px;color:var(--ink-muted);font-weight:700;text-transform:uppercase;letter-spacing:.05em;grid-column:2/4;}
+
+/* Initiative card */
+.ic{border-radius:7px;background:var(--card);border:1px solid var(--line);margin-bottom:6px;cursor:pointer;transition:border-color .15s,box-shadow .15s;overflow:hidden;}
+.ic:hover{border-color:var(--accent-line);box-shadow:0 1px 6px rgba(0,31,95,.10);}
+.ic.open{border-color:var(--accent);box-shadow:0 0 0 2px rgba(0,31,95,.08);}
+.ic-head{padding:10px 12px;display:flex;flex-direction:column;gap:3px;}
+.ic-top{display:flex;align-items:baseline;gap:6px;}
+.ic-pill{font-size:9px;font-weight:600;padding:1px 7px;border-radius:8px;flex-shrink:0;}
+.ic-pill.pf{background:var(--low-bg);color:var(--low);}
+.ic-pill.bb{background:var(--accent-bg);color:var(--accent);}
+.ic-pill.fi{background:var(--high-bg);color:var(--high);}
+.ic-name{font-weight:600;color:var(--ink);font-size:11.5px;}
+.ic-metric{font-size:10.5px;color:var(--ink-soft);}
+.ic-caret{margin-left:auto;font-size:13px;color:var(--ink-muted);transition:transform .2s;line-height:1;}
+.ic.open .ic-caret{transform:rotate(90deg);}
+
+/* Expanded detail */
+.ic-detail{display:none;padding:0 12px 12px;border-top:1px solid var(--line);}
+.ic.open .ic-detail{display:block;}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;}
+@media(max-width:560px){.detail-grid{grid-template-columns:1fr;}}
+.dg-cell{}
+.dg-dim{font-size:8.5px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink-muted);margin-bottom:3px;}
+.dg-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 8px;border-radius:10px;margin-bottom:4px;}
+.dg-badge.h,.dg-badge.yes{background:var(--low-bg);color:var(--low);}
+.dg-badge.no{background:var(--high-bg);color:var(--high);}
+.dg-text{font-size:11px;color:var(--ink-soft);line-height:1.55;}
+.dg-note{grid-column:1/-1;background:var(--med-bg);border:1px solid var(--med-line);border-radius:6px;padding:9px 11px;margin-top:2px;}
+.dg-note-lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--med);margin-bottom:3px;}
+.dg-note-txt{font-size:11px;color:var(--med);line-height:1.55;}
+
+/* Illustrative chip */
+.chip{font-size:10px;padding:5px 9px;background:var(--card);border:1.5px dashed var(--ink-muted);border-radius:6px;color:var(--ink-soft);margin-bottom:5px;display:block;}
+</style>
+</head>
+<body>
+<p class="eyebrow">AI transformation reset — prioritization matrix</p>
+<h1>Initiatives by prize and 90-day deliverability</h1>
+
+<div class="matrix-wrap">
+  <div class="y-label y-h">H</div>
+  <div class="mq mq-bigbets">
+    <span class="mq-tier">H prize · no 90-day result</span>
+    <p class="mq-name">Big bets</p>
+
+    <div class="ic" data-key="studio">
+      <div class="ic-head">
+        <div class="ic-top">
+          <span class="ic-pill bb">H · No</span>
+          <span class="ic-name">Campaign creative at studio scale</span>
+          <span class="ic-caret">›</span>
+        </div>
+        <span class="ic-metric">$800K estimated agency-fee savings</span>
+      </div>
+      <div class="ic-detail">
+        <div class="detail-grid">
+          <div class="dg-cell">
+            <p class="dg-dim">Prize</p>
+            <span class="dg-badge h">H</span>
+            <p class="dg-text">Agency-fee proxy with confirmed figures from 1 brand. Shared infrastructure means the prize scales across all 8 brands without proportional cost growth.</p>
+          </div>
+          <div class="dg-cell">
+            <p class="dg-dim">90-day result?</p>
+            <span class="dg-badge no">No</span>
+            <p class="dg-text">Requires a platform and vendor decision before any other brand can adopt. No 90-day milestone is achievable beyond the one brand already running.</p>
+          </div>
+          <div class="dg-note">
+            <p class="dg-note-lbl">What would move it to Prioritize first?</p>
+            <p class="dg-note-txt">CTO platform decision made + one additional brand can onboard within 90 days. The $800K figure also needs Finance confirmation before entering the business case.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span class="chip">AI-assisted concept &amp; moodboard generation</span>
+    <span class="chip">Shared measurement &amp; feedback dashboard</span>
+  </div>
+
+  <div class="mq mq-pf">
+    <span class="mq-tier">H prize · 90-day result ✓</span>
+    <p class="mq-name">Prioritize first</p>
+
+    <div class="ic" data-key="pdp">
+      <div class="ic-head">
+        <div class="ic-top">
+          <span class="ic-pill pf">H · Yes</span>
+          <span class="ic-name">PDP copy generation</span>
+          <span class="ic-caret">›</span>
+        </div>
+        <span class="ic-metric">70% reduction in copywriting time</span>
+      </div>
+      <div class="ic-detail">
+        <div class="detail-grid">
+          <div class="dg-cell">
+            <p class="dg-dim">Prize</p>
+            <span class="dg-badge h">H</span>
+            <p class="dg-text">70% time reduction demonstrated in a live environment. Rules-based copy generation is directly replicable across brands using shared infrastructure.</p>
+          </div>
+          <div class="dg-cell">
+            <p class="dg-dim">90-day result?</p>
+            <span class="dg-badge yes">Yes</span>
+            <p class="dg-text">Tool already running in production in 1 brand. Result is visible now — no new build or vendor decision required.</p>
+          </div>
+          <div class="dg-note">
+            <p class="dg-note-lbl">What's still missing before it can expand?</p>
+            <p class="dg-note-txt">No business case yet: no SKU volume or $ baseline to convert the time saving into a dollar figure. Finance validation is the next step before expansion to other brands.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="y-label y-m">M</div>
+  <div class="mq mq-depr">
+    <span class="mq-tier">M or L prize · no 90-day result</span>
+    <p class="mq-name">Deprioritize</p>
+    <span class="empty-note">No candidates identified yet</span>
+  </div>
+
+  <div class="mq mq-prove">
+    <span class="mq-tier">M prize · 90-day result ✓</span>
+    <p class="mq-name">Prove it</p>
+    <span class="empty-note">No candidates identified yet</span>
+  </div>
+
+  <div class="y-label y-l">L</div>
+  <div class="mq mq-fillins">
+    <span class="mq-tier">L prize · 90-day result ✓</span>
+    <p class="mq-name">Fill-ins</p>
+
+    <div class="ic" data-key="social">
+      <div class="ic-head">
+        <div class="ic-top">
+          <span class="ic-pill fi">L · Yes</span>
+          <span class="ic-name">Social repurposing variants</span>
+          <span class="ic-caret">›</span>
+        </div>
+        <span class="ic-metric">3× social content volume in 3 months</span>
+      </div>
+      <div class="ic-detail">
+        <div class="detail-grid">
+          <div class="dg-cell">
+            <p class="dg-dim">Prize</p>
+            <span class="dg-badge">L</span>
+            <p class="dg-text">3× content volume is an activity metric with no confirmed $ link. Single brand, no replication path named. Stays L until there's a revenue or cost-avoided figure.</p>
+          </div>
+          <div class="dg-cell">
+            <p class="dg-dim">90-day result?</p>
+            <span class="dg-badge yes">Yes</span>
+            <p class="dg-text">Tool already running, low risk. Extending to other brands is technically straightforward — the limiting factor is the unknown platform, not the build.</p>
+          </div>
+          <div class="dg-note">
+            <p class="dg-note-lbl">What would upgrade the prize to M or H?</p>
+            <p class="dg-note-txt">Establish a $ link: what is 3× content volume worth in revenue or cost avoided? Confirm for this brand, name a replication path for compatible brands.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <span class="chip">Standardized brief template &amp; intake portal</span>
+    <span class="chip">Publish scheduling &amp; on-time tracking</span>
+  </div>
+</div>
+
+<div class="ax-row">
+  <div></div>
+  <div class="ax-x">
+    <span>No 90-day result possible</span>
+    <span>Result deliverable in 90 days →</span>
+  </div>
+</div>
+
+<script>
+document.querySelectorAll('.ic').forEach(card=>{
+  card.addEventListener('click',()=>{
+    const isOpen=card.classList.contains('open');
+    document.querySelectorAll('.ic').forEach(c=>c.classList.remove('open'));
+    if(!isOpen) card.classList.add('open');
+  });
+});
+</script>
+</body>
+</html>
