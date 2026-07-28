@@ -1,0 +1,442 @@
+<title>Measure & Learn System</title>
+<style>
+:root{
+  --ink:#2E2E2E;--ink-soft:#6B6B6B;--ink-muted:#B0B0AD;
+  --line:#E0E0DE;--paper:#F2F2F0;--card:#FFFFFF;
+  --accent:#001F5F;--accent-lt:#E8EDF7;--accent-line:#7B9DAF;
+  --amber:#7A5010;--amber-lt:#FBF3E5;--amber-line:#C5A36A;
+  --green:#1A5F42;--green-lt:#EBF5F0;--green-line:#8ECBA8;
+  --formula-bg:#F7F7F5;--formula-border:#D8D8D4;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;padding:28px 24px 60px;}
+
+.eyebrow{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
+h1{font-size:18px;font-weight:500;margin-bottom:20px;}
+
+/* Layout */
+.layout{display:flex;gap:0;align-items:flex-start;}
+
+/* Sidebar */
+.sidebar{width:172px;flex-shrink:0;border-right:1px solid var(--line);padding-right:0;}
+.sb-head{font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);padding:0 16px 12px;}
+.sb-item{padding:10px 16px;font-size:12.5px;color:var(--ink-soft);cursor:pointer;border-left:3px solid transparent;line-height:1.3;transition:background .12s,color .12s;}
+.sb-item:hover{color:var(--ink);background:rgba(0,31,95,.04);}
+.sb-item.active{color:var(--accent);font-weight:600;border-left-color:var(--accent);background:var(--accent-lt);}
+.sb-unit{font-size:10px;font-weight:400;color:var(--ink-muted);display:block;margin-top:2px;}
+.sb-item.active .sb-unit{color:var(--accent);opacity:.55;}
+
+/* Main */
+.main{flex:1;min-width:0;padding:0 0 40px 28px;}
+.tab-pane{display:none;}
+.tab-pane.active{display:block;}
+
+/* Assumptions */
+.assum{display:flex;gap:20px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:11px 16px;margin-bottom:24px;}
+.assum-item{font-size:11px;color:var(--ink-soft);}
+.assum-item b{color:var(--ink);}
+
+/* Chain grid: L3a | L3b | bridge | L2 | bridge | L1 */
+.chain{display:grid;grid-template-columns:minmax(90px,1fr) minmax(90px,1fr) 205px minmax(130px,1fr) 205px minmax(120px,1fr);gap:0;overflow-x:auto;}
+
+.lv-header{padding:0 0 6px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted);border-bottom:2px solid var(--ink-muted);white-space:nowrap;}
+.lv-header.accent{color:var(--accent);border-bottom-color:var(--accent);}
+.lv-spacer{border-bottom:none;}
+
+.kpi-name{font-size:12px;font-weight:600;color:var(--ink);padding:8px 0 3px;line-height:1.3;}
+.kpi-unit{font-size:10px;color:var(--ink-muted);padding-bottom:12px;}
+
+.row-label{font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);padding:14px 0 6px;display:flex;align-items:flex-end;}
+
+.val-cell{padding:4px 0 10px;}
+.val{font-size:22px;font-weight:700;line-height:1;}
+.val.before{color:var(--amber);}
+.val.after{color:var(--green);}
+.val.neutral{color:var(--ink-muted);}
+.val-note{font-size:10px;color:var(--ink-muted);margin-top:3px;}
+
+.delta-cell{padding:10px 0 4px;border-top:1px solid var(--line);}
+.delta{font-size:13px;font-weight:700;color:var(--green);}
+.delta-note{font-size:10px;color:var(--ink-soft);margin-top:2px;}
+
+/* Formula bridge */
+.bridge{background:var(--formula-bg);border:1px solid var(--formula-border);border-radius:8px;margin:0 10px;display:flex;flex-direction:column;justify-content:center;}
+.bridge-inner{padding:11px 13px;}
+.bridge-label{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-muted);margin-bottom:8px;}
+.bridge-row{display:grid;grid-template-columns:42px 1fr;gap:4px;align-items:start;margin-bottom:6px;}
+.bridge-row:last-of-type{margin-bottom:0;}
+.br-tag{font-size:9px;font-weight:700;padding:1px 6px;border-radius:3px;text-align:center;}
+.br-tag.before{background:var(--amber-lt);color:var(--amber);}
+.br-tag.after{background:var(--green-lt);color:var(--green);}
+.br-formula{font-size:10.5px;color:var(--ink-soft);line-height:1.55;font-variant-numeric:tabular-nums;}
+.br-result{font-size:11px;font-weight:700;margin-top:2px;}
+.br-result.before{color:var(--amber);}
+.br-result.after{color:var(--green);}
+.bridge-sep{height:1px;background:var(--formula-border);margin:8px 0;}
+
+.pad-r{padding-right:8px;}
+
+/* Callout */
+.callout{margin-top:20px;background:var(--green-lt);border:1px solid var(--green-line);border-radius:8px;padding:14px 18px;display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;}
+.callout-num{font-size:26px;font-weight:700;color:var(--green);flex-shrink:0;}
+.callout-text{font-size:12px;color:#2d6b4f;line-height:1.6;max-width:600px;}
+</style>
+
+<p class="eyebrow">AI transformation reset &nbsp;·&nbsp; <a href="../operating-model/" style="color:inherit;text-decoration:none;opacity:.7;">← Operating model</a></p>
+<h1>Measure &amp; Learn System</h1>
+
+<div class="layout">
+  <div class="sidebar">
+    <p class="sb-head">L1 Business KPIs</p>
+    <div class="sb-item active" data-tab="roi">Marketing ROI<span class="sb-unit">% return / $ spent</span></div>
+    <div class="sb-item" data-tab="revenue">Revenue growth<span class="sb-unit">% YoY</span></div>
+    <div class="sb-item" data-tab="savings">Agency cost savings<span class="sb-unit">$ cumulative</span></div>
+    <div class="sb-item" data-tab="compliance">Brand compliance<span class="sb-unit">score 0–100</span></div>
+  </div>
+
+  <div class="main">
+
+    <!-- ══ TAB 1: Marketing ROI ══ -->
+    <div class="tab-pane active" id="tab-roi">
+      <div class="assum">
+        <div class="assum-item">Quarterly budget: <b>$500K</b></div>
+        <div class="assum-item">Avg revenue per campaign: <b>$200K</b></div>
+        <div class="assum-item">Quarter length: <b>90 days</b></div>
+        <div class="assum-item">Review loops shrink as rework rate drops</div>
+      </div>
+      <div class="chain">
+        <div class="lv-header" style="grid-column:1/3">L3 · Initiative KPIs (leading)</div>
+        <div class="lv-spacer" style="grid-column:3"></div>
+        <div class="lv-header accent" style="grid-column:4">L2 · Campaign cycle time</div>
+        <div class="lv-spacer" style="grid-column:5"></div>
+        <div class="lv-header accent" style="grid-column:6">L1 · Marketing ROI</div>
+
+        <div class="pad-r" style="grid-column:1"><div class="kpi-name">Brief-to-draft time</div><div class="kpi-unit">hours</div></div>
+        <div class="pad-r" style="grid-column:2"><div class="kpi-name">Rework rate</div><div class="kpi-unit">% needing revision</div></div>
+        <div style="grid-column:3"></div>
+        <div style="grid-column:4"><div class="kpi-name">Campaign cycle time</div><div class="kpi-unit">days, brief to launch</div></div>
+        <div style="grid-column:5"></div>
+        <div style="grid-column:6"><div class="kpi-name">Marketing ROI</div><div class="kpi-unit">% return per $ spent</div></div>
+
+        <div class="row-label" style="grid-column:1/3">Before</div>
+        <div style="grid-column:3/7"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val before">48 hr</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val before">42%</div><div class="val-note">→ 10d review loops</div></div>
+
+        <div class="bridge" style="grid-column:3;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L3 → L2</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">5d planning + 2d draft + 10d review + 4d production</div><div class="br-result before">= 21 days</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">5d + 0.2d (4hr) + 2d review + 2d production</div><div class="br-result after">= 9 days</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:4"><div class="val before">21 days</div></div>
+
+        <div class="bridge" style="grid-column:5;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L2 → L1</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">90÷21 = 4 campaigns · 4×$200K = $800K<br>($800K − $500K) ÷ $500K</div><div class="br-result before">= 60% ROI</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">90÷9 = 10 campaigns · 10×$200K = $2.0M<br>($2.0M − $500K) ÷ $500K</div><div class="br-result after">= 300% ROI</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:6"><div class="val before">60%</div><div class="val-note">quarterly ROI</div></div>
+
+        <div class="row-label" style="grid-column:1/3">After</div>
+        <div style="grid-column:4"></div><div style="grid-column:6"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val after">4 hr</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val after">9%</div><div class="val-note">→ 2d review loops</div></div>
+        <div class="val-cell" style="grid-column:4"><div class="val after">9 days</div></div>
+        <div class="val-cell" style="grid-column:6"><div class="val after">300%</div><div class="val-note">quarterly ROI</div></div>
+
+        <div class="delta-cell pad-r" style="grid-column:1"><div class="delta">↓ 92%</div><div class="delta-note">draft time</div></div>
+        <div class="delta-cell pad-r" style="grid-column:2"><div class="delta">↓ 33 pp</div><div class="delta-note">rework rate</div></div>
+        <div style="grid-column:3"></div>
+        <div class="delta-cell" style="grid-column:4"><div class="delta">↓ 57%</div><div class="delta-note">cycle time</div></div>
+        <div style="grid-column:5"></div>
+        <div class="delta-cell" style="grid-column:6"><div class="delta">↑ 240 pp</div><div class="delta-note">ROI gain</div></div>
+      </div>
+      <div class="callout">
+        <div class="callout-num">5×</div>
+        <div class="callout-text">More campaigns per quarter from the same $500K budget — cycle time from 21 to 9 days enables 10 campaigns vs 4. A 60% ROI becomes 300%. The lever: draft time and rework reduction cut the review loop from 10 days to 2.</div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 2: Revenue growth ══ -->
+    <div class="tab-pane" id="tab-revenue">
+      <div class="assum">
+        <div class="assum-item">Monthly PDP visits: <b>500K</b></div>
+        <div class="assum-item">Avg order value: <b>$85</b></div>
+        <div class="assum-item">Add-to-cart rate rises as share of SKUs with AI copy grows</div>
+        <div class="assum-item">1 eCommerce brand</div>
+      </div>
+      <div class="chain">
+        <div class="lv-header" style="grid-column:1/3">L3 · Initiative KPIs (leading)</div>
+        <div class="lv-spacer" style="grid-column:3"></div>
+        <div class="lv-header accent" style="grid-column:4">L2 · Content throughput</div>
+        <div class="lv-spacer" style="grid-column:5"></div>
+        <div class="lv-header accent" style="grid-column:6">L1 · Revenue growth</div>
+
+        <div class="pad-r" style="grid-column:1"><div class="kpi-name">Copy gen time</div><div class="kpi-unit">minutes / PDP</div></div>
+        <div class="pad-r" style="grid-column:2"><div class="kpi-name">Assets / day</div><div class="kpi-unit">count</div></div>
+        <div style="grid-column:3"></div>
+        <div style="grid-column:4"><div class="kpi-name">Content throughput</div><div class="kpi-unit">PDPs produced / month</div></div>
+        <div style="grid-column:5"></div>
+        <div style="grid-column:6"><div class="kpi-name">Revenue growth</div><div class="kpi-unit">% YoY · eCommerce</div></div>
+
+        <div class="row-label" style="grid-column:1/3">Before</div>
+        <div style="grid-column:3/7"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val before">45 min</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val before">11</div><div class="val-note">PDPs per day</div></div>
+
+        <div class="bridge" style="grid-column:3;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L3 → L2</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">(480 min ÷ 45) × 20 days</div><div class="br-result before">= 213 ≈ 220 / mo</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">(480 min ÷ 13) × 20 days</div><div class="br-result after">= 738 ≈ 800 / mo</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:4"><div class="val before">220 / mo</div></div>
+
+        <div class="bridge" style="grid-column:5;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L2 → L1</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">500K × 1.8% × $85 × 12 = $9.2M<br>vs prior year base → +8% YoY</div><div class="br-result before">= +8% YoY</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">500K × 2.6% × $85 × 12 = $13.3M<br>($13.3M − $9.2M) ÷ $9.2M</div><div class="br-result after">= +44% YoY</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:6"><div class="val before">+8%</div><div class="val-note">YoY baseline</div></div>
+
+        <div class="row-label" style="grid-column:1/3">After</div>
+        <div style="grid-column:4"></div><div style="grid-column:6"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val after">13 min</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val after">40</div><div class="val-note">PDPs per day</div></div>
+        <div class="val-cell" style="grid-column:4"><div class="val after">800 / mo</div></div>
+        <div class="val-cell" style="grid-column:6"><div class="val after">+44%</div><div class="val-note">YoY attributed</div></div>
+
+        <div class="delta-cell pad-r" style="grid-column:1"><div class="delta">↓ 71%</div><div class="delta-note">gen time</div></div>
+        <div class="delta-cell pad-r" style="grid-column:2"><div class="delta">↑ 3.6×</div><div class="delta-note">assets/day</div></div>
+        <div style="grid-column:3"></div>
+        <div class="delta-cell" style="grid-column:4"><div class="delta">↑ 3.6×</div><div class="delta-note">throughput</div></div>
+        <div style="grid-column:5"></div>
+        <div class="delta-cell" style="grid-column:6"><div class="delta">↑ 36 pp</div><div class="delta-note">YoY growth</div></div>
+      </div>
+      <div class="callout">
+        <div class="callout-num">$4.1M</div>
+        <div class="callout-text">Annual revenue uplift from 1 eCommerce brand — throughput grows 3.6× (220→800 PDPs/mo), lifting add-to-cart from 1.8% to 2.6% as more SKUs get AI-optimized copy. Revenue grows from $9.2M to $13.3M.</div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 3: Agency cost savings ══ -->
+    <div class="tab-pane" id="tab-savings">
+      <div class="assum">
+        <div class="assum-item">Copywriter rate: <b>$75/hr = $1.25/min</b></div>
+        <div class="assum-item">Monthly volume: <b>500 PDPs</b></div>
+        <div class="assum-item">Previously outsourced: <b>30% → agency at $220/PDP</b></div>
+        <div class="assum-item">Rework time: <b>60 min (before) · 30 min (after)</b></div>
+      </div>
+      <div class="chain">
+        <div class="lv-header" style="grid-column:1/3">L3 · Initiative KPIs (leading)</div>
+        <div class="lv-spacer" style="grid-column:3"></div>
+        <div class="lv-header accent" style="grid-column:4">L2 · Cost per asset</div>
+        <div class="lv-spacer" style="grid-column:5"></div>
+        <div class="lv-header accent" style="grid-column:6">L1 · Agency cost savings</div>
+
+        <div class="pad-r" style="grid-column:1"><div class="kpi-name">Copy gen time</div><div class="kpi-unit">minutes / PDP</div></div>
+        <div class="pad-r" style="grid-column:2"><div class="kpi-name">Rework rate</div><div class="kpi-unit">% needing revision</div></div>
+        <div style="grid-column:3"></div>
+        <div style="grid-column:4"><div class="kpi-name">Cost per asset</div><div class="kpi-unit">$ / PDP produced</div></div>
+        <div style="grid-column:5"></div>
+        <div style="grid-column:6"><div class="kpi-name">Annual content cost</div><div class="kpi-unit">$ / yr · 1 brand</div></div>
+
+        <div class="row-label" style="grid-column:1/3">Before</div>
+        <div style="grid-column:3/7"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val before">45 min</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val before">42%</div><div class="val-note">× 60 min rework</div></div>
+
+        <div class="bridge" style="grid-column:3;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L3 → L2 · $1.25/min = $75/hr</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">45 min × $1.25 = $56.25<br>+ 42% × 60 min × $1.25 = $31.50</div><div class="br-result before">= $87.75 / PDP</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">13 min × $1.25 = $16.25<br>+ 9% × 30 min × $1.25 = $3.38</div><div class="br-result after">= $19.63 / PDP</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:4"><div class="val before">$87.75</div></div>
+
+        <div class="bridge" style="grid-column:5;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L2 → L1</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">350×$87.75×12 = $368K<br>+ 150×$220×12 = $396K</div><div class="br-result before">= $764K / yr</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">500×$19.63×12 = $118K<br>+ 0 outsourced = $0</div><div class="br-result after">= $118K / yr</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:6"><div class="val before">$764K</div><div class="val-note">total / yr</div></div>
+
+        <div class="row-label" style="grid-column:1/3">After</div>
+        <div style="grid-column:4"></div><div style="grid-column:6"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val after">13 min</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val after">9%</div><div class="val-note">× 30 min rework</div></div>
+        <div class="val-cell" style="grid-column:4"><div class="val after">$19.63</div></div>
+        <div class="val-cell" style="grid-column:6"><div class="val after">$118K</div><div class="val-note">total / yr</div></div>
+
+        <div class="delta-cell pad-r" style="grid-column:1"><div class="delta">↓ 71%</div><div class="delta-note">gen time</div></div>
+        <div class="delta-cell pad-r" style="grid-column:2"><div class="delta">↓ 33 pp</div><div class="delta-note">rework rate</div></div>
+        <div style="grid-column:3"></div>
+        <div class="delta-cell" style="grid-column:4"><div class="delta">↓ 78%</div><div class="delta-note">cost per asset</div></div>
+        <div style="grid-column:5"></div>
+        <div class="delta-cell" style="grid-column:6"><div class="delta">↓ $646K / yr</div><div class="delta-note">saved</div></div>
+      </div>
+      <div class="callout">
+        <div class="callout-num">$646K</div>
+        <div class="callout-text">Annual savings on 1 brand pilot — $396K agency fees eliminated + $250K internal cost reduction. Scaling to 8 brands requires a cost baseline per brand; volume mix and agency rates vary.</div>
+      </div>
+    </div>
+
+    <!-- ══ TAB 4: Brand compliance ══ -->
+    <div class="tab-pane" id="tab-compliance">
+      <div class="assum">
+        <div class="assum-item">500 assets / month reviewed</div>
+        <div class="assum-item">Score formula: <b>35 (base) + 1st-review approval × 65</b></div>
+        <div class="assum-item">Base = fixed brand identity factors (colors, fonts, logo)</div>
+      </div>
+      <div class="chain">
+        <div class="lv-header" style="grid-column:1/3">L3 · Initiative KPIs (leading)</div>
+        <div class="lv-spacer" style="grid-column:3"></div>
+        <div class="lv-header accent" style="grid-column:4">L2 · Brand review efficiency</div>
+        <div class="lv-spacer" style="grid-column:5"></div>
+        <div class="lv-header accent" style="grid-column:6">L1 · Brand compliance</div>
+
+        <div class="pad-r" style="grid-column:1"><div class="kpi-name">1st pass compliance</div><div class="kpi-unit">% auto-cleared</div></div>
+        <div class="pad-r" style="grid-column:2"><div class="kpi-name">AI flagged issues</div><div class="kpi-unit">count / week</div></div>
+        <div style="grid-column:3"></div>
+        <div style="grid-column:4"><div class="kpi-name">Brand review efficiency</div><div class="kpi-unit">% 1st-review approval</div></div>
+        <div style="grid-column:5"></div>
+        <div style="grid-column:6"><div class="kpi-name">Brand compliance score</div><div class="kpi-unit">index 0–100</div></div>
+
+        <div class="row-label" style="grid-column:1/3">Before</div>
+        <div style="grid-column:3/7"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val before">58%</div><div class="val-note">manual process only</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val neutral">—</div><div class="val-note">not tracked</div></div>
+
+        <div class="bridge" style="grid-column:3;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L3 → L2</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">58% auto-clear + 4pp manual catch</div><div class="br-result before">= 62% 1st-review approval</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">91% auto-clear + 2pp manual catch</div><div class="br-result after">= 93% 1st-review approval</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:4"><div class="val before">62%</div></div>
+
+        <div class="bridge" style="grid-column:5;grid-row:4/7">
+          <div class="bridge-inner">
+            <div class="bridge-label">L2 → L1</div>
+            <div class="bridge-row">
+              <span class="br-tag before">Before</span>
+              <div><div class="br-formula">35 + 0.62 × 65 = 35 + 40</div><div class="br-result before">= 75 / 100</div></div>
+            </div>
+            <div class="bridge-sep"></div>
+            <div class="bridge-row">
+              <span class="br-tag after">After</span>
+              <div><div class="br-formula">35 + 0.93 × 65 = 35 + 60</div><div class="br-result after">= 95 / 100</div></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="val-cell" style="grid-column:6"><div class="val before">75</div><div class="val-note">/ 100</div></div>
+
+        <div class="row-label" style="grid-column:1/3">After</div>
+        <div style="grid-column:4"></div><div style="grid-column:6"></div>
+
+        <div class="val-cell pad-r" style="grid-column:1"><div class="val after">91%</div><div class="val-note">rules-as-code</div></div>
+        <div class="val-cell pad-r" style="grid-column:2"><div class="val after">12 / wk</div><div class="val-note">caught before publish</div></div>
+        <div class="val-cell" style="grid-column:4"><div class="val after">93%</div></div>
+        <div class="val-cell" style="grid-column:6"><div class="val after">95</div><div class="val-note">/ 100</div></div>
+
+        <div class="delta-cell pad-r" style="grid-column:1"><div class="delta">↑ 33 pp</div><div class="delta-note">1st pass rate</div></div>
+        <div class="delta-cell pad-r" style="grid-column:2"><div class="delta">+12 / wk</div><div class="delta-note">issues caught early</div></div>
+        <div style="grid-column:3"></div>
+        <div class="delta-cell" style="grid-column:4"><div class="delta">↑ 31 pp</div><div class="delta-note">review efficiency</div></div>
+        <div style="grid-column:5"></div>
+        <div class="delta-cell" style="grid-column:6"><div class="delta">↑ 20 pts</div><div class="delta-note">compliance score</div></div>
+      </div>
+      <div class="callout">
+        <div class="callout-num">75→95</div>
+        <div class="callout-text">Score rises 20 points as 1st-review approval climbs from 62% to 93%. The lever: brand rules codified as code eliminate most rework loops before a human reviewer sees the asset — and AI flags the issues the manual process was missing entirely.</div>
+      </div>
+    </div>
+
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+document.querySelectorAll('.sb-item').forEach(item=>{
+  item.addEventListener('click',()=>{
+    document.querySelectorAll('.sb-item').forEach(i=>i.classList.remove('active'));
+    document.querySelectorAll('.tab-pane').forEach(p=>p.classList.remove('active'));
+    item.classList.add('active');
+    document.getElementById('tab-'+item.dataset.tab).classList.add('active');
+  });
+});
+</script>
