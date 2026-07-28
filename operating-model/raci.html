@@ -1,0 +1,195 @@
+<title>Brand team — RACI</title>
+<style>
+:root{
+  --ink:#2E2E2E;--ink-soft:#6E6E6E;--ink-muted:#ADADAD;
+  --line:#E2E2E2;--paper:#F2F2F0;--card:#FFFFFF;
+  --accent:#001F5F;--accent-lt:#E8EDF7;
+  --amber:#7A5010;--amber-lt:#FBF3E5;--amber-line:#C5A36A;
+  --green:#1A5F42;--green-lt:#EBF5F0;--green-line:#8ECBA8;
+  --red:#8A2520;--red-lt:#FAF0EF;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{background:var(--paper);color:var(--ink);font-family:"Segoe UI",Helvetica,Arial,sans-serif;font-size:13px;line-height:1.5;padding:32px 28px 60px;}
+
+.eyebrow{font-size:9.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:5px;}
+h1{font-size:18px;font-weight:500;color:var(--ink);margin-bottom:4px;}
+.subtitle{font-size:12px;color:var(--ink-soft);margin-bottom:28px;}
+
+/* Legend */
+.legend{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px;}
+.leg{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--ink-soft);}
+.leg-dot{width:22px;height:22px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;}
+.leg-dot.r{background:var(--accent);color:#fff;}
+.leg-dot.a{background:var(--amber);color:#fff;}
+.leg-dot.c{background:var(--green-lt);color:var(--green);border:1px solid var(--green-line);}
+.leg-dot.i{background:var(--paper);color:var(--ink-muted);border:1px solid var(--line);}
+
+/* Table */
+.tbl-wrap{overflow-x:auto;border-radius:10px;border:1px solid var(--line);background:var(--card);}
+table{width:100%;border-collapse:collapse;min-width:680px;}
+
+/* Header */
+thead th{padding:11px 14px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-soft);border-bottom:2px solid var(--line);text-align:center;white-space:nowrap;}
+thead th:first-child{text-align:left;width:220px;}
+
+/* Stage group header */
+.stage-row td{padding:8px 14px 4px;font-size:9px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--paper);color:var(--ink-muted);border-top:1px solid var(--line);border-bottom:none;}
+
+/* Data rows */
+tbody tr.data-row td{padding:11px 14px;border-top:1px solid var(--line);vertical-align:middle;}
+tbody tr.data-row:last-child td{border-bottom:none;}
+.act-cell{font-size:12px;color:var(--ink);font-weight:500;}
+.act-sub{font-size:11px;color:var(--ink-soft);font-weight:400;margin-top:2px;}
+.raci-cell{text-align:center;}
+
+/* RACI badges */
+.badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:5px;font-size:11px;font-weight:700;}
+.badge.r{background:var(--accent);color:#fff;}
+.badge.a{background:var(--amber);color:#fff;}
+.badge.c{background:var(--green-lt);color:var(--green);border:1px solid var(--green-line);}
+.badge.i{background:var(--paper);color:var(--ink-muted);border:1px solid var(--line);}
+.badge.–{background:none;color:var(--line);border:none;font-size:14px;}
+</style>
+
+<p class="eyebrow">AI transformation reset — brand team</p>
+<h1>Roles &amp; responsibilities — new process</h1>
+<p class="subtitle">How each role changes in the redesigned content operating model.</p>
+
+<div class="legend">
+  <div class="leg"><div class="leg-dot r">R</div> Responsible — does the work</div>
+  <div class="leg"><div class="leg-dot a">A</div> Accountable — owns the outcome</div>
+  <div class="leg"><div class="leg-dot c">C</div> Consulted — input before decision</div>
+  <div class="leg"><div class="leg-dot i">I</div> Informed — notified after</div>
+</div>
+
+<div class="tbl-wrap">
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:left">Activity</th>
+      <th>Copywriter /<br>Designer</th>
+      <th>Brand<br>Manager</th>
+      <th>Marketing<br>Ops</th>
+      <th>Social Media<br>Manager</th>
+      <th>Legal /<br>Compliance</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <!-- BRIEF & INTAKE -->
+    <tr class="stage-row"><td colspan="6">Brief &amp; intake</td></tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Receive &amp; triage creative brief
+        <div class="act-sub">Intake form → risk level assigned automatically</div>
+      </td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+    <!-- PRODUCTION -->
+    <tr class="stage-row"><td colspan="6">Production</td></tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Generate AI draft (copy + visual)
+        <div class="act-sub">Prompt library + brand guidelines as inputs</div>
+      </td>
+      <td class="raci-cell"><span class="badge r">R</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Curate &amp; edit AI output
+        <div class="act-sub">Steps in only when draft fails the standard</div>
+      </td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+    <!-- BRAND REVIEW -->
+    <tr class="stage-row"><td colspan="6">Brand review</td></tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Automated brand compliance check
+        <div class="act-sub">Rules-as-code flags deviations; no manual queue</div>
+      </td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge r">R</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Maintain &amp; update brand rule library
+        <div class="act-sub">Codifies brand standards; audits by sampling only</div>
+      </td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+    </tr>
+
+    <!-- ROUTING & APPROVAL -->
+    <tr class="stage-row"><td colspan="6">Routing &amp; approval</td></tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Risk-based routing decision
+        <div class="act-sub">Automatic for low/medium; flags high-risk for human review</div>
+      </td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+    </tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Legal &amp; compliance review
+        <div class="act-sub">High-risk assets only; codifies rules for low/medium</div>
+      </td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+    </tr>
+
+    <!-- ADAPTATION & DISTRIBUTION -->
+    <tr class="stage-row"><td colspan="6">Adaptation &amp; distribution</td></tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Platform adaptation &amp; variant generation
+        <div class="act-sub">Oversees automated repurposing; adjusts rules per channel</div>
+      </td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+    <tr class="data-row">
+      <td class="act-cell">Final sign-off &amp; publish
+        <div class="act-sub">Approval gated by risk level; ops owns the queue</div>
+      </td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+      <td class="raci-cell"><span class="badge c">C</span></td>
+      <td class="raci-cell"><span class="badge a">A</span></td>
+      <td class="raci-cell"><span class="badge r">R</span></td>
+      <td class="raci-cell"><span class="badge i">I</span></td>
+    </tr>
+
+  </tbody>
+</table>
+</div>
